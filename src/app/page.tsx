@@ -5,7 +5,7 @@ export default function HomePage() {
         {/* Header Region */}
         <header className="mb-12 text-center">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-slate-900">
-            Neighborhood Listing Platform
+            Your Neighborhood, Connected
           </h1>
           <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
             A community-driven hub connecting residents with local listings, trusted neighborhood sponsors, and accessible voice assistance.
