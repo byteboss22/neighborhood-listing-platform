@@ -25,7 +25,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
 
       <div className="space-y-3 p-5">
         <div>
-          <h2 className="text-xl font-semibold">{property.title}</h2>
+          <h3 className="text-xl font-semibold">{property.title}</h3>
           <p className="mt-1 text-sm text-slate-600">{property.address}</p>
         </div>
 

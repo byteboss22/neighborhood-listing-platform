@@ -1,7 +1,12 @@
+import PropertyCard from "@/components/PropertyCard";
+import SearchFilters from "@/components/SearchFilters";
+import SponsorBanner from "@/components/SponsorBanner";
+import { properties, sponsor } from "@/data/properties";
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
-      <div className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         {/* Header Region */}
         <header className="mb-12 text-center">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-slate-900">
@@ -48,6 +53,25 @@ export default function HomePage() {
               </li>
             </ul>
           </section>
+
+          <div className="mt-12">
+            <SearchFilters />
+          </div>
+
+          <section aria-labelledby="listings-heading" className="mt-12">
+            <h2 id="listings-heading" className="mb-6 text-2xl font-semibold">
+              Available Properties
+            </h2>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {properties.map((property) => (
+                <PropertyCard key={property.id} property={property} />
+              ))}
+            </div>
+          </section>
+
+          <div className="mt-12">
+            <SponsorBanner sponsor={sponsor} />
+          </div>
         </main>
       </div>
     </div>
