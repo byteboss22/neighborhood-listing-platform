@@ -1,5 +1,17 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Planned Component Hierarchy
+
+```text
+Home Page
+├── SearchFilters
+├── Property Listing Grid
+│   ├── PropertyCard
+│   ├── PropertyCard
+│   └── PropertyCard
+└── SponsorBanner
+```
+
 ## Getting Started
 
 First, run the development server:
