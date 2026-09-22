@@ -3,7 +3,7 @@
 import { useId } from "react";
 
 const selectClassName =
-  "mt-1 w-full min-w-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2";
+  "mt-1 w-full min-w-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 focus-visible:outline-4 focus-visible:outline-solid focus-visible:outline-offset-4 focus-visible:outline-blue-900";
 
 export default function SearchFilters() {
   const id = useId();
@@ -55,7 +55,7 @@ export default function SearchFilters() {
 
       <button
         type="submit"
-        className="min-w-0 self-end rounded-md bg-blue-700 px-4 py-2 text-white hover:bg-blue-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
+        className="min-w-0 self-end rounded-md bg-blue-700 px-4 py-2 text-white hover:bg-blue-800 focus-visible:outline-4 focus-visible:outline-solid focus-visible:outline-offset-4 focus-visible:outline-blue-900"
       >
         Search properties
       </button>

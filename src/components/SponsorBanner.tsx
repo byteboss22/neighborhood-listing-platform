@@ -16,7 +16,7 @@ export default function SponsorBanner({ sponsor }: SponsorBannerProps) {
       <p className="mt-2 text-base">{sponsor.message}</p>
       <a
         href={sponsor.url}
-        className="mt-3 inline-block rounded text-blue-700 underline underline-offset-2 hover:text-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-700 focus-visible:ring-offset-2"
+        className="mt-3 inline-block rounded text-blue-700 underline underline-offset-2 hover:text-blue-900 focus-visible:outline-4 focus-visible:outline-solid focus-visible:outline-offset-4 focus-visible:outline-blue-900"
       >
         Visit {sponsor.businessName}
       </a>
