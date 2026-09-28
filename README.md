@@ -1,12 +1,14 @@
 # Neighborhood Listing Platform
 
-An accessible, responsive starter application for connecting residents with local property listings and neighborhood sponsors.
+An accessible, responsive starter application for connecting residents with local property listings, neighborhood sponsors, and voice assistance.
 
 ## Assignment Evidence
 
 - **Live deployment:** [neighborhood-listing-platform-nu.vercel.app](https://neighborhood-listing-platform-nu.vercel.app)
+- **App-shell pull request:** [GitHub PR #1](https://github.com/byteboss22/neighborhood-listing-platform/pull/1)
 - **Accessibility test notes:** [`docs/accessibility-testing.md`](docs/accessibility-testing.md)
 - **AI collaboration record:** [`docs/ai-log.md`](docs/ai-log.md)
+- **Development environment:** [`docs/setup-note.md`](docs/setup-note.md)
 - **Detailed component audit:** [`Property-Card-Component-Architecture-Audit.md`](Property-Card-Component-Architecture-Audit.md)
 
 ## Component Architecture
