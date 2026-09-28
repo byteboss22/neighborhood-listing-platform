@@ -23,6 +23,18 @@ export default function PropertyListings({ properties }: PropertyListingsProps) 
       (criteria.maximumPrice === null || property.price <= criteria.maximumPrice),
   );
 
+  const criteriaDescription = [
+    criteria.propertyType
+      ? `${criteria.propertyType} properties`
+      : "all property types",
+    criteria.minimumBedrooms > 0
+      ? `at least ${criteria.minimumBedrooms} bedrooms`
+      : "any bedroom count",
+    criteria.maximumPrice === null
+      ? "no maximum price"
+      : `a maximum price of $${criteria.maximumPrice.toLocaleString("en-US")}`,
+  ].join(", ");
+
   return (
     <>
       <div className="mt-12">
@@ -35,8 +47,8 @@ export default function PropertyListings({ properties }: PropertyListingsProps) 
         </h2>
         <p aria-live="polite" className="sr-only">
           {matchingProperties.length === 1
-            ? "1 property matches the selected filters."
-            : `${matchingProperties.length} properties match the selected filters.`}
+            ? `1 property matches: ${criteriaDescription}.`
+            : `${matchingProperties.length} properties match: ${criteriaDescription}.`}
         </p>
         {matchingProperties.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

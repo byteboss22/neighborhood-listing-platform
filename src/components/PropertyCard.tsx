@@ -33,7 +33,9 @@ export default function PropertyCard({ property }: PropertyCardProps) {
 
         <ul className="flex flex-wrap gap-x-5 gap-y-1 text-sm text-slate-700">
           <li>{property.bedrooms} bedrooms</li>
-          <li>{property.bathrooms} bathrooms</li>
+          <li>
+            {property.bathrooms} {property.bathrooms === 1 ? "bathroom" : "bathrooms"}
+          </li>
           <li>{property.squareFeet.toLocaleString("en-US")} sq ft</li>
         </ul>
 
