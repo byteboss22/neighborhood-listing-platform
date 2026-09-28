@@ -18,7 +18,7 @@ export default function PropertyListings({ properties }: PropertyListingsProps) 
 
   const matchingProperties = properties.filter(
     (property) =>
-      (!criteria.propertyType || property.propertyType === criteria.propertyType) &&
+      (!criteria.propertyType || property.property_type === criteria.propertyType) &&
       property.bedrooms >= criteria.minimumBedrooms &&
       (criteria.maximumPrice === null || property.price <= criteria.maximumPrice),
   );
@@ -53,7 +53,7 @@ export default function PropertyListings({ properties }: PropertyListingsProps) 
         {matchingProperties.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {matchingProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+              <PropertyCard key={property.property_id} property={property} />
             ))}
           </div>
         ) : (

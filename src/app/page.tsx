@@ -1,6 +1,6 @@
 import PropertyListings from "@/components/PropertyListings";
 import SponsorBanner from "@/components/SponsorBanner";
-import { properties, sponsor } from "@/data/properties";
+import { listingDataErrors, properties, sponsor } from "@/data/properties";
 
 export default function HomePage() {
   return (
@@ -53,11 +53,27 @@ export default function HomePage() {
             </ul>
           </section>
 
-          <PropertyListings properties={properties} />
-
-          <div className="mt-12">
-            <SponsorBanner sponsor={sponsor} />
-          </div>
+          {listingDataErrors.length > 0 ? (
+            <section
+              aria-labelledby="listing-error-heading"
+              className="mt-12 rounded-lg border border-red-300 bg-red-50 p-5 text-red-950"
+              role="alert"
+            >
+              <h2 id="listing-error-heading" className="text-xl font-semibold">
+                Listings are temporarily unavailable
+              </h2>
+              <p className="mt-2">The listing data did not pass validation.</p>
+            </section>
+          ) : (
+            <>
+              <PropertyListings properties={properties} />
+              {sponsor ? (
+                <div className="mt-12">
+                  <SponsorBanner sponsor={sponsor} />
+                </div>
+              ) : null}
+            </>
+          )}
         </main>
       </div>
     </div>
