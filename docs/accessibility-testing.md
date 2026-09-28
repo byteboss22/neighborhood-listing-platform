@@ -2,11 +2,11 @@
 
 Record observed results here after testing the running page. Code review entries below describe source markup only; they are not manual test passes or a claim of accessibility compliance.
 
-Test date: Not tested yet
+Test date: September 21, 2026; documentation reconciled September 28, 2026
 
-Browser and version: Not tested yet
+Browsers: Chrome and Safari (version numbers were not recorded)
 
-Operating system: Not tested yet
+Operating system: macOS
 
 ## Responsive Layout Testing
 
@@ -14,9 +14,9 @@ Use the browser's viewport width in CSS pixels. Check the property grid, page wi
 
 | Viewport | Expected layout | Actual result | Pass/Fail | Notes |
 |---|---|---|---|---|
-| 375 px | One property card column; no horizontal overflow; filters remain usable. | Not tested yet | Not tested yet | Not tested yet |
-| 768 px | Two property card columns; no horizontal overflow; filters remain usable. | Not tested yet | Not tested yet | Not tested yet |
-| 1280 px | Three property card columns; no horizontal overflow; filters remain usable. | Not tested yet | Not tested yet | Not tested yet |
+| 375 px | One property card column; no horizontal overflow; filters remain usable. | One-column rule confirmed from the default `grid-cols-1` class. | Source check passed; final visual check pending | Confirm visually before merge. |
+| 768 px | Two property card columns; no horizontal overflow; filters remain usable. | Two-column rule confirmed from `md:grid-cols-2`. | Source check passed; final visual check pending | Tailwind `md` begins at 768 px in this project. |
+| 1280 px | Three property card columns; no horizontal overflow; filters remain usable. | Three-column rule confirmed from `lg:grid-cols-3`. | Source check passed; final visual check pending | Confirm visually before merge. |
 
 ## Keyboard Accessibility Test
 
@@ -24,14 +24,14 @@ Test with **Tab** to move forward, **Shift+Tab** to move backward, **Enter** to 
 
 | Control | Keys to try | Reachable with keyboard | Visible focus indicator | Operable with keyboard | Issues found |
 |---|---|---|---|---|---|
-| Property type select | Tab, Shift+Tab, Enter, Space | Not tested yet | Not tested yet | Not tested yet | Not tested yet |
-| Minimum bedrooms select | Tab, Shift+Tab, Enter, Space | Not tested yet | Not tested yet | Not tested yet | Not tested yet |
-| Maximum price select | Tab, Shift+Tab, Enter, Space | Not tested yet | Not tested yet | Not tested yet | Not tested yet |
-| Search properties button | Tab, Shift+Tab, Enter, Space | Not tested yet | Not tested yet | Not tested yet | Not tested yet |
-| Cedar Street Bungalow details link | Tab, Shift+Tab, Enter | Not tested yet | Not tested yet | Not tested yet | Not tested yet |
-| Willow Court Apartment details link | Tab, Shift+Tab, Enter | Not tested yet | Not tested yet | Not tested yet | Not tested yet |
-| Oak Terrace Condo details link | Tab, Shift+Tab, Enter | Not tested yet | Not tested yet | Not tested yet | Not tested yet |
-| Maple & Main Coffee sponsor link | Tab, Shift+Tab, Enter | Not tested yet | Not tested yet | Not tested yet | Not tested yet |
+| Property type select | Tab, Shift+Tab, Enter, Space | Yes | Yes after focus fix | Yes; arrow keys changed value | Initial focus indicator was unclear. |
+| Minimum bedrooms select | Tab, Shift+Tab, Enter, Space | Yes | Yes after focus fix | Yes; arrow keys changed value | Initial focus indicator was unclear. |
+| Maximum price select | Tab, Shift+Tab, Enter, Space | Yes | Yes after focus fix | Yes; arrow keys changed value | Initial focus indicator was unclear. |
+| Search properties button | Tab, Shift+Tab, Enter, Space | Yes | Yes after focus fix | Yes | Initially appeared skipped because focus was unclear. |
+| Cedar Street Bungalow details link | Tab, Shift+Tab, Enter | Yes | Yes | Yes; Enter followed link | Destination route is outside this assignment. |
+| Willow Court Apartment details link | Tab, Shift+Tab, Enter | Yes | Yes | Yes; Enter followed link | Destination route is outside this assignment. |
+| Oak Terrace Condo details link | Tab, Shift+Tab, Enter | Yes | Yes | Yes; Enter followed link | Destination route is outside this assignment. |
+| Maple & Main Coffee sponsor link | Tab, Shift+Tab, Enter | Yes | Yes | Yes; Enter followed link | Sample sponsor uses an example URL. |
 
 The sample property detail URLs are placeholders for routes not yet built. Record link focus and keyboard activation separately from destination behavior.
 
