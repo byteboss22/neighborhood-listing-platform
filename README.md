@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Neighborhood Listing Platform
+
+An accessible starter application for connecting residents with local property listings, neighborhood sponsors, and voice assistance.
+
+## Assignment Evidence
+
+- **Live deployment:** [neighborhood-listing-platform-nu.vercel.app](https://neighborhood-listing-platform-nu.vercel.app)
+- **App-shell pull request:** [GitHub PR #1](https://github.com/byteboss22/neighborhood-listing-platform/pull/1)
+- **AI collaboration record:** [`docs/ai-log.md`](docs/ai-log.md)
+- **Development environment and test results:** [`docs/setup-note.md`](docs/setup-note.md)
+
+The app shell was developed on `setup/app-shell`, reviewed in pull request #1, and merged into `main` after lint and production-build verification.
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies and run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verification
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Run the same checks used before submission:
 
-## Learn More
+```bash
+npm run lint
+npm run build
+git status --short
+```
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The `.gitignore` excludes environment files, dependencies, and generated build output. No secrets or private data are required by this starter app.
