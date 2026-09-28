@@ -1,0 +1,360 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$ref": "#/$defs/ListingDataset",
+  "$defs": {
+    "ListingDataset": {
+      "type": "object",
+      "properties": {
+        "synthetic": {
+          "$ref": "#/$defs/__schema0"
+        },
+        "generation_note": {
+          "$ref": "#/$defs/__schema1"
+        },
+        "properties": {
+          "$ref": "#/$defs/__schema2"
+        },
+        "sponsors": {
+          "$ref": "#/$defs/__schema26"
+        }
+      },
+      "required": [
+        "synthetic",
+        "generation_note",
+        "properties",
+        "sponsors"
+      ],
+      "additionalProperties": false,
+      "description": "Synthetic property listings and normalized sponsor records."
+    },
+    "__schema0": {
+      "type": "boolean",
+      "const": true
+    },
+    "__schema1": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 240
+    },
+    "__schema2": {
+      "minItems": 1,
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Property"
+      }
+    },
+    "Property": {
+      "type": "object",
+      "properties": {
+        "property_id": {
+          "$ref": "#/$defs/__schema3"
+        },
+        "property_type": {
+          "$ref": "#/$defs/__schema4"
+        },
+        "title": {
+          "$ref": "#/$defs/__schema5"
+        },
+        "address": {
+          "$ref": "#/$defs/Address"
+        },
+        "price": {
+          "$ref": "#/$defs/__schema11"
+        },
+        "bedrooms": {
+          "$ref": "#/$defs/__schema12"
+        },
+        "bathrooms": {
+          "$ref": "#/$defs/__schema13"
+        },
+        "square_feet": {
+          "$ref": "#/$defs/__schema14"
+        },
+        "amenities": {
+          "$ref": "#/$defs/__schema15"
+        },
+        "description": {
+          "$ref": "#/$defs/__schema17"
+        },
+        "voice_summary": {
+          "$ref": "#/$defs/__schema18"
+        },
+        "image_url": {
+          "$ref": "#/$defs/__schema19"
+        },
+        "image_alt": {
+          "$ref": "#/$defs/__schema20"
+        },
+        "property_url": {
+          "$ref": "#/$defs/__schema21"
+        },
+        "local_sponsors": {
+          "$ref": "#/$defs/__schema22"
+        }
+      },
+      "required": [
+        "property_id",
+        "property_type",
+        "title",
+        "address",
+        "price",
+        "bedrooms",
+        "bathrooms",
+        "square_feet",
+        "amenities",
+        "description",
+        "voice_summary",
+        "image_url",
+        "image_alt",
+        "property_url",
+        "local_sponsors"
+      ],
+      "additionalProperties": false,
+      "description": "A validated fictional property listing."
+    },
+    "__schema3": {
+      "type": "string",
+      "pattern": "^prop_[a-z0-9]+(?:_[a-z0-9]+)*$"
+    },
+    "__schema4": {
+      "type": "string",
+      "enum": [
+        "apartment",
+        "condo",
+        "duplex",
+        "house",
+        "loft"
+      ]
+    },
+    "__schema5": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 100
+    },
+    "Address": {
+      "type": "object",
+      "properties": {
+        "line_1": {
+          "$ref": "#/$defs/__schema6"
+        },
+        "line_2": {
+          "$ref": "#/$defs/__schema7"
+        },
+        "city": {
+          "$ref": "#/$defs/__schema8"
+        },
+        "state": {
+          "$ref": "#/$defs/__schema9"
+        },
+        "zip_code": {
+          "$ref": "#/$defs/__schema10"
+        }
+      },
+      "required": [
+        "line_1",
+        "city",
+        "state",
+        "zip_code"
+      ],
+      "additionalProperties": false,
+      "description": "A fictional US mailing address."
+    },
+    "__schema6": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 100
+    },
+    "__schema7": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60
+    },
+    "__schema8": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 60
+    },
+    "__schema9": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$"
+    },
+    "__schema10": {
+      "type": "string",
+      "pattern": "^\\d{5}$"
+    },
+    "__schema11": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100000000
+    },
+    "__schema12": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 20
+    },
+    "__schema13": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 20,
+      "multipleOf": 0.5
+    },
+    "__schema14": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 100000
+    },
+    "__schema15": {
+      "minItems": 1,
+      "maxItems": 12,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/__schema16"
+      },
+      "uniqueItems": true
+    },
+    "__schema16": {
+      "type": "string",
+      "enum": [
+        "accessible_entry",
+        "balcony",
+        "laundry",
+        "parking",
+        "pet_friendly",
+        "public_transit",
+        "yard"
+      ]
+    },
+    "__schema17": {
+      "type": "string",
+      "minLength": 30,
+      "maxLength": 600
+    },
+    "__schema18": {
+      "type": "string",
+      "minLength": 20,
+      "maxLength": 240
+    },
+    "__schema19": {
+      "type": "string",
+      "pattern": "^\\/properties\\/[a-z0-9-]+\\.svg$"
+    },
+    "__schema20": {
+      "type": "string",
+      "minLength": 15,
+      "maxLength": 180
+    },
+    "__schema21": {
+      "type": "string",
+      "pattern": "^\\/properties\\/[a-z0-9-]+$"
+    },
+    "__schema22": {
+      "minItems": 1,
+      "maxItems": 3,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PropertySponsor"
+      }
+    },
+    "PropertySponsor": {
+      "type": "object",
+      "properties": {
+        "property_id": {
+          "$ref": "#/$defs/__schema3"
+        },
+        "sponsor_id": {
+          "$ref": "#/$defs/__schema23"
+        },
+        "selection_reason": {
+          "$ref": "#/$defs/__schema24"
+        },
+        "display_order": {
+          "$ref": "#/$defs/__schema25"
+        }
+      },
+      "required": [
+        "property_id",
+        "sponsor_id",
+        "selection_reason",
+        "display_order"
+      ],
+      "additionalProperties": false,
+      "description": "A relationship between one property and one selected local sponsor."
+    },
+    "__schema23": {
+      "type": "string",
+      "pattern": "^sponsor_[a-z0-9]+(?:_[a-z0-9]+)*$"
+    },
+    "__schema24": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 160
+    },
+    "__schema25": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 3
+    },
+    "__schema26": {
+      "minItems": 1,
+      "maxItems": 100,
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Sponsor"
+      }
+    },
+    "Sponsor": {
+      "type": "object",
+      "properties": {
+        "sponsor_id": {
+          "$ref": "#/$defs/__schema23"
+        },
+        "business_name": {
+          "$ref": "#/$defs/__schema27"
+        },
+        "category": {
+          "$ref": "#/$defs/__schema28"
+        },
+        "message": {
+          "$ref": "#/$defs/__schema29"
+        },
+        "website_url": {
+          "$ref": "#/$defs/__schema30"
+        }
+      },
+      "required": [
+        "sponsor_id",
+        "business_name",
+        "category",
+        "message",
+        "website_url"
+      ],
+      "additionalProperties": false,
+      "description": "A neighborhood business eligible for sponsorship."
+    },
+    "__schema27": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 80
+    },
+    "__schema28": {
+      "type": "string",
+      "enum": [
+        "coffee",
+        "financial",
+        "home_services",
+        "moving",
+        "retail"
+      ]
+    },
+    "__schema29": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 180
+    },
+    "__schema30": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}
