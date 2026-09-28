@@ -1,5 +1,4 @@
-import PropertyCard from "@/components/PropertyCard";
-import SearchFilters from "@/components/SearchFilters";
+import PropertyListings from "@/components/PropertyListings";
 import SponsorBanner from "@/components/SponsorBanner";
 import { properties, sponsor } from "@/data/properties";
 
@@ -54,20 +53,7 @@ export default function HomePage() {
             </ul>
           </section>
 
-          <div className="mt-12">
-            <SearchFilters />
-          </div>
-
-          <section aria-labelledby="listings-heading" className="mt-12">
-            <h2 id="listings-heading" className="mb-6 text-2xl font-semibold">
-              Available Properties
-            </h2>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {properties.map((property) => (
-                <PropertyCard key={property.id} property={property} />
-              ))}
-            </div>
-          </section>
+          <PropertyListings properties={properties} />
 
           <div className="mt-12">
             <SponsorBanner sponsor={sponsor} />

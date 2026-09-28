@@ -1,18 +1,47 @@
 "use client";
 
-import { useId } from "react";
+import { useId, type FormEvent } from "react";
+import type { Property } from "@/types";
+
+export interface SearchCriteria {
+  propertyType: Property["propertyType"] | "";
+  minimumBedrooms: number;
+  maximumPrice: number | null;
+}
+
+interface SearchFiltersProps {
+  onSearch: (criteria: SearchCriteria) => void;
+}
 
 const selectClassName =
   "mt-1 w-full min-w-0 rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 focus-visible:outline-4 focus-visible:outline-solid focus-visible:outline-offset-4 focus-visible:outline-blue-900";
 
-export default function SearchFilters() {
+export default function SearchFilters({ onSearch }: SearchFiltersProps) {
   const id = useId();
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const propertyType = String(formData.get("propertyType") ?? "");
+    const maximumPrice = String(formData.get("maximumPrice") ?? "");
+    const isPropertyType =
+      propertyType === "house" ||
+      propertyType === "apartment" ||
+      propertyType === "condo";
+
+    onSearch({
+      propertyType: isPropertyType ? propertyType : "",
+      minimumBedrooms: Number(formData.get("minimumBedrooms") ?? 0),
+      maximumPrice: maximumPrice ? Number(maximumPrice) : null,
+    });
+  }
 
   return (
     <form
       role="search"
       aria-label="Property search filters"
-      onSubmit={(event) => event.preventDefault()}
+      onSubmit={handleSubmit}
       className="grid grid-cols-1 gap-4 rounded-lg border border-slate-200 bg-slate-50 p-4 sm:grid-cols-2 lg:grid-cols-4"
     >
       <div className="min-w-0">

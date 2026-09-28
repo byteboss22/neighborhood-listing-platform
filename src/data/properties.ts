@@ -3,6 +3,7 @@ import type { Property, Sponsor } from "@/types";
 export const properties: Property[] = [
   {
     id: "cedar-bungalow",
+    propertyType: "house",
     title: "Cedar Street Bungalow",
     address: "214 Cedar Street, Brookhaven, CA",
     price: 685000,
@@ -15,6 +16,7 @@ export const properties: Property[] = [
   },
   {
     id: "willow-apartment",
+    propertyType: "apartment",
     title: "Willow Court Apartment",
     address: "38 Willow Court, Unit 4, Brookhaven, CA",
     price: 495000,
@@ -27,6 +29,7 @@ export const properties: Property[] = [
   },
   {
     id: "oak-terrace-condo",
+    propertyType: "condo",
     title: "Oak Terrace Condo",
     address: "702 Oak Terrace, Unit 12, Brookhaven, CA",
     price: 925000,

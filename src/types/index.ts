@@ -1,5 +1,6 @@
 export interface Property {
   id: string;
+  propertyType: "house" | "apartment" | "condo";
   title: string;
   address: string;
   price: number;
