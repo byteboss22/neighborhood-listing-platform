@@ -2,6 +2,17 @@
 
 AI output was treated as a draft. Suggestions were accepted only after source review, local testing, and comparison with the assignment requirements.
 
+## Data Contracts Assignment
+
+| Tool | Prompt | Output used | Output rejected or changed | Verification | Commit |
+|---|---|---|---|---|---|
+| ChatGPT / Codex | “Given these fictional listing requirements, propose a strict JSON Schema. Identify ambiguous business rules before writing the schema. Then provide valid and intentionally invalid examples and explain what a validator should reject.” | Used separate Property, Sponsor, and PropertySponsor concepts; prefixed keys; strict objects; numeric bounds; controlled enums; ZIP and path patterns; normalized sponsors; and tests for required invalid cases. Chose Zod as the TypeScript/runtime source and generated JSON Schema Draft 2020-12. | Rejected separate hand-maintained TypeScript interfaces, free-text amenities, embedded duplicate sponsor details, silent correction of invalid data, and claims that TypeScript validates incoming JSON. | Five synthetic records pass the CLI validator. Eight tests cover a valid property, missing ID, negative price, bad ZIP, unknown field, unknown sponsor reference, five-record seed validation, and schema drift. | Data-contract implementation commits |
+| Google AI Studio / Gemini | Use the structured-output and normalization prompts in `docs/prompts/data-contract-ai-studio.md` with fictional notes only. | **Pending real run:** record the actual model output and normalization critique here after export. | Do not accept real addresses, personal data, unknown keys, free-text amenity variants, broken sponsor references, or claims of validity without local validation. | Save a redacted screenshot/export under `docs/evidence/`, validate the raw response, and record the exact commit before opening the PR. | Pending |
+
+### Normalization decision
+
+Amenities are controlled string values for this milestone. Free text was rejected because equivalent concepts would fragment into spelling variants. A join table was deferred until amenities need their own display metadata, translations, provenance, or lifecycle. Sponsors remain normalized top-level records, with PropertySponsor holding relationship-specific reason and display order.
+
 ## Reusable Components Assignment
 
 | Tool | Prompt | Output used | Output rejected or changed | Verification | Commit |
