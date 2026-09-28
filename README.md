@@ -5,6 +5,7 @@ An accessible, responsive starter application for connecting residents with loca
 ## Assignment Evidence
 
 - **Live deployment:** [neighborhood-listing-platform-nu.vercel.app](https://neighborhood-listing-platform-nu.vercel.app)
+- **Reusable-components pull request:** [GitHub PR #4](https://github.com/byteboss22/neighborhood-listing-platform/pull/4)
 - **App-shell pull request:** [GitHub PR #1](https://github.com/byteboss22/neighborhood-listing-platform/pull/1)
 - **Accessibility test notes:** [`docs/accessibility-testing.md`](docs/accessibility-testing.md)
 - **AI collaboration record:** [`docs/ai-log.md`](docs/ai-log.md)
