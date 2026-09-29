@@ -1,15 +1,35 @@
 # Google AI Studio prompt: fictional listing contracts
 
-Use structured output with MIME type `application/json` and the committed schema from `data/schema/listing-dataset.schema.json`.
+Use the following three runs. Keeping the rule review separate from schema-constrained generation prevents explanatory prose from violating the JSON Schema.
+
+## Run 1: ambiguous business rules
 
 ```text
 Act as a data-contract reviewer for a fictional neighborhood property application.
 
-First identify ambiguous business rules in the requirements, especially ID format, address shape, numeric bounds, sponsor relationships, amenity normalization, image alternatives, and voice-response length. Do not invent real people, real clients, credentials, contact details, or private data.
+Identify ambiguous business rules in the requirements, especially ID format, address shape, numeric bounds, sponsor relationships, amenity normalization, image alternatives, and voice-response length. For each ambiguity, recommend one minimal rule and explain why. Do not generate listing records yet. Do not invent real people, real clients, credentials, contact details, or private data.
+```
 
-Then generate exactly five fictional property records and the normalized fictional sponsors they reference. Return application/json only and conform exactly to the supplied JSON Schema. Use only the controlled enum values in the schema. Every property must have at least one local_sponsors relationship. Every relationship property_id must match its containing property, and every relationship sponsor_id must exist in the top-level sponsors array. Keep all content clearly fictional.
+Save the response for the AI log. Review it before accepting any recommendation.
 
-After generating the valid dataset, separately describe one intentionally invalid example for each of these validator checks: missing property_id, negative price, malformed ZIP code, and unknown property field. Do not mix intentionally invalid examples into the five-record valid dataset.
+## Run 2: structured fictional dataset
+
+Enable structured output with MIME type `application/json` and the committed schema from `data/schema/listing-dataset.schema.json`. Then use:
+
+```text
+Generate exactly five fictional property records and the normalized fictional sponsors they reference. Return application/json only and conform exactly to the supplied JSON Schema. Use only the controlled enum values in the schema. Every property must have at least one local_sponsors relationship. Every relationship property_id must match its containing property, and every relationship sponsor_id must exist in the top-level sponsors array. Keep all content clearly fictional.
+
+Use the fictional source notes below. Do not include markdown fences, explanations, real people, real addresses, credentials, contact details, or private data in the JSON response.
+```
+
+Download or copy the response exactly as returned. Do not silently repair it before running the local validator.
+
+## Run 3: intentionally invalid examples
+
+Do not enable the valid dataset schema for this run, because the purpose is to produce invalid examples.
+
+```text
+Using fictional data only, provide one intentionally invalid JSON example for each validator check: missing property_id, negative price, malformed ZIP code, and unknown property field. Label the four examples and explain the expected rejection. Do not include real or personal data.
 ```
 
 ## Fictional source notes
