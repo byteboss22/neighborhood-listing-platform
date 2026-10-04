@@ -1,0 +1,89 @@
+Normalization & Data Contract Findings
+
+Finding 1: Embedded Relationship & Missing Composite Key in local_sponsors
+
+Issue: local_sponsors is embedded directly inside each property record and repeats the parent's property_id. Furthermore, the relationship lacks an explicit composite primary key (property_id, sponsor_id).
+
+Why it matters:
+
+Update anomalies: Updating a sponsor relationship (e.g., selection_reason or display_order) requires mutating the entire property record.
+
+Bi-directional query cost: Answering "Which properties does sponsor_brookhaven_cafe sponsor?" requires a full collection scan across all properties.
+
+Data redundancy: property_id is repeated inside its own child array elements.
+
+Smallest recommended contract change: Move relationships from an embedded child array into a top-level property_sponsors junction array:
+
+```json
+"property_sponsors": [
+  {
+    "property_id": "prop_brookhaven_101",
+    "sponsor_id": "sponsor_brookhaven_cafe",
+    "selection_reason": "Located two blocks from the neighborhood coffee shop.",
+    "display_order": 1
+  }
+]
+```
+
+Add a contract rule: (property_id, sponsor_id) must be globally unique, and (property_id, display_order) must be unique.
+
+Migration impact: Low. Requires moving the local_sponsors key from within each property object to a sibling root array named property_sponsors.
+
+Verification test: enforce unique (property_id, sponsor_id) pairs.
+
+Finding 2: voice_summary Duplication and Stale Data (Update Anomaly)
+
+Issue: voice_summary persists natural language strings that duplicate attributes already present in typed fields: price, bedrooms, bathrooms, and address.
+
+Why it matters: If a property price or bedroom count changes, voice_summary can become inaccurate unless explicitly regenerated. Storing derived text in the primary contract creates read-write inconsistency.
+
+Smallest recommended contract change: Remove voice_summary from the persistent stored schema and treat it as a runtime computed property derived from a deterministic formatting helper. If it must remain in the contract for static distribution, mark it readOnly and specify the formatting algorithm as part of the schema contract.
+
+Migration impact: Low. Simplifies property ingestion payloads by removing manual speech text.
+
+Verification test: confirm persisted voice_summary matches generated output from canonical fields.
+
+Finding 3: Inconsistent Identifier Slugs Between PKs and Route Paths
+
+Issue: Primary keys use numeric suffixes with snake_case, while image_url and property_url use kebab-case descriptor slugs.
+
+Why it matters: Routing and asset resolution cannot be derived programmatically, and similar property types could collide.
+
+Smallest recommended contract change: Replace arbitrary image_url and property_url strings with a single unique slug field and define standard route and asset patterns. Alternatively, base paths directly on property_id.
+
+Migration impact: Medium. Replaces two freeform strings with a deterministic slug.
+
+Verification test: ensure slugs are unique and match a canonical pattern.
+
+Finding 4: Unenforced Cardinality and Order Clashes in Sponsor Relationships
+
+Issue: display_order is between 1 and 3, but two sponsors assigned to the same property can share the same display_order.
+
+Why it matters: Ambiguous display orders produce nondeterministic sorting and test results.
+
+Smallest recommended contract change: For every property_id, require sequential display_order values with no duplicates.
+
+Migration impact: None for existing valid records; prevents invalid payloads.
+
+Verification test: group sponsors by property and compare sorted positions with a sequence beginning at 1.
+
+Finding 5: Structured Address Incomplete Constraint Definition
+
+Issue: line_1 and city accept broad strings, and line_2 could allow inconsistent missing, null, or empty representations.
+
+Why it matters: Empty, omitted, and null values cause different rendering behavior. Unbounded text can also cause invalid data.
+
+Smallest recommended contract change: Define line_2 as optional with a minimum length, and enforce city, state, and ZIP patterns.
+
+Migration impact: Low. Standardizes address validation.
+
+Verification test: verify the ZIP pattern, state rule, and nonempty optional line_2.
+
+Summary of recommended target shape:
+
+- normalized top-level sponsors;
+- normalized top-level property_sponsors junction records;
+- properties with a unique route slug;
+- structured, constrained addresses;
+- controlled amenity values;
+- voice summary generated from canonical property facts where practical.

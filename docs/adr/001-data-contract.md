@@ -38,6 +38,7 @@ All object schemas are strict, producing `additionalProperties: false` in JSON S
 - minimum and maximum string lengths;
 - HTTPS sponsor URLs;
 - one to three sponsor relationships per property;
+- unique, sequential sponsor display positions per property;
 - unique primary keys and valid cross-record sponsor references.
 
 JSON Schema covers the structural rules. Zod `superRefine` covers referential integrity and uniqueness rules that plain JSON Schema cannot conveniently express.
@@ -59,6 +60,14 @@ Rejected because spelling and naming variants such as “pet friendly,” “pet
 ### Amenity join table
 
 Deferred. A join table is appropriate if amenities later require labels, icons, translations, provenance, or database-level reporting. It is unnecessary for the current fixed vocabulary.
+
+### Top-level PropertySponsor collection
+
+Deferred for this milestone because the assignment explicitly requires `local_sponsors` on each property and the UI consumes sponsors in property context. The embedded relationship still has a logical `(property_id, sponsor_id)` composite key, and runtime checks enforce unique sponsors and sequential display positions per property. A database persistence layer should normalize these records into a junction table.
+
+### Computed voice summaries and deterministic route slugs
+
+Both reduce update anomalies and are good future migrations. They are deferred because the current structured-output exercise explicitly validates a voice-response field and the existing UI already uses committed local asset and route paths. The persisted voice summary and paths remain bounded and validated; a later service layer can derive them from canonical fields.
 
 ### Embedded sponsor details in every property
 

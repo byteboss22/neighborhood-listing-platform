@@ -31,7 +31,12 @@ export const AddressSchema = z
   .strictObject({
     line_1: z.string().trim().min(5).max(100),
     line_2: z.string().trim().min(1).max(60).optional(),
-    city: z.string().trim().min(2).max(60),
+    city: z
+      .string()
+      .trim()
+      .min(2)
+      .max(60)
+      .regex(/^[A-Za-z .'-]+$/, "City may contain letters, spaces, periods, apostrophes, and hyphens."),
     state: z.string().regex(/^[A-Z]{2}$/, "Use a two-letter state code."),
     zip_code: z.string().regex(/^\d{5}$/, "Use a five-digit ZIP code."),
   })
@@ -114,6 +119,7 @@ export const ListingDatasetSchema = z
       propertyIds.add(property.property_id);
 
       const relationshipIds = new Set<string>();
+      const displayOrders = new Set<number>();
       property.local_sponsors.forEach((relationship, relationshipIndex) => {
         const path = ["properties", propertyIndex, "local_sponsors", relationshipIndex];
 
@@ -141,6 +147,26 @@ export const ListingDatasetSchema = z
           });
         }
         relationshipIds.add(relationship.sponsor_id);
+
+        if (displayOrders.has(relationship.display_order)) {
+          context.addIssue({
+            code: "custom",
+            path: [...path, "display_order"],
+            message: "Sponsor display_order values must be unique per property.",
+          });
+        }
+        displayOrders.add(relationship.display_order);
+      });
+
+      const orderedPositions = [...displayOrders].sort((left, right) => left - right);
+      orderedPositions.forEach((position, positionIndex) => {
+        if (position !== positionIndex + 1) {
+          context.addIssue({
+            code: "custom",
+            path: ["properties", propertyIndex, "local_sponsors"],
+            message: "Sponsor display_order values must start at 1 and be sequential.",
+          });
+        }
       });
     });
   })

@@ -41,6 +41,16 @@ describe("property contract", () => {
     );
   });
 
+  it("rejects an invalid city name", () => {
+    const result = PropertySchema.safeParse({
+      ...validProperty,
+      address: { ...validProperty.address, city: "Brookhaven123" },
+    });
+
+    expect(result.success).toBe(false);
+    expect(result.error?.issues.some((issue) => issue.path.join(".") === "address.city")).toBe(true);
+  });
+
   it("rejects an unknown property field", () => {
     const result = PropertySchema.safeParse({ ...validProperty, private_note: "not allowed" });
 
@@ -68,6 +78,20 @@ describe("listing dataset boundary", () => {
     expect(result.success).toBe(false);
     if (!result.success) {
       expect(result.errors.some((error) => error.includes("known sponsor_id"))).toBe(true);
+    }
+  });
+
+  it("rejects duplicate sponsor display positions", () => {
+    const invalid = structuredClone(seedData);
+    invalid.properties[3].local_sponsors[1].display_order = 1;
+
+    const result = validateListingDataset(invalid);
+
+    expect(result.success).toBe(false);
+    if (!result.success) {
+      expect(result.errors.some((error) => error.includes("display_order values must be unique"))).toBe(
+        true,
+      );
     }
   });
 
