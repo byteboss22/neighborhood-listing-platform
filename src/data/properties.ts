@@ -1,4 +1,4 @@
-import rawListingData from "../../data/generated/listings.raw.json";
+import rawListingData from "../../data/generated/listings.ai-studio.final.json";
 import { validateListingDataset } from "@/contracts/validation";
 
 const validationResult = validateListingDataset(rawListingData);

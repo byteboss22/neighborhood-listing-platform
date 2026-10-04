@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import generatedJsonSchema from "../../data/schema/listing-dataset.schema.json";
-import seedData from "../../data/generated/listings.raw.json";
+import seedData from "../../data/generated/listings.ai-studio.final.json";
 import { z } from "zod";
 import { ListingDatasetSchema, PropertySchema } from "./listing";
 import { validateListingDataset } from "./validation";
