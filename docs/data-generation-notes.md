@@ -27,6 +27,22 @@ The successful synthetic dataset is stored unchanged as JSON at `data/generated/
 Validation passed: 5 properties, 3 sponsors, 6 property-sponsor relationships.
 ```
 
+## AI Studio initial structured-output attempt
+
+Gemini 3.8 Flash produced five fictional properties and three fictional sponsors. The response is preserved without edits at `data/generated/listings.ai-studio.initial.invalid.json`.
+
+The response used a different contract than the committed schema. The local validator rejected it and reported:
+
+- `id` instead of the required `property_id` and `sponsor_id` fields;
+- missing structured `address`, price, bedrooms, bathrooms, square feet, amenities, description, voice summary, image alternative, and application paths;
+- relationship IDs using unsupported kebab-case patterns;
+- missing relationship `selection_reason` and `display_order`;
+- unknown property fields such as `community`, `street_address`, and `detail_path`;
+- sponsor categories outside the controlled vocabulary;
+- missing sponsor business name and message fields under the required names.
+
+No malformed values were silently renamed, filled in, or removed. This failed response is the evidence used to refine the regeneration prompt.
+
 ## Which layer fixes each problem
 
 | Problem | Fixing layer | Reason |
