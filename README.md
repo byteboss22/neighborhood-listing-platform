@@ -11,6 +11,9 @@ An accessible, responsive starter application for connecting residents with loca
 - **AI collaboration record:** [`docs/ai-log.md`](docs/ai-log.md)
 - **Development environment:** [`docs/setup-note.md`](docs/setup-note.md)
 - **Detailed component audit:** [`Property-Card-Component-Architecture-Audit.md`](Property-Card-Component-Architecture-Audit.md)
+- **Data-contract decision:** [`docs/adr/001-data-contract.md`](docs/adr/001-data-contract.md)
+- **Structured-output notes:** [`docs/data-generation-notes.md`](docs/data-generation-notes.md)
+- **Generated JSON Schema:** [`data/schema/listing-dataset.schema.json`](data/schema/listing-dataset.schema.json)
 
 ## Component Architecture
 
@@ -45,6 +48,9 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Verification
 
 ```bash
+npm run schema:generate
+npm run validate:data
+npm test
 npm run lint
 npm run build
 git status --short

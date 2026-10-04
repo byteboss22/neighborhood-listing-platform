@@ -1,0 +1,131 @@
+Data-Contract Review: Fictional Neighborhood Property Application
+This review establishes clear structural boundaries, validation constraints, and accessibility requirements before any mock records or database schemas are authored.
+
+1. Identifier (ID) Format
+Ambiguity Identified: The requirements do not specify whether entity IDs (listings, sponsors) are auto-incrementing integers, UUIDs, or prefixed domain strings.
+
+Recommended Minimal Rule: Use lowercase alphanumeric kebab-case slugs with an entity prefix:
+
+Pattern: list-[a-z0-9]{6,12} (e.g., "list-oak-101") and sp-[a-z0-9]{6,12} (e.g., "sp-market-01").
+
+Why: Prefixed strings make references immediately distinguishable in logs and client components, avoid collision issues without requiring a heavy UUID generator, and remain clean and readable in URL routes.
+
+2. Address Shape
+Ambiguity Identified: It is unclear whether an address is a single unstructured string (e.g., "123 Elm St, Springfield") or a structured object with individual line, city, state, postal code, and coordinate fields.
+
+Recommended Minimal Rule: Define a structured object with strictly four string fields:
+
+code
+Ts
+type Address = {
+  street: string;
+  neighborhood: string;
+  city: string;
+  postalCode: string;
+};
+Why: Unstructured strings make neighborhood-level grouping and filtering unreliable. A minimal structured object provides exact grouping by neighborhood while avoiding unnecessary complexity like secondary lines, county fields, or GPS coordinates.
+
+3. Numeric Bounds (Price, Rooms, Area)
+Ambiguity Identified: Without lower/upper limits or precision constraints, prices could include negative numbers, zero, or floating-point decimals, and room counts could accept nonsensical values.
+
+Recommended Minimal Rule:
+
+priceCents: Integer, range
+ (i.e.,
+ to
+).
+
+bedrooms: Integer, range
+ (where 0 denotes a studio).
+
+bathrooms: Half-step number (number), range
+ with step 0.5.
+
+squareFeet: Integer, range
+.
+
+Why: Storing currency as integer cents eliminates IEEE-754 floating-point rounding errors. Fixed bounds prevent UI layout overflows and safeguard client sorting calculations.
+
+4. Sponsor Relationships
+Ambiguity Identified: It is undefined whether a sponsor is tied to a specific listing, associated with a geographic neighborhood, or displayed globally as a site-wide patron.
+
+Recommended Minimal Rule: Model sponsors as independent entities associated with a neighborhood string, with an optional array of sponsorIds (maximum 1) attached to any single listing.
+
+Why: A
+ or optional
+ relationship keeps the contract simple: listings can optionally feature a local business sponsor without requiring a complex many-to-many junction entity or sponsorship tiering logic.
+
+5. Amenity Normalization
+Ambiguity Identified: If amenities are entered as arbitrary text (e.g., "in-unit laundry", "Washer & Dryer", "Laundry in Unit"), deduplication and filter chips break.
+
+Recommended Minimal Rule: Restrict amenities to an explicit enum of standardized kebab-case strings:
+
+code
+Ts
+type Amenity =
+  | "in-unit-laundry"
+  | "parking-garage"
+  | "pet-friendly"
+  | "central-ac"
+  | "private-yard"
+  | "wheelchair-accessible";
+Why: A closed union of 6–8 standard amenities guarantees reliable filtering and predictable label rendering without requiring runtime string normalization or synonyms.
+
+6. Image Alternatives (Accessibility)
+Ambiguity Identified: Image fields often specify only a URL, leaving alt text either missing, generic (e.g., "photo"), or duplicating the listing title.
+
+Recommended Minimal Rule: Every listing photo must be an object containing both url and a required, non-empty altText string of between 15 and 120 characters describing architectural context (e.g., "Front exterior of two-story brick townhome with covered porch").
+
+Why: Enforcing structured image objects at the contract level prevents accessibility regressions, avoids empty alt="" attributes on informative content, and ensures screen readers provide descriptive context.
+
+7. Voice-Response Length
+Ambiguity Identified: The "Voice Help" feature lacks a defined output format, creating a risk that raw listing data dumps will be sent directly to speech synthesis.
+
+Recommended Minimal Rule: Voice payloads must provide a dedicated voiceSummary string field constrained to a maximum of 280 characters and no more than two sentences.
+
+Why: Long text-to-speech outputs overwhelm audio users. A dedicated, concise summary ensures comfortable listening duration (roughly 10–15 seconds) and excludes non-verbal characters like currency symbols, asterisks, or abbreviations that screen readers pronounce awkwardly.
+
+Summary Contract Interface
+code
+Ts
+export type Amenity =
+  | "in-unit-laundry"
+  | "parking-garage"
+  | "pet-friendly"
+  | "central-ac"
+  | "private-yard"
+  | "wheelchair-accessible";
+
+export interface PropertyAddress {
+  street: string;
+  neighborhood: string;
+  city: string;
+  postalCode: string;
+}
+
+export interface ListingImage {
+  url: string;
+  altText: string; // 15 to 120 characters
+}
+
+export interface ListingContract {
+  id: `list-${string}`;
+  title: string;
+  address: PropertyAddress;
+  priceCents: number; // positive integer
+  bedrooms: number;   // 0 to 20
+  bathrooms: number;  // 0.5 to 20.0
+  squareFeet: number; // 50 to 50000
+  amenities: Amenity[];
+  images: ListingImage[]; // min 1
+  sponsorId?: `sp-${string}`;
+  voiceSummary: string; // max 280 chars, <= 2 sentences
+}
+
+export interface SponsorContract {
+  id: `sp-${string}`;
+  name: string;
+  neighborhood: string;
+  category: "dining" | "services" | "retail";
+  tagline: string; // max 80 chars
+}

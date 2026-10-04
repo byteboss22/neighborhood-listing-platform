@@ -1,0 +1,29 @@
+{
+  "synthetic": true,
+  "generation_note": "Synthetic intentionally invalid fixture retained to demonstrate captured boundary errors.",
+  "properties": [
+    {
+      "property_type": "house",
+      "title": "Invalid Boundary Example",
+      "address": {
+        "line_1": "10 Example Road",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "BAD-ZIP"
+      },
+      "price": -1,
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "square_feet": 900,
+      "amenities": ["parking"],
+      "description": "This fictional record intentionally violates several contract requirements for testing.",
+      "voice_summary": "This fictional listing should be rejected before it reaches the interface.",
+      "image_url": "/properties/cedar-bungalow.svg",
+      "image_alt": "Illustration used only by an intentionally invalid fictional test record",
+      "property_url": "/properties/invalid-example",
+      "local_sponsors": [],
+      "unknown_property": "must be rejected"
+    }
+  ],
+  "sponsors": []
+}

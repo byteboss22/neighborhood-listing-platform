@@ -1,0 +1,183 @@
+{
+  "synthetic": true,
+  "generation_note": "Synthetic fictional records prepared for schema validation; no real people or client data are included.",
+  "properties": [
+    {
+      "property_id": "prop_cedar_bungalow",
+      "property_type": "house",
+      "title": "Cedar Street Bungalow",
+      "address": {
+        "line_1": "214 Cedar Street",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "90210"
+      },
+      "price": 685000,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "square_feet": 1640,
+      "amenities": ["parking", "yard", "laundry"],
+      "description": "A fictional single-story bungalow with a shaded porch, practical living spaces, and a private yard.",
+      "voice_summary": "Three-bedroom Cedar Street bungalow with parking, laundry, and a private yard for six hundred eighty-five thousand dollars.",
+      "image_url": "/properties/cedar-bungalow.svg",
+      "image_alt": "Illustration of a single-story home with a front porch and trees",
+      "property_url": "/properties/cedar-bungalow",
+      "local_sponsors": [
+        {
+          "property_id": "prop_cedar_bungalow",
+          "sponsor_id": "sponsor_maple_coffee",
+          "selection_reason": "A fictional neighborhood cafe located near the listing.",
+          "display_order": 1
+        }
+      ]
+    },
+    {
+      "property_id": "prop_willow_apartment",
+      "property_type": "apartment",
+      "title": "Willow Court Apartment",
+      "address": {
+        "line_1": "38 Willow Court",
+        "line_2": "Unit 4",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "90211"
+      },
+      "price": 495000,
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "square_feet": 910,
+      "amenities": ["balcony", "laundry", "public_transit"],
+      "description": "A fictional second-floor apartment with a balcony, shared laundry, and convenient public transit access.",
+      "voice_summary": "Two-bedroom Willow Court apartment with a balcony and transit access for four hundred ninety-five thousand dollars.",
+      "image_url": "/properties/willow-apartment.svg",
+      "image_alt": "Illustration of a brick apartment building with balconies",
+      "property_url": "/properties/willow-apartment",
+      "local_sponsors": [
+        {
+          "property_id": "prop_willow_apartment",
+          "sponsor_id": "sponsor_pine_moving",
+          "selection_reason": "A fictional moving service selected for apartment residents.",
+          "display_order": 1
+        }
+      ]
+    },
+    {
+      "property_id": "prop_oak_condo",
+      "property_type": "condo",
+      "title": "Oak Terrace Condo",
+      "address": {
+        "line_1": "702 Oak Terrace",
+        "line_2": "Unit 12",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "90212"
+      },
+      "price": 925000,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "square_feet": 1380,
+      "amenities": ["accessible_entry", "parking", "public_transit"],
+      "description": "A fictional modern condominium with step-free entry, reserved parking, and nearby public transportation.",
+      "voice_summary": "Three-bedroom Oak Terrace condo with accessible entry and parking for nine hundred twenty-five thousand dollars.",
+      "image_url": "/properties/oak-terrace-condo.svg",
+      "image_alt": "Illustration of a modern condo building with large windows",
+      "property_url": "/properties/oak-terrace-condo",
+      "local_sponsors": [
+        {
+          "property_id": "prop_oak_condo",
+          "sponsor_id": "sponsor_harbor_credit",
+          "selection_reason": "A fictional local credit union offering homebuyer education.",
+          "display_order": 1
+        }
+      ]
+    },
+    {
+      "property_id": "prop_pine_duplex",
+      "property_type": "duplex",
+      "title": "Pine Avenue Duplex",
+      "address": {
+        "line_1": "91 Pine Avenue",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "90213"
+      },
+      "price": 760000,
+      "bedrooms": 4,
+      "bathrooms": 2.5,
+      "square_feet": 2100,
+      "amenities": ["parking", "pet_friendly", "yard"],
+      "description": "A fictional two-unit property with flexible bedrooms, off-street parking, and a shared fenced yard.",
+      "voice_summary": "Four-bedroom Pine Avenue duplex with parking and a pet-friendly yard for seven hundred sixty thousand dollars.",
+      "image_url": "/properties/pine-duplex.svg",
+      "image_alt": "Illustration of a two-story duplex with two front doors and a shared yard",
+      "property_url": "/properties/pine-duplex",
+      "local_sponsors": [
+        {
+          "property_id": "prop_pine_duplex",
+          "sponsor_id": "sponsor_pine_moving",
+          "selection_reason": "A fictional moving service selected for a multi-unit property.",
+          "display_order": 1
+        },
+        {
+          "property_id": "prop_pine_duplex",
+          "sponsor_id": "sponsor_maple_coffee",
+          "selection_reason": "A fictional cafe selected as a nearby community meeting place.",
+          "display_order": 2
+        }
+      ]
+    },
+    {
+      "property_id": "prop_river_loft",
+      "property_type": "loft",
+      "title": "River Market Loft",
+      "address": {
+        "line_1": "415 River Market Road",
+        "line_2": "Loft 8",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "90214"
+      },
+      "price": 545000,
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "square_feet": 820,
+      "amenities": ["accessible_entry", "laundry", "public_transit"],
+      "description": "A fictional open-plan loft with tall windows, in-unit laundry, step-free access, and transit nearby.",
+      "voice_summary": "One-bedroom River Market loft with laundry and accessible entry for five hundred forty-five thousand dollars.",
+      "image_url": "/properties/river-loft.svg",
+      "image_alt": "Illustration of a converted warehouse loft with tall windows near a river market",
+      "property_url": "/properties/river-loft",
+      "local_sponsors": [
+        {
+          "property_id": "prop_river_loft",
+          "sponsor_id": "sponsor_harbor_credit",
+          "selection_reason": "A fictional credit union selected for first-time buyer resources.",
+          "display_order": 1
+        }
+      ]
+    }
+  ],
+  "sponsors": [
+    {
+      "sponsor_id": "sponsor_maple_coffee",
+      "business_name": "Maple & Main Coffee",
+      "category": "coffee",
+      "message": "Stop by for locally roasted coffee and a welcoming neighborhood table.",
+      "website_url": "https://example.com/maple-main-coffee"
+    },
+    {
+      "sponsor_id": "sponsor_pine_moving",
+      "business_name": "Pine Street Moving",
+      "category": "moving",
+      "message": "Fictional local moving help for apartments, homes, and small offices.",
+      "website_url": "https://example.com/pine-street-moving"
+    },
+    {
+      "sponsor_id": "sponsor_harbor_credit",
+      "business_name": "Harbor Community Credit Union",
+      "category": "financial",
+      "message": "Fictional homebuyer workshops and neighborhood financial education.",
+      "website_url": "https://example.com/harbor-community-credit"
+    }
+  ]
+}

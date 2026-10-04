@@ -1,0 +1,121 @@
+{
+  "synthetic": true,
+  "generation_note": "All records, entities, and relationships in this dataset are entirely fictional and synthetic for prototyping and testing purposes.",
+  "sponsors": [
+    {
+      "id": "sp-brookhaven-grocer",
+      "name": "Brookhaven Corner Market",
+      "category": "retail",
+      "community": "Brookhaven",
+      "state": "California",
+      "website_url": "https://example.com/sponsors/brookhaven-corner-market"
+    },
+    {
+      "id": "sp-brookhaven-cafe",
+      "name": "Pine Needle Cafe",
+      "category": "dining",
+      "community": "Brookhaven",
+      "state": "California",
+      "website_url": "https://example.com/sponsors/pine-needle-cafe"
+    },
+    {
+      "id": "sp-brookhaven-hardware",
+      "name": "Oak Street Hardware",
+      "category": "services",
+      "community": "Brookhaven",
+      "state": "California",
+      "website_url": "https://example.com/sponsors/oak-street-hardware"
+    }
+  ],
+  "properties": [
+    {
+      "id": "prop-brookhaven-101",
+      "title": "Sunny Meadow Apartment",
+      "property_type": "apartment",
+      "community": "Brookhaven",
+      "state": "California",
+      "street_address": "101 Meadow Lane",
+      "detail_path": "/properties/prop-brookhaven-101",
+      "svg_path": "/properties/prop-brookhaven-101.svg",
+      "url": "https://example.com/properties/prop-brookhaven-101",
+      "local_sponsors": [
+        {
+          "property_id": "prop-brookhaven-101",
+          "sponsor_id": "sp-brookhaven-grocer"
+        }
+      ]
+    },
+    {
+      "id": "prop-brookhaven-102",
+      "title": "Cedar Ridge Condo",
+      "property_type": "condo",
+      "community": "Brookhaven",
+      "state": "California",
+      "street_address": "204 Cedar Ridge Way",
+      "detail_path": "/properties/prop-brookhaven-102",
+      "svg_path": "/properties/prop-brookhaven-102.svg",
+      "url": "https://example.com/properties/prop-brookhaven-102",
+      "local_sponsors": [
+        {
+          "property_id": "prop-brookhaven-102",
+          "sponsor_id": "sp-brookhaven-cafe"
+        }
+      ]
+    },
+    {
+      "id": "prop-brookhaven-103",
+      "title": "Brookhaven Village Duplex",
+      "property_type": "duplex",
+      "community": "Brookhaven",
+      "state": "California",
+      "street_address": "310 Brookside Avenue",
+      "detail_path": "/properties/prop-brookhaven-103",
+      "svg_path": "/properties/prop-brookhaven-103.svg",
+      "url": "https://example.com/properties/prop-brookhaven-103",
+      "local_sponsors": [
+        {
+          "property_id": "prop-brookhaven-103",
+          "sponsor_id": "sp-brookhaven-hardware"
+        }
+      ]
+    },
+    {
+      "id": "prop-brookhaven-104",
+      "title": "Whispering Pines House",
+      "property_type": "house",
+      "community": "Brookhaven",
+      "state": "California",
+      "street_address": "415 Whispering Pines Court",
+      "detail_path": "/properties/prop-brookhaven-104",
+      "svg_path": "/properties/prop-brookhaven-104.svg",
+      "url": "https://example.com/properties/prop-brookhaven-104",
+      "local_sponsors": [
+        {
+          "property_id": "prop-brookhaven-104",
+          "sponsor_id": "sp-brookhaven-grocer"
+        },
+        {
+          "property_id": "prop-brookhaven-104",
+          "sponsor_id": "sp-brookhaven-cafe"
+        }
+      ]
+    },
+    {
+      "id": "prop-brookhaven-105",
+      "title": "Timberline Mill Loft",
+      "property_type": "loft",
+      "community": "Brookhaven",
+      "state": "California",
+      "street_address": "520 Industrial Parkway",
+      "detail_path": "/properties/prop-brookhaven-105",
+      "svg_path": "/properties/prop-brookhaven-105.svg",
+      "url": "https://example.com/properties/prop-brookhaven-105",
+      "local_sponsors": [
+        {
+          "property_id": "prop-brookhaven-105",
+          "sponsor_id": "sp-brookhaven-hardware"
+        }
+      ]
+    }
+  ]
+}

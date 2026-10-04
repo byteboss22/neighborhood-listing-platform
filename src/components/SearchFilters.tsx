@@ -4,7 +4,7 @@ import { useId, type FormEvent } from "react";
 import type { Property } from "@/types";
 
 export interface SearchCriteria {
-  propertyType: Property["propertyType"] | "";
+  propertyType: Property["property_type"] | "";
   minimumBedrooms: number;
   maximumPrice: number | null;
 }
@@ -28,7 +28,9 @@ export default function SearchFilters({ onSearch }: SearchFiltersProps) {
     const isPropertyType =
       propertyType === "house" ||
       propertyType === "apartment" ||
-      propertyType === "condo";
+      propertyType === "condo" ||
+      propertyType === "duplex" ||
+      propertyType === "loft";
 
     onSearch({
       propertyType: isPropertyType ? propertyType : "",
@@ -53,6 +55,8 @@ export default function SearchFilters({ onSearch }: SearchFiltersProps) {
           <option value="house">House</option>
           <option value="apartment">Apartment</option>
           <option value="condo">Condo</option>
+          <option value="duplex">Duplex</option>
+          <option value="loft">Loft</option>
         </select>
       </div>
 
