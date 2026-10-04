@@ -24,6 +24,16 @@ Use the fictional source notes below. Do not include markdown fences, explanatio
 
 Download or copy the response exactly as returned. Do not silently repair it before running the local validator.
 
+### Corrective follow-up after validation
+
+The first regeneration satisfied the record shape but failed the controlled amenity vocabulary. The final corrective instruction was:
+
+```text
+Regenerate the same fictional structured dataset without changing the schema. For every amenities array, use only these exact values: accessible_entry, balcony, laundry, parking, pet_friendly, public_transit, yard. Do not emit synonyms such as in_unit_laundry, central_ac, parking_garage, private_yard, or wheelchair_accessible. Return application/json only and preserve all other required fields, IDs, relationships, and synthetic-data notices. Do not include real or personal data.
+```
+
+The unchanged final response is stored at `data/generated/listings.ai-studio.final.json` and must pass the local validator before use.
+
 ## Run 3: intentionally invalid examples
 
 Do not enable the valid dataset schema for this run, because the purpose is to produce invalid examples.

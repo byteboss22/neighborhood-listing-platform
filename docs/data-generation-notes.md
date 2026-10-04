@@ -21,11 +21,15 @@ properties.0: unrecognized unknown_property key
 sponsors: array contains fewer than one item
 ```
 
-The successful synthetic dataset is stored unchanged as JSON at `data/generated/listings.raw.json`. `npm run validate:data` currently reports:
+The original successful local rehearsal fixture remains at `data/generated/listings.raw.json`. It was used to test the contract before the AI Studio experiment and is not represented as model output.
+
+Validating that rehearsal fixture directly reports:
 
 ```text
 Validation passed: 5 properties, 3 sponsors, 6 property-sponsor relationships.
 ```
+
+`docs/evidence/image.png` captures the regenerated AI Studio response before the final correction. It is retained as redacted before evidence and visibly includes rejected amenity synonyms such as `in_unit_laundry` and `central_ac`.
 
 ## AI Studio initial structured-output attempt
 
@@ -57,6 +61,22 @@ The second response corrected the entity keys, required property facts, structur
 
 The schema remains authoritative because accepting near-synonyms would undermine the normalization decision. The next prompt iteration lists the seven exact allowed values rather than expanding the schema or silently translating generated values.
 
+### Final corrected attempt
+
+The final AI Studio response is preserved unchanged at `data/generated/listings.ai-studio.final.json`. The corrective prompt constrained every amenity to one of these exact values:
+
+```text
+accessible_entry, balcony, laundry, parking, pet_friendly, public_transit, yard
+```
+
+No generated value was manually renamed or removed. The same file is now used by the CLI validator, contract tests, and application data boundary. Running `npm run validate:data` reports:
+
+```text
+Validation passed: 5 properties, 5 sponsors, 9 property-sponsor relationships.
+```
+
+This final iteration demonstrates that the prompt layer fixed model vocabulary while the unchanged schema continued to enforce the contract.
+
 ## Which layer fixes each problem
 
 | Problem | Fixing layer | Reason |
@@ -68,15 +88,10 @@ The schema remains authoritative because accepting near-synonyms would undermine
 | Inconsistent amenity names | Prompt and enumeration | The prompt supplies the vocabulary; the enum rejects variants. |
 | Unknown sponsor reference | Runtime cross-record validator | Referential integrity requires seeing both property relationships and normalized sponsors. |
 
-## Required AI Studio evidence
+## AI Studio evidence retained
 
-The repository prepares the exact prompt in `docs/prompts/data-contract-ai-studio.md`. Before the PR is opened:
-
-1. Run that prompt in Google AI Studio with structured `application/json` output.
-2. Use only the fictional notes included in the prompt.
-3. Download or copy the raw JSON response without silently editing it.
-4. Validate it locally and retain any failed response before regenerating.
-5. Save a screenshot or export under `docs/evidence/` after removing account names, email addresses, API keys, project identifiers, and other personal data.
-6. Update the AI log with the actual model name, useful output, rejected output, verification, and commit.
-
-The current seed file is a local synthetic contract fixture. It must not be represented as an AI Studio export until the real structured-output run is completed.
+- The exact generation workflow and corrective instruction are recorded in `docs/prompts/data-contract-ai-studio.md`.
+- Both invalid JSON responses are retained rather than silently repaired.
+- The final unchanged response is retained and consumed only after validation.
+- `docs/evidence/image.png` is a redacted screenshot of the failed regenerated response; it contains no visible account name, email address, API key, or project identifier.
+- The AI collaboration log records the accepted output, rejected output, verification result, and implementation commit.

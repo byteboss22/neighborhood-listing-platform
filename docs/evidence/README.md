@@ -1,5 +1,5 @@
 # Evidence files
 
-Add the redacted Google AI Studio prompt/export screenshot here before opening the assignment pull request.
+`image.png` is a redacted Google AI Studio screenshot of the regenerated response before its final correction. It intentionally shows rejected amenity synonyms and serves as before evidence. The final passing response is stored unchanged at `../../data/generated/listings.ai-studio.final.json`.
 
-Do not commit account names, email addresses, API keys, project identifiers, browser profile details, or personal data. A suggested filename is `ai-studio-data-contract-redacted.png`.
+The screenshot was reviewed before commit. It does not show an account name, email address, API key, project identifier, browser profile detail, or other personal data.
