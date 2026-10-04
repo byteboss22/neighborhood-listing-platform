@@ -43,6 +43,20 @@ The response used a different contract than the committed schema. The local vali
 
 No malformed values were silently renamed, filled in, or removed. This failed response is the evidence used to refine the regeneration prompt.
 
+### Regenerated attempt
+
+After the prompt named every required field, Gemini regenerated a substantially improved response, preserved unchanged at `data/generated/listings.ai-studio.regenerated.invalid.json`.
+
+The second response corrected the entity keys, required property facts, structured addresses, sponsor vocabulary, and PropertySponsor metadata. Validation then failed only because it invented amenity values outside the controlled enumeration:
+
+- `in_unit_laundry`
+- `central_ac`
+- `parking_garage`
+- `private_yard`
+- `wheelchair_accessible`
+
+The schema remains authoritative because accepting near-synonyms would undermine the normalization decision. The next prompt iteration lists the seven exact allowed values rather than expanding the schema or silently translating generated values.
+
 ## Which layer fixes each problem
 
 | Problem | Fixing layer | Reason |

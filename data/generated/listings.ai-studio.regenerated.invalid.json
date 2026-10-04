@@ -1,0 +1,214 @@
+{
+  "synthetic": true,
+  "generation_note": "All properties, sponsors, relationships, and addresses in this dataset are strictly fictional and synthetically generated for demonstration and testing purposes.",
+  "sponsors": [
+    {
+      "sponsor_id": "sponsor_brookhaven_cafe",
+      "business_name": "Pine Needle Coffee Roasters",
+      "category": "coffee",
+      "message": "Providing fresh local roasts and community gathering spaces near Brookhaven homes.",
+      "website_url": "https://example.com/pine-needle-coffee"
+    },
+    {
+      "sponsor_id": "sponsor_brookhaven_moving",
+      "business_name": "Brookhaven Transit & Moving",
+      "category": "moving",
+      "message": "Careful, reliable relocation services for residents moving across Brookhaven.",
+      "website_url": "https://example.com/brookhaven-moving"
+    },
+    {
+      "sponsor_id": "sponsor_brookhaven_hardware",
+      "business_name": "Oak Street Home Services & Hardware",
+      "category": "home_services",
+      "message": "Locally owned hardware, garden essentials, and residential repair specialists.",
+      "website_url": "https://example.com/oak-street-hardware"
+    },
+    {
+      "sponsor_id": "sponsor_brookhaven_bank",
+      "business_name": "Brookhaven Valley Community Credit",
+      "category": "financial",
+      "message": "Community-focused mortgage financing and neighborhood savings programs.",
+      "website_url": "https://example.com/brookhaven-valley-credit"
+    },
+    {
+      "sponsor_id": "sponsor_brookhaven_market",
+      "business_name": "Brookhaven General Retail & Provisions",
+      "category": "retail",
+      "message": "Everyday groceries, home sundries, and artisan pantry goods in downtown Brookhaven.",
+      "website_url": "https://example.com/brookhaven-general-retail"
+    }
+  ],
+  "properties": [
+    {
+      "property_id": "prop_brookhaven_101",
+      "property_type": "apartment",
+      "title": "Sunlit Garden Apartment",
+      "address": {
+        "line_1": "104 Meadow Lane",
+        "line_2": "Apt 2B",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "94025"
+      },
+      "price": 2650,
+      "bedrooms": 2,
+      "bathrooms": 1.5,
+      "square_feet": 920,
+      "amenities": ["in_unit_laundry", "central_ac", "pet_friendly"],
+      "description": "Quiet second-floor apartment featuring morning light, an updated galley kitchen, and immediate access to neighborhood walking paths.",
+      "voice_summary": "Two bedroom, one and a half bath apartment on Meadow Lane in Brookhaven for twenty-six fifty per month with laundry and central air.",
+      "image_url": "/properties/brookhaven-apartment.svg",
+      "image_alt": "Exterior view of two-story residential apartment building with garden walkways",
+      "property_url": "/properties/brookhaven-apartment",
+      "local_sponsors": [
+        {
+          "property_id": "prop_brookhaven_101",
+          "sponsor_id": "sponsor_brookhaven_cafe",
+          "selection_reason": "Located two blocks from the neighborhood coffee shop.",
+          "display_order": 1
+        },
+        {
+          "property_id": "prop_brookhaven_101",
+          "sponsor_id": "sponsor_brookhaven_moving",
+          "selection_reason": "Offers apartment move-in discounts for Meadow Lane residents.",
+          "display_order": 2
+        }
+      ]
+    },
+    {
+      "property_id": "prop_brookhaven_102",
+      "property_type": "condo",
+      "title": "Cedar Ridge Hilltop Condo",
+      "address": {
+        "line_1": "220 Cedar Ridge Way",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "94025"
+      },
+      "price": 3100,
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "square_feet": 1150,
+      "amenities": ["parking_garage", "in_unit_laundry", "balcony"],
+      "description": "Top-floor condominium offering scenic hillside views, assigned garage parking, and an expansive private balcony.",
+      "voice_summary": "Two bedroom, two bath hillside condo on Cedar Ridge Way for thirty-one hundred per month with private balcony and garage parking.",
+      "image_url": "/properties/brookhaven-condo.svg",
+      "image_alt": "Modern hillside condominium facade with glass-railing balconies",
+      "property_url": "/properties/brookhaven-condo",
+      "local_sponsors": [
+        {
+          "property_id": "prop_brookhaven_102",
+          "sponsor_id": "sponsor_brookhaven_moving",
+          "selection_reason": "Preferred moving partner for Cedar Ridge residential elevator moves.",
+          "display_order": 1
+        },
+        {
+          "property_id": "prop_brookhaven_102",
+          "sponsor_id": "sponsor_brookhaven_bank",
+          "selection_reason": "Offers preferred financing rates for Brookhaven condominium buyers.",
+          "display_order": 2
+        }
+      ]
+    },
+    {
+      "property_id": "prop_brookhaven_103",
+      "property_type": "duplex",
+      "title": "Brookside Village Duplex",
+      "address": {
+        "line_1": "312 Brookside Avenue",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "94025"
+      },
+      "price": 2850,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "square_feet": 1380,
+      "amenities": ["private_yard", "parking_garage", "pet_friendly"],
+      "description": "Spacious side-by-side duplex unit with a dedicated fenced backyard, attached garage, and full basement storage.",
+      "voice_summary": "Three bedroom, two bath duplex on Brookside Avenue for twenty-eight fifty per month with private yard and attached garage.",
+      "image_url": "/properties/brookhaven-duplex.svg",
+      "image_alt": "Front elevation of side-by-side duplex with private driveways and manicured lawns",
+      "property_url": "/properties/brookhaven-duplex",
+      "local_sponsors": [
+        {
+          "property_id": "prop_brookhaven_103",
+          "sponsor_id": "sponsor_brookhaven_hardware",
+          "selection_reason": "Provides lawn care tool rentals and maintenance supplies for duplex tenants.",
+          "display_order": 1
+        }
+      ]
+    },
+    {
+      "property_id": "prop_brookhaven_104",
+      "property_type": "house",
+      "title": "Whispering Pines Family House",
+      "address": {
+        "line_1": "418 Whispering Pines Court",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "94025"
+      },
+      "price": 4200,
+      "bedrooms": 4,
+      "bathrooms": 2.5,
+      "square_feet": 2200,
+      "amenities": ["private_yard", "central_ac", "parking_garage", "in_unit_laundry"],
+      "description": "Detached single-family home situated on a quiet cul-de-sac with mature trees, a modern kitchen island, and an expansive rear patio.",
+      "voice_summary": "Four bedroom, two and a half bath house on Whispering Pines Court for forty-two hundred per month with large yard and two-car garage.",
+      "image_url": "/properties/brookhaven-house.svg",
+      "image_alt": "Single-family craftsman home with covered front porch and double garage",
+      "property_url": "/properties/brookhaven-house",
+      "local_sponsors": [
+        {
+          "property_id": "prop_brookhaven_104",
+          "sponsor_id": "sponsor_brookhaven_hardware",
+          "selection_reason": "Neighborhood provider for residential seasonal maintenance and supplies.",
+          "display_order": 1
+        },
+        {
+          "property_id": "prop_brookhaven_104",
+          "sponsor_id": "sponsor_brookhaven_bank",
+          "selection_reason": "Local mortgage and home equity loan provider for Brookhaven homeowners.",
+          "display_order": 2
+        }
+      ]
+    },
+    {
+      "property_id": "prop_brookhaven_105",
+      "property_type": "loft",
+      "title": "Timberline Mill Historic Loft",
+      "address": {
+        "line_1": "520 Industrial Parkway",
+        "line_2": "Suite 401",
+        "city": "Brookhaven",
+        "state": "CA",
+        "zip_code": "94025"
+      },
+      "price": 3400,
+      "bedrooms": 1,
+      "bathrooms": 1.5,
+      "square_feet": 1280,
+      "amenities": ["central_ac", "wheelchair_accessible", "in_unit_laundry"],
+      "description": "Converted historic mill space offering fourteen-foot ceilings, exposed structural timbers, oversized casement windows, and polished concrete floors.",
+      "voice_summary": "One bedroom, one and a half bath historic timber loft on Industrial Parkway for thirty-four hundred per month with high ceilings.",
+      "image_url": "/properties/brookhaven-loft.svg",
+      "image_alt": "Brick converted industrial mill loft building with oversized black-framed windows",
+      "property_url": "/properties/brookhaven-loft",
+      "local_sponsors": [
+        {
+          "property_id": "prop_brookhaven_105",
+          "sponsor_id": "sponsor_brookhaven_market",
+          "selection_reason": "Ground floor market offering organic provisions to industrial district residents.",
+          "display_order": 1
+        },
+        {
+          "property_id": "prop_brookhaven_105",
+          "sponsor_id": "sponsor_brookhaven_cafe",
+          "selection_reason": "Neighboring artisan coffee bar located across Industrial Parkway.",
+          "display_order": 2
+        }
+      ]
+    }
+  ]
+}
