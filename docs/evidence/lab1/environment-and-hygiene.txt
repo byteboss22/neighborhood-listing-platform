@@ -1,0 +1,98 @@
+Observed: 2026-10-23T12:50:16-07:00 (America/Los_Angeles)
+Environment: Codex verification session on the local Mac; current observations, not historical setup versions.
+No file contents from environment files or credential stores were read.
+
+OS
+$ sw_vers -productVersion
+Exit status: 0
+26.6.1
+
+Architecture
+$ uname -sm
+Exit status: 0
+Darwin arm64
+
+Node
+$ node --version
+Exit status: 0
+v24.19.0
+
+npm
+$ npm --version
+Exit status: 0
+11.17.0
+
+Git
+$ git --version
+Exit status: 0
+git version 2.55.0
+
+HEAD
+$ git rev-parse HEAD
+Exit status: 0
+2daf216a9f405c848a4c2d2559c9413ff491845e
+
+Branch/status
+$ git status --short --branch
+Exit status: 0
+## setup/app-shell...origin/setup/app-shell
+?? docs/
+
+Staged filenames
+$ git diff --cached --name-only
+Exit status: 0
+(none)
+
+Tracked filenames
+$ git ls-files
+Exit status: 0
+.gitignore
+AGENTS.md
+README.md
+eslint.config.mjs
+next.config.ts
+package-lock.json
+package.json
+public/file.svg
+public/globe.svg
+public/next.svg
+public/vercel.svg
+public/window.svg
+src/app/favicon.ico
+src/app/globals.css
+src/app/layout.tsx
+src/app/page.tsx
+tsconfig.json
+
+Ignored representative paths
+$ git check-ignore -v .env .env.local .env.production src/.env.local node_modules/ .next/ out/ build/ coverage/ tsconfig.tsbuildinfo next-env.d.ts .vercel/
+Exit status: 0
+.gitignore:34:.env*	.env
+.gitignore:34:.env*	.env.local
+.gitignore:34:.env*	.env.production
+.gitignore:34:.env*	src/.env.local
+.gitignore:4:/node_modules	node_modules/
+.gitignore:17:/.next/	.next/
+.gitignore:18:/out/	out/
+.gitignore:21:/build	build/
+.gitignore:14:/coverage	coverage/
+.gitignore:40:*.tsbuildinfo	tsconfig.tsbuildinfo
+.gitignore:41:next-env.d.ts	next-env.d.ts
+.gitignore:37:.vercel	.vercel/
+
+Tracked environment/dependency/build artifact filename matches: NONE
+Filename and ignore-rule audit only; not a full secret-content scan.
+
+Installed direct dependencies (npm ls --depth=0 --json):
+Exit status: 0
+@tailwindcss/turbopack 4.3.3
+@types/node 20.19.43
+@types/react-dom 19.3.0
+@types/react 19.3.0
+eslint-config-next 16.4.3
+eslint 9.39.5
+next 16.4.3
+react-dom 19.3.0
+react 19.3.0
+tailwindcss 4.3.3
+typescript 5.9.3
