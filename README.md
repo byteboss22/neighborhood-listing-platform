@@ -3,60 +3,46 @@
 **Course:** CIS 3610  
 **Assignment:** Lab 1 — Individual Project
 
-## Project Purpose
+## Purpose and scope
 
-The Neighborhood Listing Platform is a starter web application for a neighborhood property platform. It will introduce property listings, neighborhood sponsors, and voice assistance.
+This project is a neighborhood property platform starter. Lab 1 introduces local property listings, neighborhood sponsors, and voice assistance through an accessible, informational home page.
 
-## Technology Used
+- **Implementation author:** Vanessa Palomera
+- **Planned partner reviewer:** Eric Juarez (review not yet recorded)
 
-- **Next.js App Router:** Organizes the application pages.
-- **TypeScript:** Helps identify coding mistakes.
-- **Tailwind CSS:** Provides styling tools.
-- **ESLint:** Checks code for common problems.
-- **GitHub:** Stores the project and tracks changes.
-- **Vercel:** Will be used to deploy the application.
+## Technology
 
-## Getting Started
+- Next.js App Router 16.4.3
+- React and React DOM 19.3.0
+- TypeScript 5.9.3
+- Tailwind CSS 4.3.3
+- ESLint 9.39.5
+- npm for dependency management; Git and GitHub for source control
+- Vercel is the intended hosting platform; deployment is pending
 
-### Requirements
+## Getting started
 
-Install Node.js and npm before running the project.
-
-### Install dependencies
-
-If you have cloned this repository onto another computer, open a terminal in the project folder and run:
+Install Node.js and npm, then run these commands from the project directory:
 
 ```bash
-npm install
-```
-
-### Run the development server
-
-Run:
-
-```bash
+npm ci
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
+Open [http://localhost:3000](http://localhost:3000) to view the local app. Stop the development server with **Ctrl+C**.
 
-To stop the development server, return to the terminal and press **Ctrl + C**.
+The home page source is [`src/app/page.tsx`](./src/app/page.tsx).
 
-## Verification
-
-Before submitting, run these commands:
+## Verification commands
 
 ```bash
 npm run lint
+npm exec tsc -- --noEmit
 npm run build
 ```
 
-Both commands should finish successfully before you report that verification is complete.
+The project does not define a separate test script. See [Lab 1 testing notes](./docs/testing-lab1.md) for recorded command results and pending manual checks.
 
 ## Deployment
 
-**Live website:** To be added after deployment to Vercel.
-
-## Documentation and Evidence
-
-AI assistance, development decisions, testing results, accessibility checks, and deployment evidence will be documented as the project progresses.
+**Deployment URL:** Pending deployment.
