@@ -1,4 +1,10 @@
-# Lab 2 — Eric Juarez implementation verification
+# Lab 2 — implementation verification and reviewer evidence
+
+For the latest PR #3 results, see [Eric's reviewer verification](#eric-juarez--pr-3-reviewer-verification).
+The earlier sections below preserve the first-half implementation history;
+their pending statements describe that earlier session, not the latest review.
+
+## Eric's first-half implementation — historical record
 
 - Date: 2026-10-24.
 - Branch: `lab2/property-components`.
@@ -58,7 +64,7 @@ AI-log content were preserved; package files, config, layout and global styles
 were unchanged. A filename scan found no tracked or unignored environment files,
 dependency directories or generated build paths. No secret values were printed.
 
-## Manual verification for Vanessa
+## Initial manual verification — historical record
 
 ### Reported Zotero hydration warning
 
@@ -74,13 +80,15 @@ and confirmed the hydration warning was gone; the student replied
 **Retest status: Resolved per student confirmation.** The student confirmed the
 Zotero-disabled retest passed. Codex did not independently observe this browser
 retest. This confirmation is limited to the reported hydration warning and does
-not establish the remaining keyboard, focus, responsive or partner-review checks.
+not establish other browser checks. The later PR #3 retest is recorded below;
+Zotero is not an open issue or an outstanding retest requirement.
 
 ### Partner checklist
 
-All items below are **Pending manual verification**. No controllable browser
-was available in this implementation session. The previous Lab 1 browser review
-does not verify these new interactive cards.
+These steps were pending at initial implementation verification. They are
+retained as historical test instructions; current completed and unconfirmed
+checks are distinguished in Eric's reviewer verification below. No controllable
+browser was available to Codex in that earlier session.
 
 1. In the PR checkout run `npm ci`, then `npm run dev`. Open the actual Local URL
    printed by the server (use its chosen port if the default is occupied).
@@ -139,3 +147,84 @@ retest passed per the student's confirmation above; the remaining manual checkli
 and Vanessa's review are pending. Explicit paths were committed as `8854758`,
 `eb73cc2` and `d50a584`; this follow-up documentation update records those existing
 hashes without inventing its own self-referencing hash.
+
+## Eric Juarez — PR #3 reviewer verification
+
+- Date: 2026-10-24.
+- PR: https://github.com/vp00-gtm/neighborhood-listing-platform-lab/pull/3.
+- Implementation branch: `lab2/filters-sponsors-layout`; base: `main` at `150589d`.
+- Review checkout: `fbce716e36505875d1792856e0726bf7eb4681fc`.
+- Browser/Lighthouse performer: Eric Juarez. Codex inspected the supplied reports
+  and recorded Eric's observations; it did not independently operate the browser.
+- URL: `http://localhost:3000/`, using the development server.
+- No review submission, partner approval, source fix or deployment is claimed.
+
+### Lighthouse reports supplied by Eric
+
+Both original JSON reports are preserved unchanged in `docs/evidence/lab2/`.
+They do not embed a Git commit hash; association with the checkout above comes
+from this review session, not from a field in the reports.
+
+| Report | Local run time (Pacific Daylight Time) | Performance | Accessibility | Best Practices | SEO |
+|---|---|---:|---:|---:|---:|
+| [Mobile setting](./evidence/lab2/lighthouse-mobile.json) | 2026-10-24 16:39:19 | 99 | 100 | 100 | 100 |
+| [Desktop setting](./evidence/lab2/lighthouse-desktop.json) | 2026-10-24 16:40:12 | 100 | 100 | 100 | 100 |
+
+Lighthouse version: `13.4.1`. Each report contains 25 passed automated
+accessibility audits, no failed automated accessibility audits, and 10 items
+requiring manual checking. Neither reports a Lighthouse runtime error or run
+warning. This does not establish an error-free browser console or complete
+accessibility compliance.
+
+Both reports have `screenEmulation.disabled: true`. Their mobile/desktop form
+factor settings therefore do not independently establish the required layouts at
+375, 768 or 1280 CSS pixels. Eric separately confirmed that the layout tests
+passed, but did not enumerate measurements or per-width screenshots in his reply.
+
+Non-accessibility findings include unminified JavaScript (estimated savings
+213 KiB), unused JavaScript (estimated savings 323 KiB), back/forward-cache
+restoration diagnostics and a source-map diagnostic. These findings are retained
+in the JSON; category scores of 100 do not mean every diagnostic passed. These
+local development runs do not establish deployed production performance.
+
+No source corrections were made for this evidence update. No automated
+accessibility failure required a fix in these reports; no post-fix Lighthouse
+retest is claimed.
+
+### Browser observations reported by Eric
+
+Eric confirmed: “we did the sponsor, layout and filters test as well” and
+“on a browswer with no zotero it works flawlessly.” The status below records
+that confirmation without inventing individual observations not provided.
+
+| Check | Status and evidence | Performer |
+|---|---|---|
+| Filters | Passed per Eric's confirmation of the filter testing. Individual case-by-case results were not separately supplied. | Eric |
+| Sponsor | Passed per Eric's confirmation of the sponsor testing. | Eric |
+| Layout | Passed per Eric's confirmation of layout testing; exact measured widths were not separately supplied. | Eric |
+| Zotero-free browser retest | Resolved per Eric: the app worked without the reported issue in a browser without Zotero. Removed from outstanding testing; the earlier warning is retained only as history. | Eric |
+
+The filter test guidance used the actual sample data: all cities/no limit gives
+three properties; Maplehaven/no limit gives Maple Court and Willow Porch;
+all cities/$1,850 gives Maple Court and Cedar Window; Maplehaven/$1,850 gives
+Maple Court only; Maplehaven/$1,250 gives no results; Clear restores all three.
+Those are expected outcomes, not a fabricated itemized browser transcript.
+
+Remaining unconfirmed details: explicit keyboard/focus checks with Tab,
+Shift+Tab, Enter and Space; independent PropertyCard open/close behavior;
+a console-specific result after reload; and the exact responsive viewport
+measurements. These are separate from the completed checks Eric reported.
+There is no outstanding Zotero retest in this list. Vanessa does not need to
+repeat Eric's completed review checks solely to attribute them to herself.
+
+### Codex checks of Vanessa's PR
+
+At the same review checkout, Codex ran `npm ci`, `npm run lint`,
+`npm exec tsc -- --noEmit`, and `npm run build`; each exited 0. Installation
+reported ESLint deprecation and a pending unrs-resolver install-script approval
+warning; no dependencies were upgraded. `git diff --check 150589d...HEAD` passed.
+Source-function checks passed for rent parsing and the actual filter predicate.
+HTTP checks confirmed a labeled form, sponsor markup and three disclosure
+buttons. These checks were independent of Eric's browser observations and do
+not substitute for them. No code checks were rerun for this documentation-only
+update; JSON validity, byte-for-byte evidence copies and the diff were checked.

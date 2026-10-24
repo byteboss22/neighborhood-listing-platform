@@ -88,3 +88,12 @@ through the process step by step. Copilot helped with implementation, while my
 partner and I reviewed and tested the results. This experience taught me that
 AI-generated code still needs to be checked and tested by the people developing
 the application.
+
+## Eric Juarez — PR #3 review evidence, 2026-10-24
+
+Earlier entries above are historical records and remain preserved. This is
+Eric's reviewer evidence, not Vanessa's AI-use record or a submitted approval.
+
+| Tool | Prompt | Output used | Output rejected | Verification | Commit |
+|---|---|---|---|---|---|
+| Codex (review evidence documentation) | Eric asked to add the supplied Lighthouse tests to the repository, confirmed sponsor/layout/filter tests passed, and confirmed the application worked in a browser without Zotero. | Preserved both supplied Lighthouse JSON reports unchanged, recorded scores and findings in testing-lab2.md, attributed browser tests to Eric, and marked Zotero resolved rather than an outstanding retest. | No output rejected. Did not convert Lighthouse scores into full accessibility compliance, infer detailed unreported keyboard/viewport results, or invent Vanessa's AI critiques. | Parsed both reports and verified copied bytes; Accessibility 100 in both, 25 automated accessibility passes each, no automated accessibility failures. Review checkout: fbce716. Specific unconfirmed manual details remain identified separately. | Pending documentation commit; implementation reviewed at `fbce716` |
