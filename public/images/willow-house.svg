@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <title>Original fictional house illustration</title>
+  <rect width="800" height="500" fill="#e9f1f6"/>
+  <circle cx="671" cy="95" r="35" fill="#f5cf79"/>
+  <path d="M0 385H800V500H0Z" fill="#b7d1b3"/>
+  <path d="M205 225L400 91L595 225V409H205Z" fill="#80a9ba"/>
+  <path d="M172 228L400 69L628 228L607 244L400 100L193 244Z" fill="#334c61"/>
+  <g fill="#d6edf4" stroke="#334c61" stroke-width="8"><path d="M246 256H319V325H246ZM481 256H554V325H481ZM373 157H427V210H373Z"/></g>
+  <rect x="363" y="279" width="74" height="130" fill="#f5cf79"/>
+  <circle cx="421" cy="351" r="4" fill="#334c61"/>
+  <path d="M324 262H476L459 242H341Z" fill="#334c61"/>
+  <path d="M330 262V409M470 262V409" stroke="#f4eee1" stroke-width="12"/>
+  <path d="M315 409H485V424H315Z" fill="#6b7e85"/>
+  <path d="M346 424H454L485 449H315Z" fill="#dcd3bd"/>
+  <text x="32" y="470" fill="#334c61" font-family="sans-serif" font-size="18">FICTIONAL PROPERTY · ORIGINAL ILLUSTRATION</text>
+</svg>

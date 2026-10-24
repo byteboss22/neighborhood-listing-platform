@@ -1,3 +1,6 @@
+import PropertyCard from "@/components/PropertyCard";
+import { properties } from "@/data/properties";
+
 const features = [
   {
     title: "Listings",
@@ -48,6 +51,21 @@ export default function Home() {
               </p>
             </article>
           ))}
+        </section>
+
+        <section aria-labelledby="listings-heading" className="mt-16">
+          <h2 id="listings-heading" className="text-3xl font-semibold tracking-tight">
+            Sample property listings
+          </h2>
+          <p className="mt-3 text-zinc-600 dark:text-zinc-300">
+            Fictional demonstration data: these addresses, cities, prices, and
+            original illustrations do not advertise real rentals.
+          </p>
+          <div className="mt-6 grid min-w-0 gap-6">
+            {properties.map((property) => (
+              <PropertyCard key={property.id} property={property} />
+            ))}
+          </div>
         </section>
       </div>
     </main>
