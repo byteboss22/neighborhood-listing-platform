@@ -46,3 +46,53 @@ The project does not define a separate test script. See [Lab 1 testing notes](./
 ## Deployment
 
 **Deployment URL:** Pending deployment.
+
+## Lab 2 — component plan and responsibilities
+
+Eric Juarez implements the shared types, fictional sample properties, original
+illustrations and `PropertyCard` on `lab2/property-components`. Vanessa Palomera
+will implement `SearchFilters`, `SponsorBanner` and final responsive integration,
+then test and review Eric's PR. Eric will review Vanessa's PR. These are planned
+responsibilities, not claims of completed partner reviews.
+
+Planned hierarchy:
+
+```text
+Page
+├── SearchFilters                 (Vanessa: not implemented yet)
+├── Listing grid
+│   └── PropertyCard × properties.length
+└── SponsorBanner                 (Vanessa: not implemented yet)
+```
+
+The current page preserves the Lab 1 heading, purpose and three introductory
+cards, then maps the three sample properties by stable `property.id` into a
+single-column listing grid. Final grid breakpoints are left to Vanessa.
+PropertyCard uses an article, an `h3` beneath the listing section's `h2`, a facts
+list, a local illustration and a native disclosure button. Each card owns its
+expanded state and a unique React `useId` panel ID; the page remains a Server
+Component and each interactive card is a Client Component.
+
+### Shared filter contract for Vanessa
+
+`src/types/index.ts` preserves the supplied Google AI Studio interfaces and adds
+the required `onSubmit: () => void` callback to `SearchFiltersProps`.
+
+- `city: ""` means all cities; `maxRentUsd: undefined` means no rent limit.
+- `onCityChange(city)` and `onMaxRentChange(maxRentUsd)` update controlled draft
+  inputs in the future client parent. Clearing rent calls
+  `onMaxRentChange(undefined)`; populated rent must be converted to a number.
+- The form prevents default browser navigation and calls `onSubmit()` on submit.
+  The parent then copies the draft into the applied filters and updates the
+  listing grid. Typing alone must not apply the filters.
+- The parent that supplies these ordinary callbacks must be a Client Component;
+  do not pass function props from the current Server Component page directly.
+
+No filter or sponsor controls are rendered yet. The existing Lab 1 Neighborhood
+Sponsors introduction remains informational; it is not a SponsorBanner.
+
+All listing names, addresses, cities and prices are fictional demonstration
+data. Image provenance is in [image sources](./docs/image-sources.md). See
+[Lab 2 testing and partner checklist](./docs/testing-lab2.md) for actual check
+results and pending browser checks. Lint/build results alone do not establish
+accessibility compliance.
