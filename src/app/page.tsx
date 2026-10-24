@@ -1,5 +1,7 @@
 import PropertyCard from "@/components/PropertyCard";
 import { properties } from "@/data/properties";
+import SponsorBanner from "@/components/SponsorBanner";
+import type { Sponsor } from "@/types";
 
 const features = [
   {
@@ -18,6 +20,12 @@ const features = [
       "Learn how voice assistance can make it easier to find information around the platform.",
   },
 ];
+
+const sponsor: Sponsor = {
+  id: "example-neighborhood-services",
+  businessName: "Example Neighborhood Services (Fictional Demo)",
+  websiteUrl: "https://example.com",
+};
 
 export default function Home() {
   return (
