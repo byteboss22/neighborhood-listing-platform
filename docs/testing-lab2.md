@@ -3,8 +3,10 @@
 - Date: 2026-10-24.
 - Branch: `lab2/property-components`.
 - Base commit: `2b1f1fa` (completed Lab 1 merge).
-- Implementation commit: **Pending implementation commit**. Verification applies
-  to the uncommitted implementation on that base, not to the base commit alone.
+- Implementation commits: `8854758` (interfaces), `eb73cc2` (data/artwork), and
+  `d50a584` (PropertyCard integration/documentation). Checks ran before committing
+  against the same implementation source now captured by these commits; the
+  later documentation update adds references and the student's retest result.
 - Performer: Codex, not Vanessa. No partner test, review or approval is claimed.
 - Runtime: Node.js `v24.19.0`, npm `11.17.0`.
 
@@ -65,12 +67,14 @@ The student reported a hydration warning showing
 observe the browser warning directly. The attribute suggests browser-extension
 injection, but that cause and resolution are not confirmed by the CLI checks.
 No successful retest with Zotero disabled was documented when the commit/push
-session began. The student has been asked for the retest result.
+session began. Codex asked whether the student had reloaded with Zotero disabled
+and confirmed the hydration warning was gone; the student replied
+“yes its good to go” on 2026-10-24.
 
-**Retest status: Pending manual verification.** Disable Zotero for the local
-site (or use a browser session without that extension), reload the actual
-development URL with the console open, and record whether the hydration warning
-returns. Do not mark this resolved until a successful retest is confirmed.
+**Retest status: Resolved per student confirmation.** The student confirmed the
+Zotero-disabled retest passed. Codex did not independently observe this browser
+retest. This confirmation is limited to the reported hydration warning and does
+not establish the remaining keyboard, focus, responsive or partner-review checks.
 
 ### Partner checklist
 
@@ -131,5 +135,7 @@ These are fresh checks of the completed implementation before committing:
 
 No application changes were needed to pass the checks. This session did not
 repeat browser or HTTP checks and does not claim partner approval. The Zotero
-retest and manual checklist remain pending. Implementation commit references
-will be recorded after the logical commits exist.
+retest passed per the student's confirmation above; the remaining manual checklist
+and Vanessa's review are pending. Explicit paths were committed as `8854758`,
+`eb73cc2` and `d50a584`; this follow-up documentation update records those existing
+hashes without inventing its own self-referencing hash.
