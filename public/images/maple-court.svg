@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <title>Original fictional apartment illustration</title>
+  <rect width="800" height="500" fill="#e4f1ed"/>
+  <circle cx="671" cy="89" r="36" fill="#f5cf79"/>
+  <path d="M0 380H800V500H0Z" fill="#b7d1b3"/>
+  <rect x="190" y="122" width="390" height="286" rx="5" fill="#c97555"/>
+  <path d="M172 122H598V145H172Z" fill="#7f4339"/>
+  <g fill="#c2e5ed" stroke="#7f4339" stroke-width="8">
+    <path d="M225 173H295V237H225ZM345 173H415V237H345ZM465 173H535V237H465ZM225 275H295V339H225ZM465 275H535V339H465Z"/>
+  </g>
+  <rect x="345" y="293" width="70" height="115" fill="#264c47"/>
+  <circle cx="399" cy="352" r="4" fill="#f5cf79"/>
+  <path d="M335 408H425L478 465H282Z" fill="#e6d5bb"/>
+  <rect x="645" y="281" width="15" height="127" fill="#73503d"/>
+  <g fill="#4a8061"><circle cx="650" cy="252" r="59"/><circle cx="620" cy="283" r="42"/><circle cx="686" cy="286" r="40"/></g>
+  <text x="32" y="470" fill="#264c47" font-family="sans-serif" font-size="18">FICTIONAL PROPERTY · ORIGINAL ILLUSTRATION</text>
+</svg>
