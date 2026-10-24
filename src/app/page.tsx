@@ -1,4 +1,4 @@
-import PropertyCard from "@/components/PropertyCard";
+import PropertyExplorer from "@/components/PropertyExplorer";
 import { properties } from "@/data/properties";
 import SponsorBanner from "@/components/SponsorBanner";
 import type { Sponsor } from "@/types";
@@ -61,6 +61,10 @@ export default function Home() {
           ))}
         </section>
 
+        <div className="mt-12 max-w-2xl">
+          <SponsorBanner sponsor={sponsor} />
+        </div>
+
         <section aria-labelledby="listings-heading" className="mt-16">
           <h2 id="listings-heading" className="text-3xl font-semibold tracking-tight">
             Sample property listings
@@ -69,11 +73,7 @@ export default function Home() {
             Fictional demonstration data: these addresses, cities, prices, and
             original illustrations do not advertise real rentals.
           </p>
-          <div className="mt-6 grid min-w-0 gap-6">
-            {properties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
-            ))}
-          </div>
+          <PropertyExplorer properties={properties} />
         </section>
       </div>
     </main>
