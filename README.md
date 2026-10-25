@@ -1,66 +1,57 @@
 # Neighborhood Listing Platform
 
-A CIS 3610 project by **Eric Juarez** to connect neighbors with local listings, neighborhood sponsors, and accessible help. **Vanessa Palomera** is the planned partner reviewer; her review is pending.
+CIS 3610 project maintained by **Eric Juarez**, using the shared Lab 2
+implementation developed with **Vanessa Palomera**.
 
-## Lab 1 scope
+## Current scope
 
-The initial app shell contains one main heading, a short project-purpose statement, and three informational feature cards: **Listings**, **Neighborhood Sponsors**, and **Voice Help**. The cards describe planned features. Voice functionality, a database, and login are not implemented.
+The home page includes the project introduction, three fictional property
+listings, city and optional maximum-rent filters, a fictional sponsor banner,
+and expandable property details. The listing grid uses one, two or three columns
+at small, medium and large widths. No backend, authentication or working voice
+feature is implemented.
 
-## Technology stack
+- **Eric:** shared TypeScript interfaces, fictional property data, original SVG
+  illustrations, PropertyCard, initial integration and reviewer evidence.
+- **Vanessa:** SearchFilters, SponsorBanner and final responsive integration.
 
-- Next.js 16.4.3 with App Router and React/React DOM 19.3.0.
-- TypeScript 5.9.3 (declared `^5`) with strict checking.
-- Tailwind CSS 4.3.3 (declared `^4`) through `@tailwindcss/turbopack`.
-- ESLint 9.39.5 (declared `^9`) with `eslint-config-next` 16.4.3.
-- npm with a committed lockfile; Git and GitHub for version control.
-- Vercel is the planned hosting option; deployment is not recorded.
+## Install and run
 
-Installed versions and the observed macOS/Node/npm/Git environment are recorded in [setup notes](docs/setup-notes.md). The installed Next.js guide lists Node.js 20.9 as the minimum; verification used Node.js v24.19.0 and npm 11.17.0.
-
-## Install and run locally
-
-For a new checkout:
+Use Node.js 20.9 or later with npm. From the repository directory:
 
 ```bash
-git clone https://github.com/byteboss22/neighborhood-listing-platform.git
-cd neighborhood-listing-platform
-git switch setup/app-shell
 npm ci
 npm run dev
 ```
 
-For an existing checkout, run `npm ci` and `npm run dev` from the repository root. Open [http://localhost:3000](http://localhost:3000), or use the port printed by the development server. Stop it with Ctrl+C.
+Open the actual local URL printed by the server. Stop it with Ctrl+C.
+The main page is `src/app/page.tsx`.
 
-The homepage source is **`src/app/page.tsx`**. Save edits there to update the development page. `src/app/layout.tsx` supplies the root layout and uses `next/font/google` for Geist and Geist Mono; `src/app/globals.css` imports Tailwind. The project was bootstrapped with `create-next-app`; the exact historical creation command is not recorded.
-
-## Verification
+## Checks
 
 ```bash
 npm run lint
 npm run build
-npx --no-install tsc --noEmit
+npm exec tsc -- --noEmit
 ```
 
-TypeScript is installed locally; no separate `typecheck` script exists. After a successful production build, `npm start` serves it locally. See [Lab 1 testing and actual results](docs/testing-lab1.md) for dated checks, tested commit, text logs, and pending browser checks. A fresh `npm ci` was not run in the documentation verification session.
+The build generates Next.js route types used by TypeScript checking. Run
+`npm run build` before standalone type checking in a fresh checkout.
 
-## Deployment and documentation
+## Evidence and provenance
 
-Deployment URL: **Pending deployment**. No hosted/private-window verification is recorded. Vercel deployment is a future step; pushes should not be represented as successful deployments without observing their results.
+- [Shared Lab 2 testing and reviewer evidence](docs/testing-lab2.md)
+- [Original illustration sources](docs/image-sources.md)
+- [Shared AI-use log](docs/ai-log.md)
+- [Personal-repository integration record](docs/integration-lab2.md)
+- [Eric's original Lab 1 README](docs/archive/eric-lab1/README.md)
+- [Eric's original Lab 1 AI log](docs/archive/eric-lab1/docs/ai-log.md)
 
-- [Setup notes](docs/setup-notes.md)
-- [Testing and verification evidence](docs/testing-lab1.md)
-- [Screenshot checklist](docs/evidence/lab1/screenshot-checklist.md)
-- [AI assistance log](docs/ai-log.md)
-- [Preserved ChatGPT/Gemini comparison with Claude assistance](docs/ai-comparison-lab1.md)
+The shared implementation was imported from Vanessa's completed `main` at
+`ab694d7`. Both repositories' Git histories are preserved by the integration
+merge. Original personal Lab 1 documentation and evidence are archived unchanged
+under `docs/archive/eric-lab1/`; shared files retain their original attribution
+and dated test contexts. Historical test records are not new test results.
 
-Environment files, dependencies, and build output are ignored. Do not stage generated output or secrets; review actual staged filenames before committing.
-
-## Learning references
-
-The relevant starter README resources remain useful:
-
-- [Next.js documentation](https://nextjs.org/docs)
-- [Learn Next.js](https://nextjs.org/learn)
-- [Next.js source repository](https://github.com/vercel/next.js)
-- [Next.js deployment guide](https://nextjs.org/docs/app/building-your-application/deploying)
-- [Vercel](https://vercel.com/new)
+Deployment URL: **Pending deployment**. No new hosted-site test or deployment
+is claimed by this repository integration.

@@ -1,11 +1,10 @@
-# Lab 1 screenshot checklist
+# Lab 1 Screenshot Checklist
 
-All screenshots below are **not yet captured**. These are suggested filenames, not existing artifacts. Save genuine captures here after observing each result. Crop personal paths, account details, tokens, and unrelated tabs from captures without obscuring the verification result.
+Capture these screenshots manually after observing the corresponding checks. No screenshots have been created or verified as part of this record.
 
-- [ ] `01-local-desktop.png`: Local page with address bar, heading, purpose paragraph, and all three feature cards visible.
-- [ ] `02-local-console.png`: Reloaded local page with developer console visible; record actual errors if present rather than hiding them.
-- [ ] `03-local-narrow.png`: Page at approximately 375 px width showing readable, stacked cards and no horizontal overflow; record the actual viewport.
-- [ ] `04-hosted-private.png`: After deployment, hosted page in a private browser window with its public URL visible. Currently Pending deployment.
-- [ ] Optional `05-verification-terminal.png`: Actual lint/build/type-check commands and results, with sensitive local details cropped. Saved text logs are the primary automated evidence.
+- [ ] Local desktop page showing the heading, purpose statement, and all three cards — `lab1-local-desktop.png`
+- [ ] Local page at a narrow/mobile viewport with readable content — `lab1-local-mobile.png`
+- [ ] Browser console after loading the local page — `lab1-browser-console.png`
+- [ ] Hosted page in a private browser window after deployment — `lab1-hosted-private-window.png`
 
-For each capture, add its real filename, execution date/timezone, browser/viewport, tested commit or working-tree state, and observed result to `docs/testing-lab1.md`. Vanessa Palomera may record her partner review after she actually performs it; no review has been claimed here.
+Save genuine captures in this folder. Do not mark a screenshot item complete until the image has been captured and checked.

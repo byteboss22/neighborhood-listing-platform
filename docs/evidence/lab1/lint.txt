@@ -1,14 +1,13 @@
+Check: ESLint
 Command: npm run lint
-Started: 2026-10-23T12:50:00-07:00 (America/Los_Angeles)
-Finished: 2026-10-23T12:50:01-07:00 (America/Los_Angeles)
-Environment: Codex verification session on local macOS 26.6.1 arm64; Node v24.19.0; npm 11.17.0; Git 2.55.0
-Branch: setup/app-shell
-HEAD: 2daf216a9f405c848a4c2d2559c9413ff491845e
-State tested: application and configuration unchanged from HEAD; documentation evidence being added; nothing staged.
-Exit status: 0
+Execution date: 2026-10-23 (Pacific Daylight Time, UTC-07:00)
+Environment: Codex verification environment; Windows 11 Home; Node.js v24.21.0; npm 11.19.0
+Branch and commit: setup/app-shell; 6fdc198
+Working tree at execution: no staged files; existing empty docs/AI logs untracked
+Exit code: 0
 
-
-> neighborhood-listing-platform-main@0.1.0 lint
+Output:
+> neighborhood-listing-platform-lab@0.1.0 lint
 > eslint
 
-
+No ESLint diagnostics were printed.

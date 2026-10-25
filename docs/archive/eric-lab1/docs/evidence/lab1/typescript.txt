@@ -1,0 +1,10 @@
+Command: npx --no-install tsc --noEmit
+Started: 2026-10-23T12:50:02-07:00 (America/Los_Angeles)
+Finished: 2026-10-23T12:50:03-07:00 (America/Los_Angeles)
+Environment: Codex verification session on local macOS 26.6.1 arm64; Node v24.19.0; npm 11.17.0; Git 2.55.0
+Branch: setup/app-shell
+HEAD: 2daf216a9f405c848a4c2d2559c9413ff491845e
+State tested: application and configuration unchanged from HEAD; documentation evidence being added; nothing staged.
+Exit status: 0
+
+(no output)
