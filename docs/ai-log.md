@@ -57,3 +57,43 @@ Vanessa's testing/review and Eric's later review of her work remain pending.
 | Google AI Studio (proposal supplied by the student) | Original AI Studio prompt was not supplied. The student pasted interfaces for Property, Sponsor, PropertyCardProps, SponsorBannerProps and SearchFiltersProps, with an explanation of required and optional fields. | Accepted the supplied fields, numeric rent, required descriptive imageAlt, and optional maxRentUsd. Added the assignment-required onSubmit callback and documented draft-versus-applied filter state, empty-city and undefined-rent conventions. | No supplied interface was rejected. The proposal lacked onSubmit, so it was extended. Actual SearchFilters and SponsorBanner implementations are deferred to Vanessa. | Compared proposal with the supplied Lab 2 requirements; the implementation uses typed sample data and shared PropertyCardProps. Command results are recorded in testing-lab2.md. Required string types do not by themselves guarantee meaningful alt text, valid URLs or accessibility. | `8854758` (shared interfaces) |
 | Codex (this implementation session) | Student request begins “Help me implement Eric Juarez’s portion of CIS 3610 Lab 2: Semantic Components, Responsive Design, and Accessibility.” Summary: inspect the partner repository, preserve Lab 1, implement only shared types/data/PropertyCard and minimal integration, document evidence, run checks, and do not commit, push or open a PR. The original attached request also supplied the AI Studio proposal above. | Created the shared types and callback contract, three typed fictional properties including a studio, three original SVG illustrations and source notes, a stateful semantic card with a native disclosure button, and minimal page integration. Read installed Next.js client-boundary and image guides before implementation. | No generated output was rejected. Final responsive integration, SearchFilters, SponsorBanner, backend, authentication and voice implementation were excluded as instructed. Browser checks were not represented as completed. | Codex command results and exact pending manual steps are in testing-lab2.md. No controllable browser was available; no partner testing or approval is claimed. | `8854758` (types), `eb73cc2` (data/artwork), `d50a584` (card/integration/docs) |
 | Codex (commit/push session, 2026-10-24) | “Help me commit and push Eric Juarez’s completed first-half implementation for CIS 3610 Lab 2 in this workspace.” Student authorized logical commits and a non-force push, required actual implementation references, and prohibited opening a PR, review, merge or deployment. | Inspected branch, remote, attribution, all changed files and prior notes; reran lint, TypeScript and build; created explicit-path commits for shared interfaces, data/artwork, and PropertyCard integration/documentation. Prepared the branch for the authorized normal push; remote confirmation is reported separately after pushing. | No output rejected. No invented browser retest, partner approval or self-referencing documentation hash. | All three required CLI checks passed with exit 0. The student reported a data-zotero-connector-injected hydration warning; no documented Zotero-disabled retest was initially found. Codex asked, and the student confirmed the retest passed (“yes its good to go”). Recorded as resolved per student report, not as a Codex-observed browser test. Other manual checks and partner review remain pending. See testing-lab2.md. | `8854758`, `eb73cc2`, `d50a584`; follow-up documentation records these existing references |
+
+### Vanessa Palomera — Lab 2 Planning and Development Support
+
+**Purpose:** I used ChatGPT to help me understand the Lab 2 requirements, plan
+the implementation, and prepare for testing and GitHub collaboration.
+
+**How I used ChatGPT:**
+
+- It helped me create prompts for Copilot to implement and connect the
+  `SponsorBanner`, `SearchFilters`, and `PropertyExplorer` components.
+- It explained Git status, modified and untracked files, and the steps needed
+  to prepare commits.
+- It helped me understand the testing process and prepare a pull request
+  description for my partner to review.
+- It helped me plan accessibility testing, responsive layout testing, and the
+  Lighthouse accessibility audit.
+
+**Outcome:** ChatGPT helped me break the assignment into smaller steps and
+understand the development and collaboration process. Copilot assisted with
+implementing the components, running checks, organizing commits, and pushing
+the feature branch to GitHub.
+
+**Human review and testing:** I verified the implementation and personally
+performed the required manual tests with my partner. We reviewed the application
+rather than relying only on AI-generated code or AI-reported test results.
+
+**Reflection:** Using ChatGPT helped me understand the assignment and work
+through the process step by step. Copilot helped with implementation, while my
+partner and I reviewed and tested the results. This experience taught me that
+AI-generated code still needs to be checked and tested by the people developing
+the application.
+
+## Eric Juarez — PR #3 review evidence, 2026-10-24
+
+Earlier entries above are historical records and remain preserved. This is
+Eric's reviewer evidence, not Vanessa's AI-use record or a submitted approval.
+
+| Tool | Prompt | Output used | Output rejected | Verification | Commit |
+|---|---|---|---|---|---|
+| Codex (review evidence documentation) | Eric asked to add the supplied Lighthouse tests to the repository, confirmed sponsor/layout/filter tests passed, and confirmed the application worked in a browser without Zotero. | Preserved both supplied Lighthouse JSON reports unchanged, recorded scores and findings in testing-lab2.md, attributed browser tests to Eric, and marked Zotero resolved rather than an outstanding retest. | No output rejected. Did not convert Lighthouse scores into full accessibility compliance, infer detailed unreported keyboard/viewport results, or invent Vanessa's AI critiques. | Parsed both reports and verified copied bytes; Accessibility 100 in both, 25 automated accessibility passes each, no automated accessibility failures. Review checkout: fbce716. Specific unconfirmed manual details remain identified separately. | Pending documentation commit; implementation reviewed at `fbce716` |
