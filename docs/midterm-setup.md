@@ -70,7 +70,9 @@ fixtures; they do not claim hosted database integration. See actual results in
   date is Saturday. Confirm the in-class cutoff's intended date as well.
 - Add/verify instructor `pdt605` as an explicit repository collaborator. The
   assignment states a missing collaborator causes an automatic zero. No
-  invitation or access confirmation was performed in this task.
+  active-access confirmation was performed at implementation time. Since then,
+  the user authorized an invitation: `pdt605` has been invited with write access
+  and acceptance remains pending.
 - Complete real development Supabase application and role tests; configure
   hosting secrets only in server-side hosting settings and deploy when authorized.
 - Supply genuine ChatGPT, Gemini and Google AI Studio prompt/output evidence
@@ -82,3 +84,7 @@ fixtures; they do not claim hosted database integration. See actual results in
   remote `main`, and submit the repository/PR/deployment links and genuine
   collaborator confirmation in Canvas. No local `main` update is needed to base
   the PR on the fetched integration commit.
+
+PR preparation update: implementation commit `b1c51af` is already pushed on
+`exam/services-booking-eval`; the user has authorized an open PR into remote
+`main`. This does not authorize merging or deployment.

@@ -3,8 +3,11 @@
 Date: 2026-11-02 (America/Los_Angeles). Performer: Codex using local tools.
 Student and instructor review are not implied. Worktree branch:
 `exam/services-booking-eval`, based on
-`e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b`. Changes remain uncommitted, so this
-record describes the working tree rather than a fictitious tested commit.
+`e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b`. Initial evidence was captured before
+implementation commit `b1c51afc5906bbc9c80141dceb7728d8692dab35`. During PR
+preparation, all 20 API/contract/RLS tests passed again on that commit and the
+credential-pattern scan found zero matches across 105 reachable historical
+blobs. Source code has not changed since the initial browser/build checks.
 
 ## Observed results
 
@@ -83,7 +86,9 @@ Lab 1/2 evidence and attribution remain intact; the AI journal is append-only.
   inferred from automated tests.
 - Resolve district/active-zone schema questions and the contradictory deadline
   wording documented in [requirements](requirements.md).
-- Complete genuine Gemini/AI Studio/other required provenance and real commit
-  hashes. Do not treat historical Lab logs as new midterm tool use.
-- Collaborator access, hosting, push, PR into remote main, any required partner
-  email and Canvas submission remain manual. See [handoff](midterm-setup.md).
+- Complete genuine Gemini/AI Studio/other required provenance. Implementation
+  commit is recorded above; historical Lab logs are not new midterm tool use.
+- Instructor `pdt605` was invited with write access; acceptance remains pending.
+  The implementation branch is pushed. PR creation is authorized and underway;
+  hosting, any required partner email and Canvas submission remain pending.
+  See [handoff](midterm-setup.md).
