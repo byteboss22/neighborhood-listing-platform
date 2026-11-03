@@ -1,5 +1,12 @@
 # Neighborhood Listing Platform
 
+The local midterm services/booking slice is documented in
+[midterm setup and handoff](docs/midterm-setup.md),
+[requirements and unresolved instructor questions](docs/requirements.md),
+[security audit](docs/security-audit.md), and
+[actual validation results](docs/testing-midterm.md).
+The Lab 1/2 history and attribution below remain preserved.
+
 CIS 3610 project maintained by **Eric Juarez**, using the shared Lab 2
 implementation developed with **Vanessa Palomera**.
 

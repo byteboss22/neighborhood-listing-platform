@@ -104,3 +104,25 @@ Eric's reviewer evidence, not Vanessa's AI-use record or a submitted approval.
 | Tool | Prompt | Output used | Output rejected | Verification | Commit |
 |---|---|---|---|---|---|
 | Codex | Eric requested merging lab2-partner-copy into his personal repository's main. | Prepared a merge of both histories, imported the completed shared implementation, archived original personal Lab 1 records unchanged, and updated the personal README and integration record. | No output rejected. No history rewrite, new browser results, accessibility compliance, or partner approval claimed. | npm ci, lint, build and TypeScript passed; imported application files and archived originals verified byte-for-byte. See integration-lab2.md. | This integration merge; source refs 1d551eb and ab694d7. No self-referencing hash invented. |
+
+## Midterm Version B — Eric Juarez, 2026-11-02
+
+All preceding Lab 1/2 attribution remains unchanged. This entry records AI
+assistance, not independent student verification or instructor approval.
+Exact implementation prompts: [midterm task prompts](ai-prompts-midterm.md).
+The user authorized the prescribed five-table schema and explicitly deferred
+district and active coverage-zone behavior. Reference attachments were read
+without adding them to Git.
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Branch inspection / Codex | Inspect refs, fetch origin, preserve completed Lab 2 and isolate the exam. Exact corrected authorization is linked above. | Confirmed remote main integration; created preservation and exam branches at e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b. | Rejected stale local main as baseline after inspection showed only README/ignore files; user explicitly authorized remote-main base. | Git status, branch refs, tree inspection and source/config comparison. No lab branch was reset. | No new commit; baseline e57a87b. |
+| Requirements and schema / Codex | Implement Version B using the existing Lab 2 app; follow option 1 without district/zone extensions. Exact task prompts linked above. | Five-table migration, strict contract, RLS ownership/status checks, protected profile roles and user-scoped server API. | Rejected substituting radius/category-active flags for zones: those facts are absent from the schema. Rejected elevated provider writes: service credentials bypass RLS. These were design alternatives, not fabricated outputs from another tool. | Executable PGlite migration, constraints/cascades and multi-role positive/negative tests; actual route tests with mocked Supabase HTTP. See security-audit.md and testing-midterm.md. Hosted Supabase remains pending. | Uncommitted working-tree changes; fill only after a real reviewed commit. |
+| Interface and accessibility / Codex | Build semantic ServiceCard, 1/2/3-column grid, visible focus and keyboard-operable booking. | New service section and public booking form without replacing Lab 2 components. | Rejected first generated CTA draft: visible “Book Now” with “Book appointment for …” aria-label failed axe label-content-name-mismatch. Changed visible wording to “Book appointment”, preserving a service-specific name. Initial browser run also lacked matching Chromium; installed it and reran. | Playwright viewport/keyboard/form tests and axe inspection of the new service section. Boundary data is fictional and intercepted, not a hosted result. | Uncommitted; no generated hash. |
+| ChatGPT outside Codex | Not independently used for this midterm session. | None recorded. | Not applicable; no separate output exists in this session. | Student must supply real prompt/output evidence if required by instructor. Historical Lab 1/2 entries above are not relabeled as midterm work. | Pending genuine evidence. |
+| Gemini | Not invoked during this midterm session. | None. | Not applicable; no output fabricated. | Required independent critique/prompt/output remains a student manual step. | Pending genuine evidence. |
+| Google AI Studio | Not invoked during this midterm session. | None. | Not applicable; no output fabricated. | Required prompt/export/output evidence remains a student manual step. | Pending genuine evidence. |
+
+The student still needs to review the implementation, add any genuine partner
+contributions, and record actual commit hashes. No push, PR, deployment,
+collaborator invitation, partner email or Canvas submission was performed.
