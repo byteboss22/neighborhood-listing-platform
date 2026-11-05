@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "test": "node --conditions=react-server --import tsx --test tests/*.test.ts",
-    "test:ui": "playwright test"
+    "test:ui": "playwright test",
+    "test:live": "node --env-file=.env.local scripts/verify-supabase-live.mjs",
+    "auth:reset-providers": "node --env-file=.env.local scripts/reset-test-passwords.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",

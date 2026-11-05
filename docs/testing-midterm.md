@@ -76,11 +76,34 @@ PropertyExplorer, SearchFilters, SponsorBanner, property fixtures, shared types,
 layout or original artwork. The homepage adds the service section. Historical
 Lab 1/2 evidence and attribution remain intact; the AI journal is append-only.
 
+## Hosted verification and test-runner follow-up — 2026-11-04
+
+After the student configured the development project and supplied real fictional
+Auth accounts/fixtures, the hosted verification runner was added. All 14 checks
+passed in [the generated live report](evidence/midterm/live-supabase-admin-session-audit.json).
+Provider/client requests used real individual user JWTs. The report explicitly
+identifies the admin-generated-session method; successful password logins are
+separately present in the student's [interactive report](evidence/midterm/live-supabase-audit.json).
+No test passwords, keys, tokens or contact details are recorded.
+
+The interactive report's combined client check failed on an unfiltered profile
+UPDATE that returned safe-update error 21000. The runner now scopes the update
+to the authenticated ID, requires 42501, and confirms the role remains client;
+service POST denial is a separate check. Hosted reproduction confirmed both
+denials. No application authorization or database policy was weakened.
+
+The current local suite passed 25 tests after adding password-input and
+client-authorization regression coverage. Lint, standalone TypeScript, diff
+whitespace and the bounded credential scan also passed. Initial 20-test/build/
+browser logs above are retained as historical evidence; no new UI/build run is
+claimed for these CLI/test/documentation-only additions.
+
 ## Still pending
 
-- Apply the migration to a clean development Supabase instance and repeat the
-  matrix using real Auth users and PostgREST; record redacted actual results.
-  No remote Supabase migration or production database operation was performed.
+- Hosted category/mapping fixture tests and administrative catalog evidence of
+  all five RLS flags remain pending. The migration was applied by the student,
+  and the executed hosted role/API follow-up is linked above. No production
+  database operation was performed.
 - Independently review the code and evidence. No human approval, partner
   contribution, student keyboard verification, or instructor acceptance is
   inferred from automated tests.

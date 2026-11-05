@@ -1,0 +1,30 @@
+{
+  "recorded_at": "2026-11-05T01:26:53.916Z",
+  "implementation_commit": "4a87d16558a45ad34942d92cc6b68bfef96d067c",
+  "mode": "public-only",
+  "scope": "Hosted Supabase Auth/PostgREST and localhost API; no passwords, keys, tokens or contact details recorded.",
+  "fixture_note": "Requires the three fictional seeded services and the known public booking. Provider updates retain existing titles. A temporary audit service is deleted; an authenticated fictional audit booking is retained.",
+  "limitations": "Does not inspect PostgreSQL RLS enablement metadata or prove inactive-category filtering without category fixtures. NOT_RUN items remain pending.",
+  "outcomes": [
+    {
+      "test": "Anonymous: known approved service is visible; both known drafts are hidden",
+      "result": "PASS"
+    },
+    {
+      "test": "Anonymous: known persisted booking is hidden",
+      "result": "PASS"
+    },
+    {
+      "test": "Anonymous: profile and provider-ID column reads are denied",
+      "result": "PASS"
+    },
+    {
+      "test": "Local GET services: exact public columns and approved fixture only",
+      "result": "PASS"
+    },
+    {
+      "test": "Real provider/client password sessions and elevated admin execution (anonymous-only run)",
+      "result": "NOT_RUN"
+    }
+  ]
+}

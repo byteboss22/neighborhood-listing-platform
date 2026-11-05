@@ -88,3 +88,7 @@ fixtures; they do not claim hosted database integration. See actual results in
 PR preparation update: implementation commit `b1c51af` is already pushed on
 `exam/services-booking-eval`; the user has authorized an open PR into remote
 `main`. This does not authorize merging or deployment.
+
+Hosted verification continuation: the local project configuration and public
+fixture checks now work. See [live Supabase checks](live-supabase-checks.md)
+for the interactive real-account runner and the remaining evidence boundaries.

@@ -63,7 +63,36 @@ Secret-scan results and exact validation scope appear in
 checked, not proof that every possible credential format is absent. No statement
 of absolute credential absence or hosted security approval is made.
 
-## Development Supabase verification still required
+## Hosted development verification continuation
+
+The student applied the migration in a development project and provided an
+administrative SQL result confirming the fictional booking. Independently
+executed hosted Auth/PostgREST and localhost API checks now pass all 14 cases
+in [the live session report](evidence/midterm/live-supabase-admin-session-audit.json).
+They cover known approved/draft visibility, known booking privacy, protected
+profile/column access, actual provider/client sessions, own/cross-provider/live
+service updates, provider booking visibility, authenticated draft creation and
+cleanup, client service denial, targeted role-escalation denial, authenticated
+booking insertion and trusted service-role reads of all five tables/write access.
+
+The [interactive report](evidence/midterm/live-supabase-audit.json) separately
+records successful password logins for all three test accounts. Its single
+remaining failure came from the old combined client test's unfiltered UPDATE:
+the hosted safe-update guard returned 21000 rather than the expected 42501.
+Targeting the actual authenticated profile produces the required 42501 denial;
+the role is unchanged. The corrected follow-up was executed, not merely marked
+passing. Application code and RLS were not loosened to accommodate the test.
+
+The follow-up obtains ordinary user JWTs from admin-generated in-memory test
+links; no email is sent or password changed. Elevated credentials are used only
+for session provisioning and the explicit admin test. No credentials appear in
+the report. Details: [live check instructions](live-supabase-checks.md).
+
+Hosted PostgreSQL catalog confirmation of all five RLS flags and category/mapping
+positive/negative fixtures still need separate evidence. These are covered in
+embedded PostgreSQL but are not silently treated as completed hosted checks.
+
+## Development Supabase verification procedure and remaining evidence
 
 1. Use a new, non-production development Supabase project. Inspect existing
    `public.profiles`/other table names first; the migration intentionally fails
