@@ -268,3 +268,22 @@ the displayed model name (or “not shown” if unavailable), date, student deci
 on findings, verification performed, and the real associated commit. A proposed
 review or a response that was never obtained must remain NOT RUN. A student's
 reflection must be written/confirmed by the student rather than invented here.
+
+## P09 Student production confirmation
+
+```text
+okay now its working now that we merged to producation
+```
+
+The message included a screenshot of the rendered Fictional HVAC Inspection
+service card. After Codex requested the public production URL, Eric supplied:
+
+```text
+https://neighborhood-listing-platform-puce.vercel.app
+```
+
+The URL was verified with public HTTP/API requests and one fictional booking.
+The merge was independently observed through GitHub; it was not performed by
+Codex. Actual execution results are saved in
+`docs/evidence/midterm/production-deployment.json`, with the verification limits
+and credential-handling scope stated explicitly.

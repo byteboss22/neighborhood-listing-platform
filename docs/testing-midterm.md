@@ -124,9 +124,10 @@ hosted role/API tests.
 
 ## Still pending
 
-- Hosted role/API/category checks and student-provided catalog evidence are now
-  recorded. Hosted end-to-end testing after deployment remains pending. No
-  production database operation was performed.
+- Hosted role/API/category checks and student-provided catalog evidence are
+  recorded. The production HTTP/API and fictional booking round trip are now
+  independently verified as described below. No production schema migration
+  or destructive database operation was performed.
 - Independently review the code and evidence. No human approval, partner
   contribution, student keyboard verification, or instructor acceptance is
   inferred from automated tests.
@@ -138,3 +139,38 @@ hosted role/API tests.
   The implementation branch is pushed. PR creation is authorized and underway;
   hosting, any required partner email and Canvas submission remain pending.
   See [handoff](midterm-setup.md).
+
+## Production deployment follow-up
+
+Eric reported merging the exam work and supplied
+`https://neighborhood-listing-platform-puce.vercel.app`. GitHub independently
+confirms PR #2 is merged, with merge commit
+`5633c3fb4c4774a1229f09d817b30904f69b46d3`. The exact Vercel build SHA is not
+independently exposed by these HTTP checks and is not inferred from that merge.
+
+The executed [production report](evidence/midterm/production-deployment.json)
+contains 11 PASS outcomes:
+
+- Public homepage and services API return 200 without Vercel login redirects.
+  Only the known approved service and exactly the five public fields are returned.
+- Booking GET returns 405; invalid service/booking input and unknown owner/status
+  fields return structured 400 responses; a valid unauthenticated service POST
+  returns 401.
+- Same-origin downloaded browser JS contains neither the configured elevated
+  key, its variable name, nor the checked common Supabase secret-key pattern.
+  This is a bounded inspection, not an absolute guarantee for all secret formats.
+- A single fictional booking submitted to the production API returns only a 201
+  receipt. A separate trusted Supabase read confirms persistence in the configured
+  development dataset, and an anonymous query cannot read that new booking.
+
+Command: `node --env-file=.env.local scripts/verify-deployment.mjs` (exit 0).
+Lint and diff/credential checks were also run for the new runner. No user keys,
+passwords, tokens, or booking contact details appear in the report. Elevated
+credentials are used only in the local trusted Supabase check, never transmitted
+to Vercel by the runner. The fictional booking is retained as test evidence.
+
+The student screenshot shows the actual rendered approved service. The verifier
+does not claim automated production browser/keyboard testing; earlier local
+Chromium results remain separate evidence. The earlier protected preview URL
+and screenshot of temporary unavailability are historical troubleshooting
+evidence, superseded by the successful public production HTTP checks.
