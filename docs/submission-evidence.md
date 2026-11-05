@@ -6,9 +6,9 @@ supporting evidence unless the instructor requests a particular format.
 
 | Deliverable | Evidence / location | Current status |
 | --- | --- | --- |
-| Repository and open exam PR | [Repository](https://github.com/byteboss22/neighborhood-listing-platform), [PR #2](https://github.com/byteboss22/neighborhood-listing-platform/pull/2) | PR open; latest local evidence needs committing/pushing |
+| Repository and open exam PR | [Repository](https://github.com/byteboss22/neighborhood-listing-platform), [PR #2](https://github.com/byteboss22/neighborhood-listing-platform/pull/2) | PR open; hosted evidence published on the exam branch |
 | Preserved Lab 2 baseline | `lab2-baseline` at e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b | Preserved |
-| Implementation / verification commits | b1c51af implementation, 4a87d16 documentation, d8344a1 hosted verification framework | Present locally; additional category evidence is a follow-up |
+| Implementation / verification commits | b1c51af implementation, 4a87d16 documentation, d8344a1 hosted verification framework, 366c906 hosted evidence | Published on the existing exam branch |
 | Instructor collaborator | `pdt605` write-access invitation | Pending acceptance at last check |
 | Requirements and instructor questions | [requirements](requirements.md) | Three stories, estimates and traceability present; zone/district and deadline questions documented |
 | Migration | [exact versioned SQL](../supabase/migrations/20261029140000_exam_services_persistence.sql) | Applied by student to development Supabase; exercised locally and through live fixture queries |
@@ -27,8 +27,8 @@ supporting evidence unless the instructor requests a particular format.
 | Canvas submission | Repository + PR + deployment links, collaborator status and evidence statement | Pending |
 
 The hosted catalog result is now recorded with explicit student attribution.
-Publish the evidence follow-up on the existing exam branch so PR #2 includes
-the files. Continue with deployment,
+The evidence follow-up was published on the existing exam branch and PR #2 was
+updated to describe the results and remaining work. Continue with deployment,
 additional AI evidence, independent review, and final Canvas submission. Do not
 merge the exam PR merely to obtain a submission link; the assignment requests an
 open PR into main.
