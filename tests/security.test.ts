@@ -51,10 +51,11 @@ test("migration rebuild and PostgreSQL RLS positive/negative authorization matri
       VALUES ('${provider}','Fictional new service',20,30,5,'${status}') RETURNING id`;
 
     await t.test("all five tables have RLS enabled", async () => {
-      const result = await db.query<{ relrowsecurity: boolean }>(`SELECT relrowsecurity FROM pg_class
-        WHERE relnamespace='public'::regnamespace AND relkind='r'`);
+      const result = await db.query<{ table_name: string; table_exists: boolean; rls_enabled: boolean; policy_count: number }>(
+        await readFile("supabase/tests/exam_rls_catalog.sql", "utf8"),
+      );
       assert.equal(result.rows.length, 5);
-      assert.ok(result.rows.every((row) => row.relrowsecurity));
+      assert.ok(result.rows.every((row) => row.table_exists && row.rls_enabled && Number(row.policy_count) > 0));
     });
     await t.test("anonymous sees approved services, active categories and approved mappings only", async () => {
       await as("anon");

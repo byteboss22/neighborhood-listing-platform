@@ -10,6 +10,7 @@
     "test": "node --conditions=react-server --import tsx --test tests/*.test.ts",
     "test:ui": "playwright test",
     "test:live": "node --env-file=.env.local scripts/verify-supabase-live.mjs",
+    "test:live:categories": "node --env-file=.env.local scripts/verify-supabase-categories.mjs",
     "auth:reset-providers": "node --env-file=.env.local scripts/reset-test-passwords.mjs"
   },
   "dependencies": {

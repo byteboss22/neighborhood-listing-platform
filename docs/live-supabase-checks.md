@@ -105,3 +105,24 @@ TypeScript, whitespace and the bounded credential scan also passed.
 
 References: [administrative user update](https://supabase.com/docs/reference/javascript/auth-admin-updateuserbyid)
 and [Supabase API keys](https://supabase.com/docs/guides/getting-started/api-keys).
+
+## Additional hosted category evidence
+
+`npm run test:live:categories` now adds/retains two fictional category fixtures
+and mappings for the known approved/draft services. It refuses to overwrite a
+conflicting category fixture. It verifies public and real provider/client
+session reads, checks that unprivileged mutations return 42501, and verifies
+trusted administrative access. All eight executed checks passed; the report is
+`docs/evidence/midterm/live-supabase-categories.json`.
+
+The remaining hosted metadata evidence requires a database administrative query:
+open `supabase/tests/exam_rls_catalog.sql`, paste its contents into Supabase SQL
+Editor, and run it. Expect five rows, both boolean columns true for every row,
+and positive policy counts. Save the returned table or a screenshot with the
+result visible; API keys and passwords do not belong in the screenshot.
+
+The student supplied the expected five-row catalog result. It is now saved as
+`docs/evidence/midterm/hosted-rls-catalog.json`, attributed to the student's SQL
+Editor execution. All five tables exist, RLS is true on each, and policy counts
+match the migration. A separate screenshot is not required to represent the
+supplied table as evidence.

@@ -98,12 +98,35 @@ whitespace and the bounded credential scan also passed. Initial 20-test/build/
 browser logs above are retained as historical evidence; no new UI/build run is
 claimed for these CLI/test/documentation-only additions.
 
+## Hosted category/mapping evidence continuation
+
+All eight additional hosted checks passed in
+[the category/mapping report](evidence/midterm/live-supabase-categories.json).
+The trusted operator seeded two fictional categories (active/inactive) and
+approved/draft service mappings without changing the schema. Actual anonymous,
+provider and client reads expose only the expected fixtures; provider/client
+category updates and mapping inserts are denied; administrative category writes
+succeed. User requests use ordinary JWTs obtained through the documented
+admin-generated-session method. No passwords, keys or tokens are recorded.
+
+The read-only [catalog query](../supabase/tests/exam_rls_catalog.sql) is ready for
+the student's Supabase SQL Editor. It reports all five required table names,
+whether each exists, its actual RLS flag and policy count. The query is also
+executed by the local PostgreSQL suite; that local result does not stand in for
+the student's hosted catalog result.
+
+The student has now supplied that hosted result: all five tables exist, all RLS
+flags are true, and policy counts match the migration (2/1/1/1/5 in sorted table
+order). It is preserved with explicit source attribution in
+[hosted catalog evidence](evidence/midterm/hosted-rls-catalog.json). This is a
+student-provided administrative result, distinct from the independently executed
+hosted role/API tests.
+
 ## Still pending
 
-- Hosted category/mapping fixture tests and administrative catalog evidence of
-  all five RLS flags remain pending. The migration was applied by the student,
-  and the executed hosted role/API follow-up is linked above. No production
-  database operation was performed.
+- Hosted role/API/category checks and student-provided catalog evidence are now
+  recorded. Hosted end-to-end testing after deployment remains pending. No
+  production database operation was performed.
 - Independently review the code and evidence. No human approval, partner
   contribution, student keyboard verification, or instructor acceptance is
   inferred from automated tests.

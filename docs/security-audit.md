@@ -88,9 +88,19 @@ links; no email is sent or password changed. Elevated credentials are used only
 for session provisioning and the explicit admin test. No credentials appear in
 the report. Details: [live check instructions](live-supabase-checks.md).
 
-Hosted PostgreSQL catalog confirmation of all five RLS flags and category/mapping
-positive/negative fixtures still need separate evidence. These are covered in
-embedded PostgreSQL but are not silently treated as completed hosted checks.
+The eight additional hosted category/mapping checks now pass in
+[their separate report](evidence/midterm/live-supabase-categories.json), covering
+active/inactive categories, approved/draft mappings, authenticated reads and
+forbidden writes, and trusted administrative access. They use fictional fixtures
+and do not equate category activity with coverage-zone activity.
+
+The student subsequently supplied the hosted five-row result from
+[the catalog query](../supabase/tests/exam_rls_catalog.sql), preserved with source
+attribution in [catalog evidence](evidence/midterm/hosted-rls-catalog.json).
+All five tables exist and have RLS enabled. Policy counts are bookings 2,
+profiles 1, categories 1, mappings 1 and services 5, matching the migration.
+Codex compared/transcribed that result; it did not directly execute the hosted
+catalog query. The separately executed live checks establish actual role behavior.
 
 ## Development Supabase verification procedure and remaining evidence
 
