@@ -92,3 +92,12 @@ PR preparation update: implementation commit `b1c51af` is already pushed on
 Hosted verification continuation: the local project configuration and public
 fixture checks now work. See [live Supabase checks](live-supabase-checks.md)
 for the interactive real-account runner and the remaining evidence boundaries.
+
+Production follow-up: the student merged PR #2 and supplied the public URL
+`https://neighborhood-listing-platform-puce.vercel.app`. The production HTTP/API
+and fictional booking persistence/privacy checks passed; see
+[production evidence](evidence/midterm/production-deployment.json). Reproduce
+with `node --env-file=.env.local scripts/verify-deployment.mjs`; this creates one
+fictional booking and retains it as evidence. These results supersede the older
+deployment-pending notes above. The exact Vercel build SHA and automated
+production keyboard navigation are not claimed.

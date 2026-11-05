@@ -6,7 +6,7 @@ supporting evidence unless the instructor requests a particular format.
 
 | Deliverable | Evidence / location | Current status |
 | --- | --- | --- |
-| Repository and open exam PR | [Repository](https://github.com/byteboss22/neighborhood-listing-platform), [PR #2](https://github.com/byteboss22/neighborhood-listing-platform/pull/2) | PR open; hosted evidence published on the exam branch |
+| Repository and exam PR | [Repository](https://github.com/byteboss22/neighborhood-listing-platform), [PR #2](https://github.com/byteboss22/neighborhood-listing-platform/pull/2) | Student merged PR #2; confirm instructor accepts a merged PR because the specification requests an open PR |
 | Preserved Lab 2 baseline | `lab2-baseline` at e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b | Preserved |
 | Implementation / verification commits | b1c51af implementation, 4a87d16 documentation, d8344a1 hosted verification framework, 366c906 hosted evidence | Published on the existing exam branch |
 | Instructor collaborator | `pdt605` write-access invitation | Pending acceptance at last check |
@@ -22,13 +22,19 @@ supporting evidence unless the instructor requests a particular format.
 | Credentials and ignore rules | [scanner](../scripts/scan-secrets.py), [initial result](evidence/midterm/secret-scan.txt) | Bounded scans found zero configured-pattern matches; rerun before final push |
 | Dependency audit | [full report](evidence/midterm/dependency-audit.json), [production report](evidence/midterm/production-audit.txt) | 16 moderate development-tooling findings remain; zero production findings at last audit |
 | AI provenance | [journal](ai-log.md), [task prompts](ai-prompts-midterm.md) | Codex evidence recorded; genuine additional Gemini/AI Studio evidence still required |
-| Hosted deployment | Hosting dashboard and live application URL | Pending deployment and hosted smoke/booking tests |
+| Hosted deployment | [Production app](https://neighborhood-listing-platform-puce.vercel.app), [executed production evidence](evidence/midterm/production-deployment.json) | 11 HTTP/API/security/persistence checks passed; student supplied a screenshot of the service card |
 | Student / partner review | Independent review and attributable work | Complete genuinely; do not infer from automated tests |
 | Canvas submission | Repository + PR + deployment links, collaborator status and evidence statement | Pending |
 
-The hosted catalog result is now recorded with explicit student attribution.
-The evidence follow-up was published on the existing exam branch and PR #2 was
-updated to describe the results and remaining work. Continue with deployment,
-additional AI evidence, independent review, and final Canvas submission. Do not
-merge the exam PR merely to obtain a submission link; the assignment requests an
-open PR into main.
+The student subsequently merged PR #2 and supplied the public production URL.
+GitHub confirms merge commit `5633c3fb4c4774a1229f09d817b30904f69b46d3`.
+The merged PR is authentic historical evidence; do not claim it remains open or
+attempt to manufacture an empty replacement. Confirm the submission requirement
+with the instructor. No merge/revert was performed by the deployment verifier.
+
+The production-verification report and these latest documentation updates are
+a local follow-up on the exam branch, after the PR merge. They still need normal
+review/publication if they are to appear in the submitted repository revision.
+Additional AI evidence, independent review, collaborator acceptance and Canvas
+submission remain pending. Production HTTP verification is complete; automated
+production browser/keyboard testing is not claimed.

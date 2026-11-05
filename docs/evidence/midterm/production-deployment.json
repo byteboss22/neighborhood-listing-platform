@@ -1,0 +1,55 @@
+{
+  "recorded_at": "2026-11-05T02:27:45.156Z",
+  "deployment_url": "https://neighborhood-listing-platform-puce.vercel.app/",
+  "local_reference_commit": "c4d2f7b4c8d23b49532b1fadff23ad9954d93044",
+  "scope": "Unauthenticated production HTTP/API checks, same-origin browser JS pattern inspection, one fictional booking and local trusted Supabase confirmation. No credentials are sent to Vercel by this runner.",
+  "limitations": "Does not independently identify the deployed Git SHA or automate production keyboard navigation/browser rendering. Local-reference commit is not a claim about the Vercel build SHA. Prior browser tests and the student screenshot are separate evidence. A bounded JS scan does not prove absence of every possible secret.",
+  "browser_chunks_checked": 7,
+  "fixture_note": "One fictional booking is retained as verification evidence. No migration or production schema change was performed.",
+  "outcomes": [
+    {
+      "test": "Public production homepage returns 200 and contains the services section",
+      "result": "PASS"
+    },
+    {
+      "test": "Production services GET returns the approved fixture and exactly the public columns",
+      "result": "PASS"
+    },
+    {
+      "test": "Production booking GET is unavailable (405)",
+      "result": "PASS"
+    },
+    {
+      "test": "Invalid production service input returns structured 400",
+      "result": "PASS"
+    },
+    {
+      "test": "Production service POST rejects unknown owner/status fields with 400",
+      "result": "PASS"
+    },
+    {
+      "test": "Valid production service POST without authentication returns 401",
+      "result": "PASS"
+    },
+    {
+      "test": "Invalid production booking input returns structured 400",
+      "result": "PASS"
+    },
+    {
+      "test": "Downloaded browser JS contains no configured elevated key or common Supabase secret literal",
+      "result": "PASS"
+    },
+    {
+      "test": "Fictional booking submitted through production API returns only 201 receipt",
+      "result": "PASS"
+    },
+    {
+      "test": "Trusted database read confirms the production-submitted fictional booking persisted",
+      "result": "PASS"
+    },
+    {
+      "test": "Anonymous database access cannot read the new production-submitted booking",
+      "result": "PASS"
+    }
+  ]
+}
