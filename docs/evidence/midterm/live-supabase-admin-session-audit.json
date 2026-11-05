@@ -1,0 +1,67 @@
+{
+  "recorded_at": "2026-11-05T01:30:43.536Z",
+  "implementation_commit": "4a87d16558a45ad34942d92cc6b68bfef96d067c",
+  "mode": "admin-generated-user-sessions",
+  "authentication_note": "User JWTs were obtained by verifying in-memory admin-generated links for existing fictional users. No email was sent and no password was changed. This mode does not test password entry.",
+  "scope": "Hosted Supabase Auth/PostgREST and localhost API; no passwords, keys, tokens or contact details recorded.",
+  "fixture_note": "Requires the three fictional seeded services and the known public booking. Provider updates retain existing titles. A temporary audit service is deleted; an authenticated fictional audit booking is retained.",
+  "limitations": "Does not inspect PostgreSQL RLS enablement metadata or prove inactive-category filtering without category fixtures. NOT_RUN items remain pending.",
+  "outcomes": [
+    {
+      "test": "Anonymous: known approved service is visible; both known drafts are hidden",
+      "result": "PASS"
+    },
+    {
+      "test": "Anonymous: known persisted booking is hidden",
+      "result": "PASS"
+    },
+    {
+      "test": "Anonymous: profile and provider-ID column reads are denied",
+      "result": "PASS"
+    },
+    {
+      "test": "Local GET services: exact public columns and approved fixture only",
+      "result": "PASS"
+    },
+    {
+      "test": "Provider A: real Auth admin-generated test session and protected profile role",
+      "result": "PASS"
+    },
+    {
+      "test": "Merchant B: real Auth admin-generated test session and protected profile role",
+      "result": "PASS"
+    },
+    {
+      "test": "Client: real Auth admin-generated test session and protected profile role",
+      "result": "PASS"
+    },
+    {
+      "test": "Providers: own draft update succeeds; other-provider/live-service updates affect zero rows",
+      "result": "PASS"
+    },
+    {
+      "test": "Providers: A sees the known booking; B cannot read it",
+      "result": "PASS"
+    },
+    {
+      "test": "Provider API: real bearer session persists own draft with 201; own draft deletion succeeds",
+      "result": "PASS"
+    },
+    {
+      "test": "Client: service submission API returns 403",
+      "result": "PASS"
+    },
+    {
+      "test": "Client: own-profile role escalation is denied and role remains client",
+      "result": "PASS"
+    },
+    {
+      "test": "Client: real authenticated booking INSERT succeeds, with no booking read access",
+      "result": "PASS"
+    },
+    {
+      "test": "Trusted admin: reads all five tables and updates an already-approved service",
+      "result": "PASS"
+    }
+  ]
+}

@@ -2,6 +2,7 @@ import PropertyExplorer from "@/components/PropertyExplorer";
 import { properties } from "@/data/properties";
 import SponsorBanner from "@/components/SponsorBanner";
 import type { Sponsor } from "@/types";
+import ServiceExplorer from "@/components/ServiceExplorer";
 
 const features = [
   {
@@ -74,6 +75,11 @@ export default function Home() {
             original illustrations do not advertise real rentals.
           </p>
           <PropertyExplorer properties={properties} />
+        </section>
+        <section aria-labelledby="services-heading" className="mt-16">
+          <h2 id="services-heading" className="text-3xl font-semibold tracking-tight">Local services &amp; appointments</h2>
+          <p className="mt-3 text-zinc-600 dark:text-zinc-300">Browse approved services and request an appointment with a local provider.</p>
+          <ServiceExplorer />
         </section>
       </div>
     </main>
