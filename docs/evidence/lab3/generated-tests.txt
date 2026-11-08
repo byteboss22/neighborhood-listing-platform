@@ -1,0 +1,28 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test
+> tsx --test tests/*.test.ts
+
+✔ student-supplied AI Studio generation preserves source facts and passes both validators before UI mapping (2.892291ms)
+✔ five fictional records validate through both Zod and exported JSON Schema (0.163875ms)
+✔ missing-id fails for the expected path in Zod and JSON Schema (0.642375ms)
+✔ negative-price fails for the expected path in Zod and JSON Schema (0.331167ms)
+✔ bad-zip fails for the expected path in Zod and JSON Schema (0.251917ms)
+✔ unknown-property-field fails for the expected path in Zod and JSON Schema (0.31225ms)
+✔ unknown fields are rejected at root, address and sponsor boundaries (0.344625ms)
+✔ duplicate property and sponsor primary keys are denied (0.188542ms)
+✔ missing sponsor reference and repeated relationship are denied (0.174167ms)
+✔ amenities use controlled values with no repeated membership (0.200292ms)
+✔ zero rent and studio bedrooms are valid; negative dimensions are denied (0.495834ms)
+✔ US ZIP values retain leading zeroes and support ZIP+4 (0.296083ms)
+✔ price precision, fractional bedrooms and unsupported units fail (0.282958ms)
+✔ local image allowlist and fictional HTTPS destinations reject unsafe URLs (0.238792ms)
+✔ invalid source data fails closed before any property reaches the UI (0.11575ms)
+✔ malformed containers and whitespace-only facts fail safely (0.139958ms)
+ℹ tests 16
+ℹ suites 0
+ℹ pass 16
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 185.657875

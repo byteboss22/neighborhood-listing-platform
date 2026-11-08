@@ -1,17 +1,25 @@
-# Raw external-model generations — pending
+# Student-supplied AI Studio generation
 
-No AI Studio response has been supplied for Lab 3 yet. Do not label the local
-`data/fixtures/listings.synthetic.json` fixture as AI Studio output.
+`ai-studio-attempt-01.json` contains the JSON Eric pasted as AI Studio's original
+first attempt. It was saved without altering values; the [verification report](../../docs/evidence/lab3/generated-data-verification.json)
+records its SHA-256, independent local checks and equality to the fictional source
+facts. Identical values are expected because the prompt requested preservation
+of all source facts. The original `data/fixtures/listings.synthetic.json` remains
+separately labeled Codex-authored source/test data.
 
-After using the [prepared prompts](../../docs/lab3/ai-prompts.md), retain the
-unaltered first response as `ai-studio-attempt-01.json` (or `.txt` if not JSON).
-Record the displayed model, exact prompt/schema, settings, date and source facts.
-Run the validator and retain its real error output. If regeneration is needed,
-keep the first attempt and save the next response separately; never edit the raw
-file and describe it as unmodified model output. If the first response is valid,
-record that fact rather than inventing a failed generation. Intentional invalid
-fixtures are separate authored tests, not claimed model mistakes.
+Model, timestamp and external execution details are attributed to the
+[student-supplied Studio report](../../docs/evidence/lab3/ai-studio-generation-and-review.md),
+not independently observed Studio UI state. The dataset was not reconstructed
+from that report or silently repaired. The received first attempt passed locally;
+no failed generation or regeneration cycle is invented. Authored invalid fixtures
+remain separate from the model output.
 
-Only fictional source facts and reserved example-domain links are permitted.
-Provide the assignment-required redacted AI Studio prompt/export screenshot
-separately. Do not include account details, credentials or personal data.
+The page now imports this dataset through `listingView`. Zod and cross-record
+checks run at the boundary; the test suite independently validates it with Ajv
+and verifies source-fact preservation. Do not edit the stored response to hide a
+future validation failure. Save future attempts separately if needed.
+
+An AI Studio retrieval screenshot was subsequently supplied in chat; its
+[observation record](../../docs/evidence/lab3/ai-studio-screenshot-observation.md)
+records its scope and links the actual image, now saved and inspected. Never
+commit account details, credentials or personal information with the evidence.

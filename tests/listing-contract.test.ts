@@ -9,6 +9,21 @@ const seed = JSON.parse(readFileSync(new URL("../data/fixtures/listings.syntheti
 const ajv = new Ajv2020({ allErrors: true });
 const structural = ajv.compile(listingJsonSchema());
 
+test("student-supplied AI Studio generation preserves source facts and passes both validators before UI mapping", () => {
+  const generated = JSON.parse(readFileSync(new URL("../data/generated/ai-studio-attempt-01.json", import.meta.url), "utf8"));
+  assert.deepEqual(generated, seed, "Generation must preserve the supplied fictional facts.");
+  assert.equal(structural(generated), true, JSON.stringify(structural.errors));
+  const result = validateListingBundle(generated);
+  assert.equal(result.success, true);
+  if (!result.success) return;
+  assert.equal(result.data.properties.length, 5);
+  assert.equal(result.data.sponsors.length, 3);
+  assert.equal(result.relationships.length, 6);
+  const view = listingView(generated);
+  assert.equal(view.success, true);
+  if (view.success) assert.equal(view.properties.length, 5);
+});
+
 test("five fictional records validate through both Zod and exported JSON Schema", () => {
   const result = validateListingBundle(seed);
   assert.equal(result.success, true);

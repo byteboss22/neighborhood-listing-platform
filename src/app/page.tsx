@@ -1,5 +1,5 @@
 import PropertyExplorer from "@/components/PropertyExplorer";
-import listingSeed from "../../data/fixtures/listings.synthetic.json";
+import listingSeed from "../../data/generated/ai-studio-attempt-01.json";
 import { listingView } from "@/lib/listingView";
 import SponsorBanner from "@/components/SponsorBanner";
 

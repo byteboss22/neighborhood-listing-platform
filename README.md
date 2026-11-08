@@ -62,5 +62,9 @@ is claimed by this repository integration.
 See [Lab 3 checklist](docs/lab3/checklist.md), [ADR 001](docs/adr/001-data-contract.md)
 and [actual validation evidence](docs/evidence/lab3/verification.json).
 Run `npm run validate:data`, `npm test`, and `npm run schema:check`.
-Current fixtures are Codex-authored synthetic test inputs. Actual AI Studio raw
-output and Gemini review remain pending; no deployment or completed Lab 3 is claimed.
+Codex-authored source fixtures remain separate from the student-supplied AI Studio
+first generation now rendered through validation. See [generation notes](docs/data-generation-notes.md)
+and [16-test follow-up evidence](docs/evidence/lab3/generated-data-verification.json).
+Gemini review, the student's hardening decision and the actual Studio retrieval
+screenshot are recorded. Publication/PR and deployment remain pending; no
+completed submission is claimed.

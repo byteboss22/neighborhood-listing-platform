@@ -1,0 +1,207 @@
+Ran check lab3 directory · Exited with code 1
+Ran find files in current repo
+Ran list git worktrees
+Ran read listing.ts via git
+Ran list files in lab3/data-contracts
+Ran read docs/lab3/ai-prompts.md
+Ran read schemas/listing-bundle.schema.json
+Ran read src/lib/listingView.ts
+Ran read docs/adr/001-data-contract.md
+Ran read data/fixtures/listings.synthetic.json
+Ran read tests/listing-contract.test.ts
+Ran read src/app/page.tsx in lab3
+Ran read export-listing-schema.ts
+Ran read validate-listings.ts
+Ran read bad-zip.json
+Ran read unknown-property-field.json
+Ran read missing-id.json
+Ran read negative-price.json
+
+# CIS 3610 Lab 3: Normalization & Adversarial Data Contract Review
+
+---
+
+## 1. Scope, Limitations & Ethical Boundaries
+
+> [!NOTE]
+> **Review Scope & Limitations**:
+> - **Static Contract & Architecture Review**: This evaluation is based on static inspection of the supplied Lab 3 files (`src/schemas/listing.ts`, `schemas/listing-bundle.schema.json`, `src/lib/listingView.ts`, `docs/adr/001-data-contract.md`, `data/fixtures/listings.synthetic.json`, and `tests/listing-contract.test.ts`).
+> - **No Execution or Deployment Claims**: I make no claim to execute test suites, inspect live deployments, or issue formal course grade approval.
+> - **Data & Ethical Hygiene**: All fixtures and references use fictional entities (`example.com`, fictional street names) with zero real-world client data or secrets. No racial, socioeconomic, or protected-class demographic targeting or stereotyping is evaluated or introduced.
+
+---
+
+## 2. Business Rule Ambiguities Identified Prior to Rule Recommendations
+
+Before evaluating or prescribing new validation constraints, the following domain and business rule ambiguities in the current specification must be recognized:
+
+1. **Dwelling Habitation vs. Room Counts ($0\text{ Bed} / 0\text{ Bath}$)**:
+   - The contract permits `bedrooms: 0` for studio apartments. However, `bathrooms: z.number().nonnegative().multipleOf(0.5)` also mathematically allows `bathrooms: 0`. While a zero-bedroom studio is standard in residential real estate, a dwelling unit with zero bathrooms is generally uninhabitable or indicates a non-residential/commercial space. Whether $0\text{ bath}$ represents shared facility housing or an invalid entry is an unresolved business ambiguity.
+2. **Subsidized vs. Zero-Price Listings ($\$0.00\text{ Rent}$)**:
+   - The schema defines `price: z.number().nonnegative()`, permitting `$0.00`. The ADR notes that zero rent is valid (e.g., subsidized or community properties). However, it remains unspecified whether `$0.00` in a commercial listing exchange should be categorized under a distinct transaction type (e.g., `listing_type: "community"` vs `"rental"`) to prevent accidental publication of unpriced units.
+3. **Sponsor Relational Cardinality & Orphaned Sponsors**:
+   - The schema allows `local_sponsors: []` on a property (0 sponsors). It also allows a sponsor to exist in `sponsors` without being referenced by any property in `properties` (an unlinked or orphaned sponsor). Whether every sponsor in a bundle must sponsor at least one property or can exist as an unlinked catalog entry is unstated in the requirements.
+4. **Geographic Linkage Between Property and Sponsor**:
+   - Properties contain street, city, state, and ZIP; sponsors contain only business name and URL. There is no geographic validation linking a sponsor to a neighborhood. The ADR explicitly flags this as deferred to future labs; treating geographic proximity as an enforced constraint today would be an unverified assumption.
+
+---
+
+## 3. Normalization & Identity Integrity Audit
+
+### Property, Sponsor, and Derived `PropertySponsor` Identities
+- **Files Cited**: [`src/schemas/listing.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L3), [`docs/adr/001-data-contract.md`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/docs/adr/001-data-contract.md#L37-L44)
+- **Evaluation**:
+  - `property_id` and `sponsor_id` are constrained to lowercase kebab-case slugs via `const identifier = z.string().min(3).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/)`. This avoids non-URL-safe characters and database row positional coupling.
+  - **Normalization Decision (3NF Compliance)**: Sponsor business names and URLs are not duplicated inside property records. Properties store only foreign key references in `local_sponsors: string[]`.
+  - In [`src/schemas/listing.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L71-L76), `PropertySponsor` is derived as a composite relation `{ property_id, sponsor_id }`. This cleanly bridges document-oriented JSON bundles with relational storage (e.g., a SQL join table) without maintaining redundant top-level arrays.
+
+### Duplicate Membership & Primary Key Collisions
+- **Files Cited**: [`src/schemas/listing.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L59-L69)
+- **Evaluation**:
+  - `validateListingBundle` enforces primary key uniqueness for both entities using `Set` size checks:
+    ```typescript
+    unique(parsed.data.properties.map((p) => p.property_id), "properties");
+    unique(parsed.data.sponsors.map((s) => s.sponsor_id), "sponsors");
+    ```
+  - Duplicate sponsor membership within a single property (e.g., `local_sponsors: ["sponsor-a", "sponsor-a"]`) is explicitly prohibited via `unique(property.local_sponsors, ...)`.
+  - Duplicate amenity assignment within a single property is blocked via `unique(property.amenities, ...)`.
+
+### Dangling References (Referential Integrity)
+- **Files Cited**: [`src/schemas/listing.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L65-L75)
+- **Evaluation**:
+  - `validateListingBundle` collects all declared sponsor IDs into a `Set` (`const sponsorIds = new Set(...)`) and iterates over every property’s `local_sponsors`.
+  - Any reference to a sponsor ID not present in `sponsors` generates a structured `ContractIssue` with path `properties.${index}.local_sponsors.${sponsorIndex}` and message `"Referenced sponsor does not exist in this bundle."`.
+  - Dangling references are completely blocked before any record reaches application consumers.
+
+### Amenities Normalization
+- **Files Cited**: [`src/schemas/listing.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L6), [`docs/adr/001-data-contract.md`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/docs/adr/001-data-contract.md#L46-L51)
+- **Evaluation**:
+  - Amenities are restricted to a closed enumerated vocabulary:
+    `["parking", "laundry", "elevator", "balcony", "garden", "air_conditioning"] as const`.
+  - This prevents typographical anomalies, casing discrepancies (`"Parking"` vs `"parking"`), and arbitrary strings. Combined with the `unique` check on amenities, it maintains set semantics for property features without the premature overhead of a full relational join entity.
+
+---
+
+## 4. Data Contract Integrity & Format Verification
+
+### US ZIP Strings
+- **Files Cited**: [`src/schemas/listing.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L16), [`schemas/listing-bundle.schema.json`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/schemas/listing-bundle.schema.json#L53-L56)
+- **Evaluation**:
+  - Pattern: `^[0-9]{5}(?:-[0-9]{4})?$`.
+  - Using a `string` primitive rather than an integer is critical: it preserves leading zeros for East Coast postal codes (e.g., `"01234"`), which would otherwise truncate to `1234` in numeric types or violate JSON numeric specifications.
+  - The regex accurately supports both standard 5-digit ZIP codes and 9-digit ZIP+4 extensions while rejecting malformed delimiters.
+
+### Nonnegative Monthly USD Prices
+- **Files Cited**: [`src/schemas/listing.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L17-L19), [`schemas/listing-bundle.schema.json`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/schemas/listing-bundle.schema.json#L57-L69)
+- **Evaluation**:
+  - `price` enforces `.nonnegative()` and `.multipleOf(0.01)`, ensuring cent-precision currency without sub-cent floating-point artifacts.
+  - `currency: z.literal("USD")` and `price_period: z.literal("month")` fix the economic unit of measurement, preventing international currency confusion or weekly/daily rate mismatches.
+
+### Strict Unknown-Field Rejection
+- **Files Cited**: [`src/schemas/listing.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L9-L38), [`schemas/listing-bundle.schema.json`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/schemas/listing-bundle.schema.json)
+- **Evaluation**:
+  - In Zod: `z.strictObject` is applied at all four object boundaries: root bundle, `propertySchema`, `address`, and `sponsorSchema`.
+  - In JSON Schema: `"additionalProperties": false` is exported across all four corresponding object schemas.
+  - Any extraneous keys (e.g., accidental model hallucinations, tracking tokens, or internal notes) immediately fail validation.
+
+### Safe UI Handling of Invalid Input (Fail-Closed Architecture)
+- **Files Cited**: [`src/lib/listingView.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/lib/listingView.ts#L4-L24), [`src/app/page.tsx`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/app/page.tsx#L27-L73)
+- **Evaluation**:
+  - [`src/lib/listingView.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/lib/listingView.ts#L6-L10) takes `unknown` input and executes `validateListingBundle(input)`. If validation fails, it returns `{ success: false, error: "Sample listings are unavailable because their data did not pass validation." }`.
+  - **No Partial or Corrupted Rendering**: If even one listing or sponsor is corrupted, `properties` is omitted from the return type, preventing partial or unverified listings from leaking into the UI.
+  - **Data Exposure Boundary**: Detailed internal schema paths and Zod errors are omitted from client-facing strings, avoiding diagnostic stack leaks.
+  - In [`src/app/page.tsx`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/app/page.tsx#L68-L72), the component checks `listings.success`. If false, both `PropertyExplorer` and `SponsorBanner` are omitted, and a polite accessible status message (`<p role="status">`) is rendered.
+
+---
+
+## 5. JSON Schema Structural Checks vs. Cross-Record Integrity Checks
+
+An essential architectural requirement is maintaining a clear distinction between what JSON Schema (Draft 2020-12) can enforce declaratively versus what requires imperative application validation:
+
+```
+┌────────────────────────────────────────────────────────┬────────────────────────────────────────────────────────┐
+│ Expressible in JSON Schema (Draft 2020-12)             │ Requires Imperative / Application Integrity Checks     │
+├────────────────────────────────────────────────────────┼────────────────────────────────────────────────────────┤
+│ Primitive types (string, number, integer, boolean)     │ Cross-record primary key uniqueness (property_id)      │
+│ Required fields & strict rejection (additionalProps)   │ Cross-record primary key uniqueness (sponsor_id)       │
+│ Regex formats (ZIP code, slug IDs, state code)         │ Foreign key referential integrity (local_sponsors)     │
+│ String lengths & non-whitespace patterns               │ Set uniqueness on primitive arrays (without custom kw) │
+│ Range constraints (nonnegative price, cent multiple)   │ Generation of derived PropertySponsor join rows        │
+│ Enumerated controlled vocabularies (amenities, types)  │ Fail-closed view transformation and field projection   │
+└────────────────────────────────────────────────────────┴────────────────────────────────────────────────────────┘
+```
+
+1. **Structural Enforcement (JSON Schema & Zod)**:
+   - Validates individual record shape, constraints, and field-level types.
+   - Handled natively in [`schemas/listing-bundle.schema.json`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/schemas/listing-bundle.schema.json) and compiled cleanly via tools like Ajv.
+2. **Relational / Cross-Record Integrity (TypeScript)**:
+   - Standard JSON Schema cannot reference sibling array elements or express foreign-key constraints (e.g., verifying that string $X$ in array $A$ exists in array $B$).
+   - [`src/schemas/listing.ts:validateListingBundle`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L52-L78) correctly isolates these checks in the second phase of validation after structural parsing succeeds.
+
+---
+
+## 6. Recommended Boundary Test Matrix
+
+To test contract defenses against model drift or malformed input, the following boundary cases are recommended:
+
+### A. Valid Boundary Cases
+
+| Case ID | Boundary Description | Input Values / Configuration | Expected Result & Architectural Reason |
+| :--- | :--- | :--- | :--- |
+| **VAL-01** | Subsidized Zero-Rent Unit | `price: 0.00`, `bedrooms: 1`, `bathrooms: 1` | **PASS**: Nonnegative numeric allows `$0.00` for subsidized or community housing. |
+| **VAL-02** | Studio Minimal Dwelling | `bedrooms: 0`, `bathrooms: 1`, `square_feet: 350` | **PASS**: `bedrooms: 0` is valid for studio properties. |
+| **VAL-03** | East Coast ZIP with Leading Zero | `zip_code: "01234"` | **PASS**: String data type preserves leading zero; regex matches 5 digits. |
+| **VAL-04** | Standard ZIP+4 Extension | `zip_code: "90001-1234"` | **PASS**: Matches optional 4-digit extension pattern with hyphen. |
+| **VAL-05** | Half-Bathroom Granularity | `bathrooms: 1.5`, `bathrooms: 2.0`, `bathrooms: 0.5` | **PASS**: Satisfies `multipleOf: 0.5` representing powder rooms or half-baths. |
+| **VAL-06** | Property with Zero Sponsors | `local_sponsors: []` | **PASS**: Array permits `minItems: 0` for independent properties. |
+
+### B. Intentionally Invalid Boundary Cases
+
+| Case ID | Boundary Description | Fault Injected | Expected Failure & Validator Layer |
+| :--- | :--- | :--- | :--- |
+| **INV-01** | Dangling Sponsor Reference | `local_sponsors: ["nonexistent-sponsor"]` | **REJECT** (`ContractIssue`): Caught by cross-record check in `validateListingBundle`. |
+| **INV-02** | Duplicate Sponsor in Listing | `local_sponsors: ["s-1", "s-1"]` | **REJECT** (`ContractIssue`): Duplicate relationship rejected by `unique()` in `validateListingBundle`. |
+| **INV-03** | Duplicate Amenity | `amenities: ["parking", "parking"]` | **REJECT** (`ContractIssue`): Duplicate amenity rejected by `unique()` in `validateListingBundle`. |
+| **INV-04** | Primary Key Collision | Two properties with `property_id: "prop-1"` | **REJECT** (`ContractIssue`): Primary key uniqueness check in `validateListingBundle`. |
+| **INV-05** | Sub-cent Currency Fraction | `price: 1850.999` | **REJECT** (Structural): Fails `multipleOf: 0.01` in Zod and JSON Schema. |
+| **INV-06** | Fractional Bedrooms | `bedrooms: 2.5` | **REJECT** (Structural): Fails `type: "integer"` in Zod and JSON Schema. |
+| **INV-07** | Whitespace-Only Text | `title: "      "` | **REJECT** (Structural): Fails `pattern: "\\S"` in Zod and JSON Schema. |
+| **INV-08** | Extraneous Property Field | `properties[0].is_featured = true` | **REJECT** (Structural): Fails `additionalProperties: false` in Zod and JSON Schema. |
+| **INV-09** | Zero Bathrooms | `bathrooms: 0` *(if bathroom minimum rule applied)* | **REJECT**: Fails if minimum bathrooms is tightened from `nonnegative` to `.min(0.5)`. |
+
+---
+
+## 7. Accepted Decisions vs. Recommended Modifications
+
+### Accepted Architecture & Implementations
+1. **Single Source of Truth ([`src/schemas/listing.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts))**:
+   - Inferring TypeScript types directly from Zod schemas and generating Draft 2020-12 JSON Schema via [`scripts/export-listing-schema.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/scripts/export-listing-schema.ts) guarantees zero drift between application runtime validation and external JSON Schema artifacts.
+2. **Strict Object Enclosure**:
+   - `additionalProperties: false` across all root and nested levels prevents unexpected payload pollution.
+3. **Postal String Representation**:
+   - Preserving ZIP codes as formatted strings rather than integers correctly maintains postal integrity across all US delivery regions.
+4. **Normalized Relational Derivation**:
+   - Storing sponsor profiles once and resolving `PropertySponsor` dynamically avoids data redundancy and synchronization errors.
+5. **Fail-Closed Presentation Layer ([`src/lib/listingView.ts`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/lib/listingView.ts))**:
+   - Complete suppression of corrupted datasets prevents client-side rendering anomalies.
+
+### Recommended Modifications & Hardening
+1. **Disallow Zero Bathrooms in Residential Dwellings**:
+   - *Current Code*: [`src/schemas/listing.ts:20`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L20)
+     ```typescript
+     bathrooms: z.number().nonnegative().multipleOf(0.5),
+     ```
+   - *Finding*: `nonnegative()` allows `0`. A residential unit cannot have 0 bathrooms.
+   - *Recommendation*: Update to `z.number().min(0.5).multipleOf(0.5)`.
+2. **Emit `uniqueItems: true` in JSON Schema for Arrays**:
+   - *Current Code*: [`src/schemas/listing.ts:21-22`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L21-L22)
+     ```typescript
+     amenities: z.array(z.enum(amenities)),
+     local_sponsors: z.array(identifier),
+     ```
+   - *Finding*: In the exported JSON Schema ([`schemas/listing-bundle.schema.json`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/schemas/listing-bundle.schema.json#L81-L107)), neither array includes `"uniqueItems": true`. Duplicate elimination currently relies exclusively on the imperative JavaScript `validateListingBundle` function.
+   - *Recommendation*: If supported by the Zod-to-JSON-Schema converter (or via custom post-processing), emit `"uniqueItems": true` so standard JSON Schema validators (e.g., in other programming languages or CLI validators) catch duplicate amenities and duplicate sponsor references structurally.
+3. **Upper-Bound Limits on String Fields (DoS Prevention)**:
+   - *Current Code*: [`src/schemas/listing.ts:4`](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/src/schemas/listing.ts#L4)
+   - *Finding*: `text` enforces `min(1)` and non-whitespace, but does not enforce maximum string length on `title`, `street`, or `city`.
+   - *Recommendation*: Introduce reasonable ceiling limits (e.g., `text.min(5).max(150)` for `title`, `max(100)` for `street`) to prevent unbounded string payloads from degrading database storage or UI styling.

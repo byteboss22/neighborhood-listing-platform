@@ -1,8 +1,10 @@
 # Lab 3 AI collaboration — prepared prompts, not executed evidence
 
 ChatGPT/Codex has proposed and implemented the local contract, validated UI and
-tests. Actual AI Studio generation and Gemini responses have not yet been
-supplied. These proposed prompts are not evidence of having used either tool.
+tests. Eric has supplied the AI Studio report and actual generation, plus the Gemini
+static review, linked below. Eric confirmed unchanged use of the prepared Gemini
+prompt; its model name is not supplied. Proposed text alone was not treated as
+evidence of an executed request; actual later artifacts are retained separately.
 
 ## AI Studio generation
 
@@ -69,3 +71,47 @@ Use no real client data or secrets. Avoid stereotypes or housing targeting.
 
 Keep actual responses, model labels, exact prompts, rejected proposals and
 student decisions. Do not transfer midterm AI reviews into this lab as new use.
+
+
+## Gemini response subsequently supplied
+
+Eric wrote "perfect here is gemini , AI studio is still working" and supplied
+[the actual response](../evidence/lab3/gemini/review.txt). It is retained unchanged
+with a hash and [assistant evaluation](../evidence/lab3/gemini/disposition.md).
+Eric confirmed the prepared normalization/adversarial prompt was used unchanged.
+The displayed model and Eric's Lab 3 finding decisions remain pending. The separate AI Studio generation is still pending;
+this static critique is not substituted for it.
+
+
+## AI Studio summary supplied — raw artifact pending
+
+Eric pasted a report identifying `models/gemini-3.8-flash`, the prepared prompt,
+a valid first generation (5 properties, 3 sponsors, 6 relationships), and claimed
+successful local checks/UI integration. The attributed summary and independent
+inspection limits are in [ai-studio-report.json](../evidence/lab3/ai-studio-report.json).
+The actual JSON/review files were not present in this worktree or the published
+branch at inspection. Do not relabel the original fixture as the raw generation.
+
+
+## Generation/review evidence subsequently supplied
+
+Eric supplied [the full generation/review report](../evidence/lab3/ai-studio-generation-and-review.md),
+retained unchanged with its hash in the attributed report. It includes the exact
+prepared prompts, model label and reported validator output, but does not include
+any of the generated property/sponsor records. Those reported command results
+remain attributed to AI Studio; independent validation still requires raw JSON.
+The statement that zero rent denotes subsidized/community arrangements is not a
+source fact. The CLI alone does not establish Ajv validation. No raw dataset has
+been reconstructed or silently substituted.
+
+
+## Actual JSON received and validated
+
+Eric subsequently pasted the complete JSON, saved as
+[data/generated/ai-studio-attempt-01.json](../../data/generated/ai-studio-attempt-01.json).
+This resolves the earlier raw-artifact gap. [Independent verification](../evidence/lab3/generated-data-verification.json)
+confirmed 5 properties, 3 sponsors, 6 relationships and unchanged fictional facts;
+Ajv, Zod and integrity checks passed, and the page now consumes the artifact.
+No repair/regeneration was required. Eric separately confirmed keeping the current
+rules and deferring Gemini's optional hardening. The Studio screenshot/export
+remains pending; prior absence reports describe the earlier inspection only.

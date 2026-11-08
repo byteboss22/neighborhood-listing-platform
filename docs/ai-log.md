@@ -118,12 +118,12 @@ The midterm work is not relabeled as completion of Labs 3–7.
 | Contract and normalization / Codex | Implement the supplied Lab 3 strict property contract, JSON Schema, validator, seeds, tests and ADR in the existing Lab 2 app. | Added strict Zod source with inferred types and generated Draft 2020-12 JSON Schema. Derived PropertySponsor pairs from ID-only local_sponsors; added primary-key/reference/set checks beyond structural validation. Controlled amenities and fixture-only URLs/images are explicit assumptions. | Rejected duplicate sponsor business records, silent coercion/repair, handwritten parallel canonical TS types, and pretending the exported JSON Schema can enforce cross-record foreign keys. | Read installed Next server/client and image documentation and official Zod JSON Schema conversion documentation. Compared ADR and contract; independent Ajv structural checks and schema export consistency. | `bbd69036fd3451ab159dff95bc94b212ba53d04b`. |
 | Fixtures and UI / Codex | Render only validated records through the existing components, with safe failure handling. | Added five Codex-authored synthetic fixtures, four intentionally invalid fixtures and a fail-closed view adapter. Reused existing original Lab 2 SVGs with accurate illustrative alt text; retained existing components and old unconsumed seed file. | Did not label these fixtures as AI Studio output or fake a failed model generation, external critique, screenshot, human approval or hosted preview. | 15 tests passed, including the four required invalid cases, normalization, unsafe URLs, leading-zero ZIPs and invalid data producing no UI props. CLI invalid-fixture logs retain actual nonzero outcomes. | `bbd69036fd3451ab159dff95bc94b212ba53d04b`. |
 | Validation / Codex | Run the supplied lab checks and record actual failures and fixes. | Tests, lint and production build passed. The initial standalone TypeScript check failed because Next LayoutProps were not generated yet; build generated the required types, then the check was rerun. | Did not change the existing layout to hide the initial error. Did not apply npm audit fix --force or call the dependency audit clean; npm reported eight moderate findings. | [Actual verification summary](evidence/lab3/verification.json) and CLI logs; dependency installation warnings retained as a limitation. | `bbd69036fd3451ab159dff95bc94b212ba53d04b`. |
-| AI Studio / pending actual student run | [Prepared generation prompt](lab3/ai-prompts.md), canonical schema and explicitly fictional source notes. | None yet; raw output not supplied. | No invented model output, regeneration or screenshot. | Student must provide actual response, model/date/settings and redacted Studio export; local validation follows. | Pending actual work. |
-| Gemini / pending actual student run | [Prepared normalization/adversarial review prompt](lab3/ai-prompts.md). | None yet; critique not supplied. | No reused midterm review represented as a new Lab 3 invocation. | Actual critique, student decisions and any justified test additions remain pending. | Pending actual work. |
+| AI Studio / student-supplied raw generation and report | [Exact prepared prompt](lab3/ai-prompts.md) and reported model models/gemini-3.8-flash are in the supplied generation report. | Saved the actual JSON pasted by Eric as attempt 01 and preserved its five property/three sponsor facts. The page now consumes this validated artifact; six join pairs are derived. No repair needed. | Did not fabricate a failed model generation or screenshot, reconstruct raw output from the source fixture, or equate external reported commands with local evidence. Corrected the report's CLI/Ajv attribution. | [16-test independent follow-up](evidence/lab3/generated-data-verification.json) includes Ajv plus Zod/integrity checks, exact source-fact preservation, CLI validation, schema consistency, lint, build and TypeScript. Screenshot/export remains pending; no deployment claim. | Implementation bbd6903/publication 30eec3d; generation integration/evidence commit pending. |
+| Gemini / student-supplied Lab 3 review | [Prepared normalization/adversarial prompt](lab3/ai-prompts.md); Eric confirmed using it unchanged; displayed model not supplied. | Preserved the actual static response and used its reasoning to cross-check IDs, normalization, strict boundaries and fail-closed UI behavior. Recorded optional uniqueness-export and input-limit proposals. | Codex rejected unsupported subsidy/habitability explanations, formal 3NF/zero-drift assurances and the claim that JSON Schema cannot express primitive-array uniqueness. Eric confirmed retaining current nonnegative rules and deferring stricter bathroom minima, unspecified string caps and export uniqueness as future improvements. | [Source comparison and limitations](evidence/lab3/gemini/disposition.md), raw response/hash. No test execution is attributed to Gemini; no schema, UI or test code changed in this review. | Reviewed implementation `bbd6903`, publication `30eec3d`; review documentation commit pending. |
 
-Only assistant-performed local checks are claimed here. Eric's independent review,
-external-model interactions, source exports, PR and deployment remain distinct
-pending steps; no partner contribution is inferred. Eric subsequently authorized
+Assistant-performed local checks are distinguished from the student's supplied
+external-model artifacts. Eric's independent UI review, redacted Studio screenshot,
+PR and deployment remain pending; no partner contribution is inferred. Eric subsequently authorized
 committing and publishing the current branch so AI Studio can inspect it.
 
 ### Initial branch publication preparation
@@ -136,3 +136,46 @@ implementation commit referenced above. This follow-up records that real hash.
 A normal push of only `lab3/data-contracts` was authorized; remote verification
 is reported after the push. No fork, main/midterm merge, deployment, completed
 external generation or new test pass is implied by publication.
+
+### Received generation follow-up
+
+Eric supplied the full attempt-01 JSON and confirmed the Lab 3 review decision
+"Keep current rules; defer hardening (recommended)". Codex stored the supplied
+JSON without altering values, independently validated it through Zod/integrity
+and Ajv, checked the source facts, updated the page import, and recorded all
+six successful command runs with logs. No schema changes or fake regeneration
+were introduced. [Generation notes](data-generation-notes.md) distinguish the
+raw response, original fixture, negative tests and external reported execution.
+
+
+### Screenshot evidence received
+
+Eric supplied an AI Studio image showing Gemini 3.8 Flash, the exact follow-up
+request to print the original JSON file, the JSON response beginning, and an
+application preview. [Visual observation and limitations](evidence/lab3/ai-studio-screenshot-observation.md)
+distinguish the retrieval step from generation settings and test execution.
+No accessible image binary was found locally; the actual image still needs
+saving for repository evidence or separate Canvas submission. No screenshot was
+fabricated or recreated. The original generation model identifier remains
+attributed to the supplied text report; the screenshot confirms the shorter
+visible model label for the retrieval session only.
+
+
+### Screenshot file saved and inspected
+
+Eric saved the actual image under docs/lab3. Codex inspected the local PNG,
+moved it without modifying image bytes to
+[ai-studio-retrieval.png](evidence/lab3/ai-studio-retrieval.png), and recorded its
+hash/dimensions in the Studio provenance report. This resolves the earlier missing
+binary status. The screenshot's limits remain explicit; no new test execution,
+student UI review, publication or deployment is inferred from saving the file.
+
+
+### Student local review
+
+After receiving local-page review instructions, Eric reported: "perfect looks
+like its working and no issues". This is preserved as
+[student review evidence](evidence/lab3/student-review.json). It is a general
+student-reported success, not an invented detailed keyboard/viewport checklist
+or an assistant-observed browser session. Codex prepared the reviewed generation,
+UI import, screenshot and review evidence for the next normal branch publication.

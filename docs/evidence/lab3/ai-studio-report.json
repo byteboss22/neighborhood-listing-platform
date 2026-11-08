@@ -1,0 +1,72 @@
+{
+  "source": "Student pasted an AI Studio completion summary into the conversation.",
+  "received_client_date": "2026-11-07",
+  "reported_model": "models/gemini-3.8-flash",
+  "reported_prompt": "Exact structured generation prompt from docs/lab3/ai-prompts.md.",
+  "reported_raw_output_path": "data/generated/ai-studio-attempt-01.json",
+  "reported_review_path": "docs/evidence/lab3/ai-studio-generation-and-review.md",
+  "reported_validation": {
+    "command": "npm run validate:data -- data/generated/ai-studio-attempt-01.json",
+    "exit_code": 0,
+    "valid": true,
+    "properties": 5,
+    "sponsors": 3,
+    "relationships": 6,
+    "repair_cycle": "None reported; first attempt valid."
+  },
+  "reported_other_checks": [
+    "schema:check passed",
+    "default validate:data passed",
+    "15 tests passed",
+    "lint passed",
+    "TypeScript passed",
+    "build passed",
+    "page updated to generated dataset",
+    "dev server running on port 3000"
+  ],
+  "verification_limit": "Original Studio execution/model/timestamp remain reported, not independently observed. The received dataset has now been independently validated locally; screenshot/export and deployment remain unverified.",
+  "validator_scope_correction": "The validate:data CLI invokes Zod plus cross-record integrity checks. Independent Ajv checks exist in npm test against the local fixtures; the reported CLI command alone does not establish Ajv validation of the generated file.",
+  "pending": [
+    "Publication/PR and any lab-specific demonstration deployment"
+  ],
+  "generation_review_artifact": {
+    "file": "docs/evidence/lab3/ai-studio-generation-and-review.md",
+    "sha256": "f4f6a822eb856a3d31bbbb99cffd245814ad9a083dbc7d686f1f313cb4b0eec3",
+    "source": "Student-provided AI Studio evidence text; saved unchanged.",
+    "reported_execution_timestamp": "2026-11-07T22:21:54-08:00",
+    "timestamp_status": "Reported by supplied text, not independently observed.",
+    "contains_exact_generation_prompt": true,
+    "contains_reported_validation_output": true,
+    "contains_raw_generated_dataset": false
+  },
+  "initial_local_inspection": {
+    "raw_output_present": false,
+    "reported_review_file_present": true,
+    "page_still_imports": "data/fixtures/listings.synthetic.json",
+    "remote_branch_tip": "30eec3d3970e4e7fc890ab3049ff4a69b46ba434",
+    "remote_tip_matches_prior_publication": true,
+    "new_ai_studio_commits_observed": false,
+    "snapshot_note": "This records inspection before the student supplied the review text and raw JSON; see subsequent_artifacts_received for current status."
+  },
+  "subsequent_artifacts_received": {
+    "raw_json": "data/generated/ai-studio-attempt-01.json",
+    "raw_json_source": "Student pasted JSON, attributed to AI Studio. Saved values unchanged.",
+    "raw_json_sha256": "61ac557973326074ec07d9512e677336879bf1f2fa1cc19e0ff457b50a3525d7",
+    "review_file": "docs/evidence/lab3/ai-studio-generation-and-review.md",
+    "local_verification_report": "docs/evidence/lab3/generated-data-verification.json",
+    "page_import": "data/generated/ai-studio-attempt-01.json"
+  },
+  "screenshot": {
+    "received_in_conversation": true,
+    "visually_inspected": true,
+    "displayed_model": "Gemini 3.8 Flash",
+    "scope": "File retrieval prompt, JSON response beginning, and app preview; original generation settings not shown.",
+    "observation_record": "docs/evidence/lab3/ai-studio-screenshot-observation.md",
+    "image_binary_saved_locally": true,
+    "local_path": "docs/evidence/lab3/ai-studio-retrieval.png",
+    "sha256": "a40bf6cbc561e92bee5ca4d790c10646645d0c33dc87e707613cdc88776bdd6f",
+    "width": 3024,
+    "height": 2124,
+    "byte_size": 723314
+  }
+}

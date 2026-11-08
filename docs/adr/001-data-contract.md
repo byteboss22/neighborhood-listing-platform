@@ -1,6 +1,7 @@
 # ADR 001: Validated listing data from a single contract
 
-Status: implemented locally; student and additional-model review pending.
+Status: implemented locally; additional-model responses and student hardening
+decision, retrieval screenshot and student-reported UI review recorded; publication pending.
 Branch: `lab3/data-contracts`, starting at the preserved Lab 2 commit `e57a87b`.
 This is new Lab 3 work, not a retroactive claim that the midterm completed it.
 
@@ -72,6 +73,28 @@ interfaces for the canonical fields are maintained.
 - Import raw generated text straight into JSX: rejected. Keep raw outputs,
   validate explicitly, retain failures and then select a validated dataset.
 
-The current local fixture is assistant-authored synthetic test data, not an AI
-Studio generation. Actual raw generations, regeneration/repair decisions and
-Gemini critique remain pending. Passing local tests cannot substitute for them.
+The source fixture remains assistant-authored synthetic test data. Eric later
+supplied the actual JSON attributed to AI Studio as a separate first-attempt
+artifact. It preserves all source facts and independently passes both validators
+and integrity checks. The page now consumes this generated artifact through
+listingView. No repair or regeneration was needed; no failure is fabricated.
+See [generation notes](../data-generation-notes.md).
+
+## Additional review follow-up
+
+Eric subsequently supplied a Gemini static review, preserved with the
+[assistant evaluation](../evidence/lab3/gemini/disposition.md). The response
+corroborates the contract design but does not supply new test execution.
+The local nonnegative rule permits zero rent and zero bathrooms; no subsidy,
+habitability or availability claim follows from that. Properties may have no
+sponsors, and the catalog may contain an unlinked sponsor. Those are explicit
+local choices, not new stakeholder facts. Later sponsor geography/eligibility is
+still unimplemented here.
+
+The exported schema currently leaves primitive-array uniqueness to the full
+validator, although standard JSON Schema can express it with uniqueItems. That
+portability improvement is deferred by Eric's confirmed Lab 3 decision;
+it must be implemented from the source/export pipeline and tested if adopted.
+Unchanged prompt use is student-confirmed. Eric agreed to keep the current
+nonnegative rules and defer optional hardening. Gemini's displayed model name
+was not supplied; it is not inferred from another tool or assignment.

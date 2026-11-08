@@ -1,0 +1,14 @@
+{
+  "tool": "Gemini",
+  "attribution": "Student supplied this attachment as the Lab 3 Gemini review.",
+  "received_client_date": "2026-11-07",
+  "model": "not supplied for this Lab 3 response",
+  "exact_prompt": "Student confirmed unchanged use of the prepared Gemini normalization/adversarial prompt in docs/lab3/ai-prompts.md.",
+  "reviewed_branch": "lab3/data-contracts",
+  "local_reference_commit": "30eec3d3970e4e7fc890ab3049ff4a69b46ba434",
+  "response_sha256": "abd9586f1dccf4aa22c77cd2f63f27456976a067ad3aa0ba77e50e78939b2588",
+  "source_handling": "Raw attachment copied byte-for-byte; original unchanged.",
+  "execution_scope": "Review explicitly disclaims test execution and deployment inspection; no test pass counted from it.",
+  "student_confirmation": "yes the prompt was unchanged I gave it exactly how you wrote it",
+  "student_disposition": "Eric confirmed keeping the current nonnegative numeric rules and deferring the stricter bathroom minimum, arbitrary string caps and exported uniqueness changes to future improvements."
+}

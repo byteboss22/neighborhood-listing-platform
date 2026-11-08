@@ -1,0 +1,58 @@
+{
+  "executed_at_utc": "2026-11-08T06:30:37.066279+00:00",
+  "branch": "lab3/data-contracts",
+  "reference_commit_before_changes": "30eec3d3970e4e7fc890ab3049ff4a69b46ba434",
+  "source": "JSON pasted by Eric and attributed by him to AI Studio; saved without changing values.",
+  "raw_json_sha256": "61ac557973326074ec07d9512e677336879bf1f2fa1cc19e0ff457b50a3525d7",
+  "source_facts_equal": true,
+  "current_page_import": "data/generated/ai-studio-attempt-01.json",
+  "checks": [
+    {
+      "name": "generated-validation",
+      "command": "npm run validate:data -- data/generated/ai-studio-attempt-01.json",
+      "exit_code": 0,
+      "log": "generated-validation.txt"
+    },
+    {
+      "name": "schema-consistency",
+      "command": "npm run schema:check",
+      "exit_code": 0,
+      "log": "generated-schema-consistency.txt"
+    },
+    {
+      "name": "tests",
+      "command": "npm test",
+      "exit_code": 0,
+      "log": "generated-tests.txt"
+    },
+    {
+      "name": "lint",
+      "command": "npm run lint",
+      "exit_code": 0,
+      "log": "generated-lint.txt"
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "exit_code": 0,
+      "log": "generated-build.txt"
+    },
+    {
+      "name": "typescript",
+      "command": "npx tsc --noEmit",
+      "exit_code": 0,
+      "log": "generated-typescript.txt"
+    }
+  ],
+  "test_count": 16,
+  "limits": [
+    "Local independently executed checks; no deployment/browser inspection claimed.",
+    "Reported AI Studio model/timestamp remain attributed to supplied report.",
+    "Screenshot/export and student review decisions remain pending."
+  ],
+  "working_file_secret_scan": {
+    "files_scanned": 88,
+    "findings": 0,
+    "scope": "bounded common key patterns and tracked/nonignored environment filenames"
+  }
+}

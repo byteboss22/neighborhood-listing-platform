@@ -1,0 +1,10 @@
+
+> neighborhood-listing-platform-lab@0.1.0 validate:data
+> tsx scripts/validate-listings.ts data/generated/ai-studio-attempt-01.json
+
+{
+  "valid": true,
+  "properties": 5,
+  "sponsors": 3,
+  "relationships": 6
+}

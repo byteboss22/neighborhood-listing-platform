@@ -32,20 +32,32 @@ Run build before a standalone type check in a fresh checkout so Next generates
 the project layout types. The initial pre-build type check reported missing
 LayoutProps; do not change the existing layout just to suppress generated types.
 
-## Still requires genuine external/student work
+## Generation and final local validation
 
-1. Run the [AI Studio and Gemini prompts](ai-prompts.md); retain raw response,
-   model details and redacted Studio export/screenshot. Do not post secrets.
-2. Validate actual generated output, preserve any errors, and regenerate only
-   if needed. Then select the passing dataset for the UI and revalidate.
-3. Student reviews assumptions, normalization decisions and AI suggestions;
-   record real accepted/rejected decisions and individual contributions.
-4. Initial local implementation committed as `bbd69036fd3451ab159dff95bc94b212ba53d04b`; Eric authorized
-   branch publication so AI Studio can read it. After actual AI review/generation,
-   commit the follow-up and open a Lab 3 PR with validator output and
-   evidence. Main already includes the midterm, so the PR base/integration strategy
-   must be reviewed before merging this historical-baseline branch.
-5. Deploy a lab-specific preview if needed and submit actual links to Canvas.
+Eric supplied the [AI Studio report](../evidence/lab3/ai-studio-generation-and-review.md)
+and [actual JSON](../../data/generated/ai-studio-attempt-01.json). It passed on its
+first received attempt; no regeneration is claimed. The page now imports that
+validated generated artifact. Gemini's static response, unchanged-prompt
+confirmation and Eric's decision to defer optional hardening are recorded.
+
+[Independent follow-up evidence](../evidence/lab3/generated-data-verification.json):
+16 tests, lint, build, TypeScript, schema consistency and generated-data CLI
+validation passed. Both Ajv and Zod/integrity checks cover the generated dataset;
+all five properties, three sponsors, six relationships and source facts match.
+
+## Remaining handoff
+
+1. The [actual retrieval screenshot](../evidence/lab3/ai-studio-retrieval.png) is
+   saved and visually inspected, with hash/dimensions in the provenance record.
+   The displayed Studio label is Gemini 3.8 Flash; the separate Gemini critique
+   model is not supplied. It does not show original generation settings.
+2. Eric [reported the local page works without issues](../evidence/lab3/student-review.json).
+   No item-by-item browser checklist or partner contribution is inferred. His
+   generation/tool interactions and hardening decision are separately recorded.
+3. Commit/push this generation/review follow-up and open a Lab 3 PR with evidence.
+   Initial implementation is `bbd6903` and publication `30eec3d`. Main already
+   includes the midterm, so review base/integration conflicts before merging.
+4. Deploy a lab-specific preview if needed and submit actual Canvas links.
 
 ## Later labs
 
