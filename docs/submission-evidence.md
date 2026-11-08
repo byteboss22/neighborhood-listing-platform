@@ -21,7 +21,7 @@ supporting evidence unless the instructor requests a particular format.
 | Lint / build / TypeScript | [validation record](testing-midterm.md) | Passed at documented checkpoints |
 | Credentials and ignore rules | [scanner](../scripts/scan-secrets.py), [initial result](evidence/midterm/secret-scan.txt) | Bounded scans found zero configured-pattern matches; rerun before final push |
 | Dependency audit | [full report](evidence/midterm/dependency-audit.json), [production report](evidence/midterm/production-audit.txt) | 16 moderate development-tooling findings remain; zero production findings at last audit |
-| AI provenance | [journal](ai-log.md), [task prompts](ai-prompts-midterm.md), [additional reviews and evaluation](evidence/midterm/ai-reviews/review-disposition.md) | Actual Google AI Studio/Gemini responses preserved; tool mapping and model label student-confirmed. Exact submitted prompts and student per-finding decisions remain pending |
+| AI provenance | [journal](ai-log.md), [task prompts](ai-prompts-midterm.md), [additional reviews and evaluation](evidence/midterm/ai-reviews/review-disposition.md) | Actual Google AI Studio/Gemini responses preserved; tool mapping and model label student-confirmed. Eric confirmed using the prepared prompt unchanged in both tools and agreed to defer optional hardening |
 | Hosted deployment | [Production app](https://neighborhood-listing-platform-puce.vercel.app), [executed production evidence](evidence/midterm/production-deployment.json) | 11 HTTP/API/security/persistence checks passed; student supplied a screenshot of the service card |
 | Student / partner review | [Eric's supplied reflection](evidence/midterm/ai-reviews/review-disposition.md) | Eric reports local verification and learning about Supabase/Vercel, environment safety and iterative AI-assisted development. No new partner contribution or detailed unreported checklist is claimed |
 | Canvas submission | Repository + PR + deployment links, collaborator status and evidence statement | Pending |
@@ -39,8 +39,10 @@ records public GET checks, 25 passing local tests, clean lint, and current GitHu
 status. It does not replace the separately attributed live Supabase evidence.
 This readiness documentation is a new local follow-up requiring publication.
 Additional AI review responses and Eric's own reflection are now supplied and
-preserved. Exact submitted prompts, student decisions on review findings,
-collaborator acceptance and Canvas submission remain pending. Automated
+preserved. Unchanged prompt use and the decision to retain exam behavior are
+student-confirmed. Publication of this follow-up, an open exam PR (or instructor
+acceptance of merged links), collaborator acceptance and Canvas submission remain
+pending. Automated
 production browser/keyboard testing is not claimed.
 
 ## Canvas handoff draft — review before submitting
@@ -64,6 +66,7 @@ production browser/keyboard testing is not claimed.
   user-scoped provider authorization, deadline wording, and acceptance of
   merged PRs are documented; no instructor approval is claimed.
 - AI-tool evidence: actual additional responses and student-reported model
-  labels are recorded; confirm exact prompts and student review decisions.
+  labels are recorded; unchanged prompt use and the decision to defer optional
+  hardening are student-confirmed.
 - Personal review: Eric's supplied reflection and report of local testing are
   recorded. No unreported partner work is claimed.

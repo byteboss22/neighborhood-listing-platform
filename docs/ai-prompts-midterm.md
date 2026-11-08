@@ -224,18 +224,19 @@ is to defer that troubleshooting while completing this journal.
 before I merge the branch can you help me update the AI log with what we did for the midterm lets get the last assigment compeleted and then we can figure out the supabase
 ```
 
-## Prepared review prompt for additional tool evidence — NOT RUN
+## Prepared review prompt — subsequently used unchanged in both tools
 
 Historical preparation status: this prompt had not been run when written.
 Eric later supplied Google AI Studio and Gemini review responses, preserved in
 [additional review evidence](evidence/midterm/ai-reviews/review-disposition.md).
-The exact prompt submitted to each tool is not yet supplied or explicitly
-confirmed as unchanged; this proposed text is not relabeled as an exact transcript.
+Eric subsequently confirmed using the following prepared prompt unchanged in
+both tools. It is therefore the student-confirmed submitted prompt; execution
+and response limits remain documented separately.
 
-This is a proposed prompt for Eric to use if separate Gemini/Google AI Studio
-evidence is required. It is not a record of an executed request or a model
-response. Paste the relevant source files after the prompt, excluding all
-environment files, credentials and test-account passwords.
+The text below was originally prepared as a proposed prompt and was later
+confirmed by Eric as the prompt used in both tools. Source context should exclude
+all environment files, credentials and test-account passwords. Actual responses
+are preserved separately; no test execution is inferred from prompt use.
 
 ```text
 I am reviewing my CIS 3610 Version B midterm: a Local Merchant Services and
@@ -322,9 +323,9 @@ On confirmation of tool mapping, model names and unchanged prompt use, Eric wrot
 yes that is corect they were uing gminini 3.8 flash high
 ```
 
-Tool mapping is confirmed. The model label is student-reported; the exact submitted
-prompt or an explicit confirmation of unchanged use is still needed. No tool
-invocation date is inferred from the response-receipt date.
+Tool mapping is confirmed and the model label is student-reported. Eric later
+confirmed unchanged use of the prepared prompt in both tools. No exact tool
+invocation timestamp is inferred from the response-receipt date.
 
 Eric also supplied this reflection in response to the independent-review question:
 
@@ -334,4 +335,14 @@ Yes I learned how to check for the connection between supabase and vercel.How to
 
 Assistant source verification, suggested dispositions and evidence limits are
 recorded in [review disposition](evidence/midterm/ai-reviews/review-disposition.md).
-These are distinguished from student per-finding acceptance/rejection decisions.
+These are distinguished from Eric's later confirmed decision below.
+
+## P12 Student confirmation of prompt use and review decision
+
+```text
+perfect ya I sent the prepared prompt to both toosl, and yes I agree with keeping the exam behavoir since I want to meet those requirements and we can do that as future improvements
+```
+
+This confirms the prepared prompt was used unchanged in both tools and Eric
+agrees with retaining the exam behavior while deferring optional hardening.
+It is not instructor approval or a new execution result.

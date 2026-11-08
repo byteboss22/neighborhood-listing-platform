@@ -3,10 +3,9 @@
 Received on November 7, 2026. Eric confirmed that the first attachment is
 Google AI Studio and the second is Gemini. He reported both used "gminini 3.8
 flash high" (interpreted as Gemini 3.8 Flash High); this is student-reported
-model metadata, not an independently observed model identifier. Exact submitted
-prompts were not included. The prepared prompt is available in
-[the prompt record](../../../ai-prompts-midterm.md), but unchanged use is not
-explicitly confirmed. [Provenance](provenance.json) records source hashes.
+model metadata, not an independently observed model identifier. Eric subsequently confirmed that he sent the prepared review prompt unchanged
+to both tools. Its exact text is retained in
+[the prompt record](../../../ai-prompts-midterm.md). [Provenance](provenance.json) records source hashes.
 
 ## What these artifacts establish
 
@@ -26,7 +25,9 @@ explicitly confirmed. [Provenance](provenance.json) records source hashes.
 ## Codex evaluation of findings
 
 The following are the assistant's evaluations against the source and supplied
-assignment. Eric has not yet independently accepted/rejected each finding.
+assignment. Eric confirmed agreement with retaining the exam behavior and treating the
+proposed hardening as future improvements. The technical analysis below remains
+attributed to Codex; the decision to defer these changes is now student-confirmed.
 No source, schema, grants or hosted data were changed for these reviews.
 
 | Finding | Source verification and disposition |
@@ -60,4 +61,10 @@ reflection (spelling retained):
 
 This is student-reported learning and local testing. It does not assert an
 unreported exhaustive manual checklist, partner contribution or instructor
-approval. Per-finding student decisions and exact submitted prompts remain pending.
+approval. Eric subsequently confirmed unchanged prompt use in both tools and
+agreed to retain the exam behavior, deferring hardening to future improvements.
+This does not resolve instructor questions or imply instructor approval.
+
+His exact confirmation was:
+
+> perfect ya I sent the prepared prompt to both toosl, and yes I agree with keeping the exam behavoir since I want to meet those requirements and we can do that as future improvements

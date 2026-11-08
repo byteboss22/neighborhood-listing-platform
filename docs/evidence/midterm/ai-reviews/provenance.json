@@ -8,7 +8,7 @@
       "sha256": "d6e131a4518c718f3ad100cfb129ec2f148667eb1ec1e64a664320ea41b0c29a",
       "attribution": "student-provided attachment; tool mapping explicitly confirmed by student",
       "model": "student reported: gminini 3.8 flash high; interpreted as Gemini 3.8 Flash High, not independently observed",
-      "exact_submitted_prompt": "not supplied; prepared prompt exists but unchanged use not confirmed",
+      "exact_submitted_prompt": "Student confirmed unchanged use of the prepared review prompt in docs/ai-prompts-midterm.md.",
       "execution_evidence": "response text only; not independent execution evidence"
     },
     {
@@ -16,8 +16,10 @@
       "sha256": "1db0f4fd9de9af05bec746115ac6326650a76f12118ef7ee8db9aac5af4270ae",
       "attribution": "student-provided attachment; tool mapping explicitly confirmed by student",
       "model": "student reported: gminini 3.8 flash high; interpreted as Gemini 3.8 Flash High, not independently observed",
-      "exact_submitted_prompt": "not supplied; prepared prompt exists but unchanged use not confirmed",
+      "exact_submitted_prompt": "Student confirmed unchanged use of the prepared review prompt in docs/ai-prompts-midterm.md.",
       "execution_evidence": "response text only; not independent execution evidence"
     }
-  ]
+  ],
+  "student_decision": "Confirmed: retain exam behavior to meet the supplied requirements; defer optional hardening suggestions to future improvements.",
+  "student_confirmation_received_on_client_date": "2026-11-07"
 }
