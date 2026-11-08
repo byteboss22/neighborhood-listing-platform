@@ -143,7 +143,10 @@ Official documentation lookups are references, not independent AI critiques.
 | 11. Categories, mappings and actual RLS flags / Codex | Collect remaining hosted evidence, then record Eric's five-row SQL Editor result. | Added two fictional active/inactive category fixtures and approved/draft service mappings, ran eight hosted role checks, and prepared a read-only catalog query. Transcribed Eric's exact result: all five tables exist with RLS true and policy counts 2/1/1/1/5 in table-name order. | Did not substitute category activity for coverage-zone activity, overwrite unrelated fixtures, invent a screenshot, or claim Codex directly executed the hosted catalog query. Local query execution was not substituted for the hosted result. | [8 PASS outcomes](evidence/midterm/live-supabase-categories.json), [student-supplied catalog result](evidence/midterm/hosted-rls-catalog.json), local PostgreSQL tests and [submission index](submission-evidence.md). | `366c906cc646ee27601543687cb5f2ea8832218f`, publication `084de1f`. |
 | 12. Vercel deployment troubleshooting / Codex | Eric reported adding the app/secrets to Vercel, supplied a preview URL and showed a service-unavailable screenshot. | Inspected the deployed URL without authentication, reviewed the existing server variable names and explained Preview environment scope, redeployment after variable changes and Deployment Protection settings. Read official Vercel documentation before giving those steps. | Did not mistake Vercel's authentication gateway for our API handler, claim a working hosted booking flow, or assert that missing variables were proven to be the cause. The screenshot shows the section and its fallback message. Environment scope/redeployment remain troubleshooting suggestions, not verified fixes. | Guest requests to the supplied preview URL redirected to Vercel sign-in; POST probes were blocked by the deployment gateway. No connected authenticated browser was available. No secrets were read from Vercel or posted into the journal. | This journal follow-up; no application-code change or Vercel fix is claimed. |
 | 13. Journal completion / Codex | Update the AI log with the actual midterm work before any merge, and defer further Supabase/Vercel troubleshooting. | Consolidated the midterm journal, replaced stale uncommitted references with real hashes, linked exact follow-up prompts and evidence, and recorded the remaining tool/deployment limitations. | Did not relabel historical Lab 1/2 AI use as new midterm work, invent Gemini/AI Studio responses, manufacture a student's reflection or partner contribution, or perform a merge. | Git history and report review, historical Lab 1/2 preservation check, local links, whitespace and bounded secret scan. No application checks rerun solely for this documentation edit. | `c4d2f7b4c8d23b49532b1fadff23ad9954d93044`. |
-| 14. Production verification / Codex | Eric reported that production worked after merging and supplied https://neighborhood-listing-platform-puce.vercel.app. | Added and executed a production HTTP verifier, saved 11 passing checks and updated deployment evidence. Confirmed public approved-only data, validation/authentication errors, no booking-read route, checked browser chunks, and persisted a fictional hosted booking whose row is hidden from anonymous access. | Did not attribute the student's Git merge/Vercel deployment to Codex, equate the old protected preview with production, infer a Vercel build SHA, or claim automated production keyboard testing. No elevated credentials were sent to Vercel by the verifier. | Actual production HTTP requests plus local trusted Supabase persistence and anonymous privacy queries. GitHub confirms PR #2 was merged at 5633c3f; the production report distinguishes local-reference commit from unverified build SHA. Student screenshot is attributed separately. | Post-merge local evidence follow-up; not yet committed. |
+| 14. Production verification / Codex | Eric reported that production worked after merging and supplied https://neighborhood-listing-platform-puce.vercel.app. | Added and executed a production HTTP verifier, saved 11 passing checks and updated deployment evidence. Confirmed public approved-only data, validation/authentication errors, no booking-read route, checked browser chunks, and persisted a fictional hosted booking whose row is hidden from anonymous access. | Did not attribute the student's Git merge/Vercel deployment to Codex, equate the old protected preview with production, infer a Vercel build SHA, or claim automated production keyboard testing. No elevated credentials were sent to Vercel by the verifier. | Actual production HTTP requests plus local trusted Supabase persistence and anonymous privacy queries. GitHub confirms PR #2 was merged at 5633c3f; the production report distinguishes local-reference commit from unverified build SHA. Student screenshot is attributed separately. | `a422e8f612fb2797bbdb5320966dbd71b138f1b8`, published in PR #3. |
+| 15. Submission readiness / Codex | Eric asked to return to his repository and complete outstanding midterm items; exact request is recorded as P10. | Rechecked his clean exam branch, remote PR/invitation status, production public GET endpoints, 25 local tests and lint. Corrected stale publication notes and prepared a Canvas handoff draft. | Did not fabricate missing Gemini/AI Studio use, student reflection, accepted instructor access, an open PR, or instructor approval. Did not merge, push, change lab branches, or modify the partner clone. | [Readiness report](evidence/midterm/submission-readiness.json); both existing exam PRs are merged and the invitation is unexpired but pending. Historical hosted/browser checks remain separately attributed. | Local documentation follow-up; commit pending. |
+| 16. Google AI Studio review / student-supplied response | Defensive midterm review; prepared prompt is in the prompt record, but exact submitted text was not supplied. Eric confirmed tool attribution and reported the model as Gemini 3.8 Flash High; identifier not independently observed. | Preserved the actual response and used its static reasoning to cross-check provider scope, public columns, strict contracts and credential isolation. Recorded suspension transitions, cascading deletion and other hardening tradeoffs. | Codex did not adopt proposed RESTRICT/draft-only deletion, approved-only booking or active-category mapping changes because they alter explicit exam rules or add conditions. Student per-finding decisions remain pending. No static opinion was treated as a test pass. | Compared migration, schemas, handlers and existing test assertions; [response and disposition](evidence/midterm/ai-reviews/review-disposition.md). The tool explicitly claims no test/build/database execution. | Reviewed source `a422e8f`; local evidence commit pending. |
+| 17. Gemini review / student-supplied response | Defensive midterm review; exact submitted prompt pending. Eric confirmed tool attribution and reported the model as Gemini 3.8 Flash High; identifier not independently observed. | Preserved the actual response; used its reasoning on user-scoped provider access, booking privacy and strict public projection as corroborating review. Recorded optional input/rate-limit proposals and policy/grant drift limitations. | Rejected the blanket conclusion that all assignment requirements are complete: district/zone questions remain open. Did not count the activity prefix's test-run claim without command output, treat 50-request success as observed, or label the unqualified SQL reference a current defect. Student decisions remain pending. | Source comparison and [documented limitations](evidence/midterm/ai-reviews/review-disposition.md); existing executed reports remain separate. No new database, load or browser test run for this documentation change. | Reviewed source `a422e8f`; local evidence commit pending. |
 
 ### What Eric did versus what the assistant did
 
@@ -157,9 +160,12 @@ These actions are recorded as student work or student reports as appropriate.
 Codex inspected the repository, proposed/implemented the subsystem and helper
 scripts, explained the setup/SQL, ran the independently attributed tests, fixed
 the generated test/markup issues, and organized the documentation and PR.
-The student still needs to independently review the implementation and confirm
-any learning/reflection statement in their own words. No midterm partner work,
-instructor approval, partner email or Canvas submission is claimed.
+Eric subsequently reported his own local review/testing and supplied a reflection
+about verifying the Supabase/Vercel connection, configuring environment variables
+safely, building incrementally, and checking AI output locally. His exact words
+are preserved in the [review disposition](evidence/midterm/ai-reviews/review-disposition.md).
+No exhaustive unreported manual checklist, midterm partner work, instructor
+approval, partner email or Canvas submission is claimed.
 
 ### Other named AI tools and remaining evidence
 
@@ -167,30 +173,31 @@ instructor approval, partner email or Canvas submission is claimed.
 | :--- | :--- | :--- |
 | Codex / OpenAI assistant in this conversation | Exact task prompts, source changes, technical decisions, real test reports and commit references above. | Recorded. This is the actual assistant used for the work in this conversation. |
 | ChatGPT outside this Codex conversation | No separate midterm prompt/response transcript supplied. | Not separately recorded; do not invent another ChatGPT session. |
-| Gemini | No new midterm Gemini prompt/response supplied or tool invocation observed. | Not recorded. Historical Lab 1/2 entries are not midterm evidence. |
-| Google AI Studio | No new midterm AI Studio prompt/export/response supplied or invocation observed. | Not recorded. The historical Lab 2 proposal remains attributed only to Lab 2. |
+| Gemini | Actual review response supplied November 7, 2026; mapping confirmed by Eric. Model label reported as Gemini 3.8 Flash High, not independently observed. | Response and assistant evaluation recorded; exact submitted prompt and student per-finding decisions pending. |
+| Google AI Studio | Actual review response supplied November 7, 2026; mapping confirmed by Eric. Model label reported as Gemini 3.8 Flash High, not independently observed. | Response and assistant evaluation recorded; exact submitted prompt and student per-finding decisions pending. |
 
 The assignment names ChatGPT, Gemini and Google AI Studio in its provenance
-deliverable. This journal accurately completes the work evidenced in this
-conversation; it does not claim the missing tools were used. If the instructor
-requires separate use/evidence for each named tool, Eric must run the review
-prompt provided in the prompt file and supply the real response/export before
-that part can be marked complete. Prepared prompts are labeled NOT RUN until
-actually used. Accepted/rejected findings must reflect Eric's real decisions.
+deliverable. The additional review responses are now supplied and retained
+verbatim, with source hashes and explicit execution limitations. The prepared
+prompt remains a proposal until Eric confirms its unchanged use or supplies the
+actual text. Assistant evaluation is labeled separately from Eric's still-pending
+per-finding decisions. No model activity or test output is invented.
 
 ### Current handoff
 
 - Eric subsequently merged [PR #2](https://github.com/byteboss22/neighborhood-listing-platform/pull/2).
   GitHub confirms merge commit `5633c3fb4c4774a1229f09d817b30904f69b46d3`.
-  The assignment requests an open PR; confirm whether the instructor accepts the
-  existing merged link. No merge or rollback was performed by this assistant.
+  PR #3 was also subsequently merged at `69708ad56b82945c29cebb0322cd569b1e3d8151`.
+  The assignment requests an open PR; neither existing link is currently open.
+  Confirm acceptance of merged links or publish the substantive readiness
+  follow-up in a new PR. No merge or rollback was performed by this assistant.
 - [Production](https://neighborhood-listing-platform-puce.vercel.app) is public
   and its API/fictional booking round trip passed 11 executed checks in
   [production evidence](evidence/midterm/production-deployment.json). The student
   supplied a screenshot of the rendered approved service. Exact Vercel build SHA
   and automated production browser/keyboard verification are not claimed.
-- This post-merge production evidence is saved locally on the exam branch and
-  requires normal review/publication; it was not silently added to main.
+- Production evidence was published as `a422e8f` in PR #3. The newer readiness
+  follow-up remains local on the exam branch and requires publication.
 - The instructor invitation was sent; acceptance was not confirmed at the last
   owner-account check. No acceptance or instructor approval is inferred.
 - Domain/coverage-zone schema gaps and the contradictory deadline wording remain

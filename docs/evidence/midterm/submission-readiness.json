@@ -1,0 +1,64 @@
+{
+  "checked_at_utc": "2026-11-08T01:05:28.313422+00:00",
+  "scope": "Read-only public production GET requests and local verification; no booking submitted, auth account changed, or migration applied.",
+  "local_reference_commit": "a422e8f612fb2797bbdb5320966dbd71b138f1b8",
+  "vercel_build_commit": "not independently verified",
+  "public_checks": [
+    {
+      "path": "/",
+      "status": 200,
+      "expected_status": 200,
+      "services_heading_present": true
+    },
+    {
+      "path": "/api/services",
+      "status": 200,
+      "expected_status": 200,
+      "response_is_array": true,
+      "service_count": 1,
+      "exact_public_columns": true,
+      "cache_control": "no-store"
+    },
+    {
+      "path": "/api/bookings",
+      "status": 405,
+      "expected_status": 405
+    }
+  ],
+  "local_checks": {
+    "npm test": {
+      "exit_code": 0,
+      "passed": 25,
+      "failed": 0
+    },
+    "npm run lint": {
+      "exit_code": 0
+    },
+    "python3 scripts/scan-secrets.py": {
+      "exit_code": 0,
+      "non_ignored_files": 97,
+      "reachable_historical_blobs": 147,
+      "browser_javascript_chunks": 10,
+      "credential_pattern_findings": 0,
+      "scope": "bounded heuristic; not an absolute guarantee"
+    },
+    "git diff --check": {
+      "exit_code": 0
+    }
+  },
+  "github": {
+    "pr_2": "merged",
+    "pr_3": "merged",
+    "pr_3_merge_commit": "69708ad56b82945c29cebb0322cd569b1e3d8151",
+    "open_exam_pr": "none at check",
+    "pdt605_direct_collaborator_check": "404; invitation remains pending",
+    "pdt605_invitation": {
+      "permissions": "write",
+      "expired": false
+    }
+  },
+  "limits": [
+    "Previously recorded live Supabase and browser checks were not rerun during this readiness review.",
+    "No claims of instructor acceptance, student reflection, extra AI-tool use, or Canvas submission."
+  ]
+}
