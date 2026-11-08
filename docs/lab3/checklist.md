@@ -40,7 +40,9 @@ LayoutProps; do not change the existing layout just to suppress generated types.
    if needed. Then select the passing dataset for the UI and revalidate.
 3. Student reviews assumptions, normalization decisions and AI suggestions;
    record real accepted/rejected decisions and individual contributions.
-4. Commit and push only after review; open a Lab 3 PR with validator output and
+4. Initial local implementation committed as `bbd69036fd3451ab159dff95bc94b212ba53d04b`; Eric authorized
+   branch publication so AI Studio can read it. After actual AI review/generation,
+   commit the follow-up and open a Lab 3 PR with validator output and
    evidence. Main already includes the midterm, so the PR base/integration strategy
    must be reviewed before merging this historical-baseline branch.
 5. Deploy a lab-specific preview if needed and submit actual links to Canvas.
