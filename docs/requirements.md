@@ -120,7 +120,9 @@ No admin HTTP route was required in Part 5 and none is exposed.
 - The assignment says “Sunday, November 7, 2026”; November 7, 2026 is Saturday.
   Ask the instructor whether the date or weekday controls. “Today” in the
   in-class cutoff cannot be resolved from an undated pasted specification.
-- Instructor invitation, push/PR, hosted deployment, emails and Canvas submission
-  remain manual per user instructions, even where the assignment requests them.
+- Instructor invitation, pushes/PRs and hosted deployment were subsequently
+  authorized and recorded in the [submission checklist](submission-evidence.md).
+  Invitation acceptance and Canvas submission remain pending. No partner email
+  or instructor decision is claimed.
 - Validation and pending evidence: [security audit](security-audit.md),
   [testing record](testing-midterm.md), [AI log](ai-log.md).

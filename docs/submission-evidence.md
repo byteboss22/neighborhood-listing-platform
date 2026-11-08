@@ -6,10 +6,10 @@ supporting evidence unless the instructor requests a particular format.
 
 | Deliverable | Evidence / location | Current status |
 | --- | --- | --- |
-| Repository and exam PR | [Repository](https://github.com/byteboss22/neighborhood-listing-platform), [PR #2](https://github.com/byteboss22/neighborhood-listing-platform/pull/2) | Student merged PR #2; confirm instructor accepts a merged PR because the specification requests an open PR |
+| Repository and exam PR | [Repository](https://github.com/byteboss22/neighborhood-listing-platform), [implementation PR #2](https://github.com/byteboss22/neighborhood-listing-platform/pull/2), [production evidence PR #3](https://github.com/byteboss22/neighborhood-listing-platform/pull/3) | Both PRs are merged; no open exam PR at the readiness check. Ask whether merged links are acceptable, or publish this substantive documentation follow-up in a new open PR |
 | Preserved Lab 2 baseline | `lab2-baseline` at e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b | Preserved |
 | Implementation / verification commits | b1c51af implementation, 4a87d16 documentation, d8344a1 hosted verification framework, 366c906 hosted evidence | Published on the existing exam branch |
-| Instructor collaborator | `pdt605` write-access invitation | Pending acceptance at last check |
+| Instructor collaborator | `pdt605` write-access invitation | Rechecked: invitation is unexpired and pending; direct collaborator access is not yet confirmed |
 | Requirements and instructor questions | [requirements](requirements.md) | Three stories, estimates and traceability present; zone/district and deadline questions documented |
 | Migration | [exact versioned SQL](../supabase/migrations/20261029140000_exam_services_persistence.sql) | Applied by student to development Supabase; exercised locally and through live fixture queries |
 | Hosted RLS enabled on all five tables | [catalog SQL](../supabase/tests/exam_rls_catalog.sql), [student-supplied hosted result](evidence/midterm/hosted-rls-catalog.json) | All five exist and have RLS enabled; policy counts match migration |
@@ -21,9 +21,9 @@ supporting evidence unless the instructor requests a particular format.
 | Lint / build / TypeScript | [validation record](testing-midterm.md) | Passed at documented checkpoints |
 | Credentials and ignore rules | [scanner](../scripts/scan-secrets.py), [initial result](evidence/midterm/secret-scan.txt) | Bounded scans found zero configured-pattern matches; rerun before final push |
 | Dependency audit | [full report](evidence/midterm/dependency-audit.json), [production report](evidence/midterm/production-audit.txt) | 16 moderate development-tooling findings remain; zero production findings at last audit |
-| AI provenance | [journal](ai-log.md), [task prompts](ai-prompts-midterm.md) | Codex evidence recorded; genuine additional Gemini/AI Studio evidence still required |
+| AI provenance | [journal](ai-log.md), [task prompts](ai-prompts-midterm.md), [additional reviews and evaluation](evidence/midterm/ai-reviews/review-disposition.md) | Actual Google AI Studio/Gemini responses preserved; tool mapping and model label student-confirmed. Eric confirmed using the prepared prompt unchanged in both tools and agreed to defer optional hardening |
 | Hosted deployment | [Production app](https://neighborhood-listing-platform-puce.vercel.app), [executed production evidence](evidence/midterm/production-deployment.json) | 11 HTTP/API/security/persistence checks passed; student supplied a screenshot of the service card |
-| Student / partner review | Independent review and attributable work | Complete genuinely; do not infer from automated tests |
+| Student / partner review | [Eric's supplied reflection](evidence/midterm/ai-reviews/review-disposition.md) | Eric reports local verification and learning about Supabase/Vercel, environment safety and iterative AI-assisted development. No new partner contribution or detailed unreported checklist is claimed |
 | Canvas submission | Repository + PR + deployment links, collaborator status and evidence statement | Pending |
 
 The student subsequently merged PR #2 and supplied the public production URL.
@@ -32,9 +32,41 @@ The merged PR is authentic historical evidence; do not claim it remains open or
 attempt to manufacture an empty replacement. Confirm the submission requirement
 with the instructor. No merge/revert was performed by the deployment verifier.
 
-The production-verification report and these latest documentation updates are
-a local follow-up on the exam branch, after the PR merge. They still need normal
-review/publication if they are to appear in the submitted repository revision.
-Additional AI evidence, independent review, collaborator acceptance and Canvas
-submission remain pending. Production HTTP verification is complete; automated
+The production-verification report was committed as `a422e8f` and published in
+PR #3, subsequently merged at `69708ad56b82945c29cebb0322cd569b1e3d8151`.
+The newer [submission readiness check](evidence/midterm/submission-readiness.json)
+records public GET checks, 25 passing local tests, clean lint, and current GitHub
+status. It does not replace the separately attributed live Supabase evidence.
+This readiness documentation is a new local follow-up requiring publication.
+Additional AI review responses and Eric's own reflection are now supplied and
+preserved. Unchanged prompt use and the decision to retain exam behavior are
+student-confirmed. Publication of this follow-up, an open exam PR (or instructor
+acceptance of merged links), collaborator acceptance and Canvas submission remain
+pending. Automated
 production browser/keyboard testing is not claimed.
+
+## Canvas handoff draft — review before submitting
+
+- Repository: https://github.com/byteboss22/neighborhood-listing-platform
+- Implementation PR (merged): https://github.com/byteboss22/neighborhood-listing-platform/pull/2
+- Production evidence PR (merged): https://github.com/byteboss22/neighborhood-listing-platform/pull/3
+- Open exam PR: **pending; do not label either merged link as open**.
+- Hosted app: https://neighborhood-listing-platform-puce.vercel.app
+- Collaborator statement: **An unexpired write-access invitation was sent to
+  pdt605; acceptance is still pending.** Do not claim accepted access yet.
+- Credential review statement: bounded scans of non-ignored files, reachable
+  Git blobs and browser assets found no configured credential-pattern matches
+  at the recorded checkpoints. This is evidence of the checks performed, not
+  an absolute guarantee covering every possible secret format.
+- Verification: 25 local tests and lint pass at the readiness checkpoint;
+  historical reports contain six browser checks, 14 live role/API checks,
+  eight category/mapping checks and 11 production checks. These were separate
+  runs with the scope and limitations recorded in each report.
+- Instructor questions: district/active-zone schema omissions, secure
+  user-scoped provider authorization, deadline wording, and acceptance of
+  merged PRs are documented; no instructor approval is claimed.
+- AI-tool evidence: actual additional responses and student-reported model
+  labels are recorded; unchanged prompt use and the decision to defer optional
+  hardening are student-confirmed.
+- Personal review: Eric's supplied reflection and report of local testing are
+  recorded. No unreported partner work is claimed.

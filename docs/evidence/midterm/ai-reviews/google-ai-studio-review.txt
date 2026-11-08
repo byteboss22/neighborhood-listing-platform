@@ -1,0 +1,79 @@
+I found **no confirmed defects against your ten stated requirements**. There are four confirmed behaviors that likely go against what the assignment intends, and a few hypotheses I couldn't check from the code alone.
+
+This is a static review of the code. I did not run any tests or builds, and I did not connect to your database.
+
+## Confirmed behaviors that likely go against the assignment's intent
+
+These are definite readings of the code. Whether each one counts as a defect depends on what the assignment means by "suspended" and "modify".
+
+### 1. Providers can lift their own suspension
+**Code:** [migration:68](supabase/migrations/20261029140000_exam_services_persistence.sql#L68) grants UPDATE on `status`, and the update policy at [94-100](supabase/migrations/20261029140000_exam_services_persistence.sql#L94-L100) allows `status IN ('draft','suspended')` on both the old row and the new row.
+
+**Impact:** A provider can run `UPDATE services SET status='draft' WHERE id=<suspended>` and undo an admin suspension. They can also mark their own drafts as suspended. They still can't reach `pending` or `approved`, but if suspension is a moderation tool it no longer holds. [security.test.ts:75-91](tests/security.test.ts#L75-L91) only tests changing the title, never moving between draft and suspended.
+
+**Fix:** Remove `status` from the column grant on line 68 so providers can edit content but not status. Status changes stay with `service_role`.
+- **Positive test:** the provider updates `title` on their suspended service and gets 1 row back.
+- **Negative test:** the provider runs `SET status='draft'` on a suspended service. It is rejected with `permission denied`, and the row is still `suspended` when read through `service_role`.
+
+### 2. Deleting a suspended service also deletes its bookings
+**Code:** the delete policy at [102-105](supabase/migrations/20261029140000_exam_services_persistence.sql#L102-L105) together with `ON DELETE CASCADE` on `bookings.service_id` at [line 38](supabase/migrations/20261029140000_exam_services_persistence.sql#L38). [security.test.ts:90](tests/security.test.ts#L90) asserts that this delete succeeds.
+
+**Impact:** A suspended provider can wipe out client booking records and evidence that moderators might need.
+
+**Fix:** Limit DELETE to `status = 'draft'`, or change the bookings foreign key to `ON DELETE RESTRICT`.
+- **Positive test:** the provider deletes a draft service with no bookings and gets 1 row back.
+- **Negative test:** the provider deletes a suspended service that has a booking. They get 0 rows or an error, and the booking count seen through `service_role` doesn't change.
+
+### 3. Bookings are accepted for services that aren't approved
+**Code:** `WITH CHECK (true)` at [112-113](supabase/migrations/20261029140000_exam_services_persistence.sql#L112-L113). Foreign-key checks ignore RLS, so a draft, pending or suspended service UUID is accepted. [bookings/route.ts:16](src/app/api/bookings/route.ts#L16) returns 400 for a UUID that doesn't exist and 201 for one that does. That lets a caller test whether a hidden service exists.
+
+**Impact:** Low in practice, because UUIDv4 values can't realistically be guessed. Still, it is a side channel around "anonymous sees approved only", and it lets people book services that aren't live. Your comment on line 110 says the open insert is deliberate. If the exam text really says "any service", keep it and document it.
+
+**Fix:** `WITH CHECK (EXISTS (SELECT 1 FROM public.services s WHERE s.id = service_id AND s.status = 'approved'))`. This works for `anon` because `id` and `status` are in its column grant. Map the resulting `42501` error to the same 400 that a missing service gets.
+- **Positive test:** booking an approved service returns 201.
+- **Negative test:** booking a draft service's UUID is rejected, and the API response is byte-for-byte identical to the one for a random UUID.
+
+### 4. Category links are visible even when the category is inactive
+**Code:** [107-108](supabase/migrations/20261029140000_exam_services_persistence.sql#L107-L108) only checks that the service is approved.
+
+**Impact:** Anonymous users can see the UUIDs of inactive categories that are linked to approved services, though not their names. It's minor, but it doesn't fully match "active categories only".
+
+**Fix:** Add `AND EXISTS (SELECT 1 FROM public.service_categories c WHERE c.id = category_id AND c.active_status)`.
+- **Positive test:** a link from an approved service to an active category is visible to `anon`.
+- **Negative test:** after deactivating that category, `anon` gets 0 links.
+
+### Hardening (not defects)
+- **Bookings SELECT for `anon`:** [Line 71](supabase/migrations/20261029140000_exam_services_persistence.sql#L71) grants it, but no policy targets `anon`, so it returns 0 rows. Revoking it means a policy added by mistake later couldn't expose client emails.
+- **`provider_id` readable by any signed-in user:** [Line 64](supabase/migrations/20261029140000_exam_services_persistence.sql#L64) gives full SELECT on approved services to every authenticated user. A signed-in client calling Supabase directly can read `provider_id`. Your API doesn't expose it.
+- **Input limits:** `title` and `notes` have no maximum length, a title of five spaces passes validation, `requested_date` accepts past dates, and public booking inserts have no rate limit. None of these are in your requirements.
+
+## Areas where I found no defect, and why
+
+| Requirement | Why it holds |
+|---|---|
+| Five tables, RLS on | [Lines 5-53](supabase/migrations/20261029140000_exam_services_persistence.sql#L5-L53). All five are created and have `ENABLE ROW LEVEL SECURITY`. |
+| Clients can't read bookings | The only bookings read policy ([115-119](supabase/migrations/20261029140000_exam_services_persistence.sql#L115-L119)) requires the reader to own the service and have the merchant or provider role. Anyone else gets 0 rows. |
+| Providers see only their own bookings | Same policy. The join to `profiles` only ever matches the caller's own row, and the `profiles_self_read` policy allows exactly that. |
+| No role escalation | `profiles` has no INSERT or UPDATE grant. Role is read from the database row, not from user metadata ([services/route.ts:33](src/app/api/services/route.ts#L33)). |
+| Owner, ID and timestamps can't be changed | The UPDATE grant on line 68 doesn't include `provider_id`, `id` or `created_at`. |
+| Admin credentials stay on the server | [supabaseServer.ts](src/lib/supabaseServer.ts#L1) imports `server-only`. No route imports `supabaseAdminForTrustedOperation`. There is no `NEXT_PUBLIC_*` secret. `.gitignore` covers `.env*`. Only operator scripts read the service-role key. |
+| Provider API uses the user's own credentials | It uses the anon key plus the caller's bearer token ([services/route.ts:29](src/app/api/services/route.ts#L29)), so RLS applies. `auth.getUser(token)` checks the token with the Auth server instead of just decoding the JWT. The database insert policy checks the role again. |
+| GET returns five fields | `PUBLIC_SERVICE_COLUMNS` ([service.ts:21](src/schemas/service.ts#L21)) lists exactly those columns. It runs as anonymous even when a session exists, and the `anon` column grant leaves out `provider_id`. |
+| POST rejects extra fields | `z.strictObject` rejects unknown keys. `provider_id` and `status` are set by the server after the spread ([route.ts:40](src/app/api/services/route.ts#L40)). Numeric limits match the database (`NUMERIC(10,2)`, int4). Zod 4.6.7's `multipleOf` tolerates floating-point error. |
+| Caching | With `cacheComponents: true`, the bundled Next 16 docs say a database or network call stops prerendering. Your [build.txt](docs/evidence/midterm/build.txt#L25-L26) shows both routes as `ƒ` (dynamic). |
+| Districts / coverage zones | Your gap is documented in [requirements.md:57-65](docs/requirements.md#L57-L65). Not inventing fields is the right call, and `coverage_radius_miles` isn't presented as a zone. |
+
+## Hypotheses (can't be checked from code)
+1. **Your hosted database may not match the migration.** Policies or grants added in the Supabase dashboard would change every conclusion above. [exam_rls_catalog.sql](supabase/tests/exam_rls_catalog.sql) only counts policies per table, so a weakened policy would still pass.
+   - **Check:** query `pg_policies` (`qual`, `with_check`), `information_schema.role_table_grants` and `column_privileges`.
+   - **Positive:** the output matches the migration exactly.
+   - **Negative:** an added `USING (true)` policy causes a mismatch.
+2. **Your local RLS test setup may behave differently from hosted Supabase.** [security.test.ts:22](tests/security.test.ts#L22) builds its own roles and `auth.uid()`, so differences in JWT claims or default privileges wouldn't show up there.
+3. **`/api/services` could become a static 503.** If a build ever runs without `SUPABASE_URL` set, `required()` throws before any network call, and the handler might be prerendered as that error. Your recorded build doesn't show this. Check the route table on each deployed build.
+
+## Review limitations
+- **No execution:** I ran no tests, builds or deployments, and didn't query your hosted Supabase. Supabase Auth settings (sign-up, JWT expiry, exposed schemas) and your Vercel environment variables were out of reach.
+- **Read in full:** the migration, both API routes, the Supabase client, the schemas, the response helpers and `next.config.ts`.
+- **Read in part:** the test names and the RLS test section.
+- **Not reviewed:** UI components, the docs beyond the gap section, and the operator scripts beyond a grep for credential use.
+- **Docs used:** the Next.js caching behavior comes from the docs bundled with the installed 16.4.3, not from running the app.

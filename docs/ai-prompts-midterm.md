@@ -224,12 +224,19 @@ is to defer that troubleshooting while completing this journal.
 before I merge the branch can you help me update the AI log with what we did for the midterm lets get the last assigment compeleted and then we can figure out the supabase
 ```
 
-## Prepared review prompt for additional tool evidence — NOT RUN
+## Prepared review prompt — subsequently used unchanged in both tools
 
-This is a proposed prompt for Eric to use if separate Gemini/Google AI Studio
-evidence is required. It is not a record of an executed request or a model
-response. Paste the relevant source files after the prompt, excluding all
-environment files, credentials and test-account passwords.
+Historical preparation status: this prompt had not been run when written.
+Eric later supplied Google AI Studio and Gemini review responses, preserved in
+[additional review evidence](evidence/midterm/ai-reviews/review-disposition.md).
+Eric subsequently confirmed using the following prepared prompt unchanged in
+both tools. It is therefore the student-confirmed submitted prompt; execution
+and response limits remain documented separately.
+
+The text below was originally prepared as a proposed prompt and was later
+confirmed by Eric as the prompt used in both tools. Source context should exclude
+all environment files, credentials and test-account passwords. Actual responses
+are preserved separately; no test execution is inferred from prompt use.
 
 ```text
 I am reviewing my CIS 3610 Version B midterm: a Local Merchant Services and
@@ -287,3 +294,55 @@ The merge was independently observed through GitHub; it was not performed by
 Codex. Actual execution results are saved in
 `docs/evidence/midterm/production-deployment.json`, with the verification limits
 and credential-handling scope stated explicitly.
+
+## P10 Submission readiness request
+
+```text
+perfect that fixed her issue, now we can look back at my repo can you help me complete any outstanding items I have let me know if you need the assignemnt info again
+```
+
+Codex returned to Eric's repository, checked GitHub status and public production
+GET endpoints, reran the 25 local tests and lint, and corrected stale publication
+notes. Actual results are in `docs/evidence/midterm/submission-readiness.json`.
+Missing additional AI-tool evidence and Eric's independent review were requested
+from Eric; no responses, tool use, reflection or instructor approval are invented.
+
+## P11 Additional review evidence and student reflection
+
+Eric first reported that neither additional tool had yet been used and requested
+prompts. He then asked whether the prepared prompt could be used with both
+Gemini and Google AI Studio; Codex confirmed and requested the real responses
+and model labels. Eric subsequently supplied both attached responses:
+
+- Google AI Studio: [verbatim response](evidence/midterm/ai-reviews/google-ai-studio-review.txt).
+- Gemini: [verbatim response](evidence/midterm/ai-reviews/gemini-review.txt).
+
+On confirmation of tool mapping, model names and unchanged prompt use, Eric wrote:
+
+```text
+yes that is corect they were uing gminini 3.8 flash high
+```
+
+Tool mapping is confirmed and the model label is student-reported. Eric later
+confirmed unchanged use of the prepared prompt in both tools. No exact tool
+invocation timestamp is inferred from the response-receipt date.
+
+Eric also supplied this reflection in response to the independent-review question:
+
+```text
+Yes I learned how to check for the connection between supabase and vercel.How to safely add the env. How to plan and begin building each piece by piece. I learned how to test locally, how to have AI assist me on the process and coding. How to verify its results by running it locally to test
+```
+
+Assistant source verification, suggested dispositions and evidence limits are
+recorded in [review disposition](evidence/midterm/ai-reviews/review-disposition.md).
+These are distinguished from Eric's later confirmed decision below.
+
+## P12 Student confirmation of prompt use and review decision
+
+```text
+perfect ya I sent the prepared prompt to both toosl, and yes I agree with keeping the exam behavoir since I want to meet those requirements and we can do that as future improvements
+```
+
+This confirms the prepared prompt was used unchanged in both tools and Eric
+agrees with retaining the exam behavior while deferring optional hardening.
+It is not instructor approval or a new execution result.
