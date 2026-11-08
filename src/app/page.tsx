@@ -1,7 +1,7 @@
 import PropertyExplorer from "@/components/PropertyExplorer";
-import { properties } from "@/data/properties";
+import listingSeed from "../../data/fixtures/listings.synthetic.json";
+import { listingView } from "@/lib/listingView";
 import SponsorBanner from "@/components/SponsorBanner";
-import type { Sponsor } from "@/types";
 
 const features = [
   {
@@ -21,13 +21,10 @@ const features = [
   },
 ];
 
-const sponsor: Sponsor = {
-  id: "example-neighborhood-services",
-  businessName: "Example Neighborhood Services (Fictional Demo)",
-  websiteUrl: "https://example.com",
-};
+
 
 export default function Home() {
+  const listings = listingView(listingSeed);
   return (
     <main className="min-h-screen bg-zinc-50 px-6 py-16 text-zinc-950 dark:bg-zinc-950 dark:text-zinc-50 sm:px-10 sm:py-24">
       <div className="mx-auto w-full max-w-5xl">
@@ -62,7 +59,7 @@ export default function Home() {
         </section>
 
         <div className="mt-12 max-w-2xl">
-          <SponsorBanner sponsor={sponsor} />
+          {listings.success && listings.sponsors[0] ? <SponsorBanner sponsor={listings.sponsors[0]} /> : null}
         </div>
 
         <section aria-labelledby="listings-heading" className="mt-16">
@@ -73,7 +70,11 @@ export default function Home() {
             Fictional demonstration data: these addresses, cities, prices, and
             original illustrations do not advertise real rentals.
           </p>
-          <PropertyExplorer properties={properties} />
+          {listings.success ? (
+            <PropertyExplorer properties={listings.properties} />
+          ) : (
+            <p role="status" className="mt-6 rounded-xl border p-5">{listings.error}</p>
+          )}
         </section>
       </div>
     </main>

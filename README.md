@@ -55,3 +55,12 @@ and dated test contexts. Historical test records are not new test results.
 
 Deployment URL: **Pending deployment**. No new hosted-site test or deployment
 is claimed by this repository integration.
+
+
+## Lab 3 — strict data contracts (local work in progress)
+
+See [Lab 3 checklist](docs/lab3/checklist.md), [ADR 001](docs/adr/001-data-contract.md)
+and [actual validation evidence](docs/evidence/lab3/verification.json).
+Run `npm run validate:data`, `npm test`, and `npm run schema:check`.
+Current fixtures are Codex-authored synthetic test inputs. Actual AI Studio raw
+output and Gemini review remain pending; no deployment or completed Lab 3 is claimed.

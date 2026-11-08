@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "synthetic": {
+      "type": "boolean",
+      "const": true
+    },
+    "properties": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "property_id": {
+            "type": "string",
+            "minLength": 3,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "title": {
+            "type": "string",
+            "minLength": 5,
+            "pattern": "\\S"
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "street": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "city": {
+                "type": "string",
+                "minLength": 1,
+                "pattern": "\\S"
+              },
+              "state": {
+                "type": "string",
+                "pattern": "^[A-Z]{2}$"
+              },
+              "country": {
+                "type": "string",
+                "const": "US"
+              }
+            },
+            "required": [
+              "street",
+              "city",
+              "state",
+              "country"
+            ],
+            "additionalProperties": false
+          },
+          "zip_code": {
+            "type": "string",
+            "pattern": "^[0-9]{5}(?:-[0-9]{4})?$"
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0,
+            "multipleOf": 0.01
+          },
+          "currency": {
+            "type": "string",
+            "const": "USD"
+          },
+          "price_period": {
+            "type": "string",
+            "const": "month"
+          },
+          "property_type": {
+            "type": "string",
+            "enum": [
+              "apartment",
+              "studio",
+              "house",
+              "condo",
+              "townhouse"
+            ]
+          },
+          "bedrooms": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "bathrooms": {
+            "type": "number",
+            "minimum": 0,
+            "multipleOf": 0.5
+          },
+          "square_feet": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991
+          },
+          "amenities": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "parking",
+                "laundry",
+                "elevator",
+                "balcony",
+                "garden",
+                "air_conditioning"
+              ]
+            }
+          },
+          "local_sponsors": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 3,
+              "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+            }
+          },
+          "image_path": {
+            "type": "string",
+            "enum": [
+              "/images/maple-court.svg",
+              "/images/cedar-studio.svg",
+              "/images/willow-house.svg"
+            ]
+          },
+          "image_alt": {
+            "type": "string",
+            "minLength": 10,
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "property_id",
+          "title",
+          "address",
+          "zip_code",
+          "price",
+          "currency",
+          "price_period",
+          "property_type",
+          "bedrooms",
+          "bathrooms",
+          "square_feet",
+          "amenities",
+          "local_sponsors",
+          "image_path",
+          "image_alt"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "sponsors": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sponsor_id": {
+            "type": "string",
+            "minLength": 3,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "business_name": {
+            "type": "string",
+            "minLength": 3,
+            "pattern": "\\S"
+          },
+          "website_url": {
+            "type": "string",
+            "pattern": "^https:\\/\\/(?:[a-z0-9-]+\\.)?example\\.(?:com|org|net)\\/?$"
+          }
+        },
+        "required": [
+          "sponsor_id",
+          "business_name",
+          "website_url"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "synthetic",
+    "properties",
+    "sponsors"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,73 @@
+{
+  "recorded_at_utc": "2026-11-08T06:07:49.530771+00:00",
+  "branch": "lab3/data-contracts",
+  "baseline": "e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b",
+  "checks": [
+    {
+      "check": "schema-export-consistency",
+      "exit_code": 0
+    },
+    {
+      "check": "valid-data",
+      "exit_code": 0
+    },
+    {
+      "check": "typescript-after-build",
+      "exit_code": 0
+    },
+    {
+      "check": "missing-id",
+      "exit_code": 1,
+      "expected_exit_code": 1
+    },
+    {
+      "check": "negative-price",
+      "exit_code": 1,
+      "expected_exit_code": 1
+    },
+    {
+      "check": "bad-zip",
+      "exit_code": 1,
+      "expected_exit_code": 1
+    },
+    {
+      "check": "unknown-property-field",
+      "exit_code": 1,
+      "expected_exit_code": 1
+    }
+  ],
+  "observed_prior_commands_this_session": {
+    "npm test": {
+      "exit_code": 0,
+      "tests_passed": 15,
+      "tests_failed": 0
+    },
+    "npm run lint": {
+      "exit_code": 0
+    },
+    "npm run build": {
+      "exit_code": 0,
+      "homepage": "static prerendered"
+    },
+    "initial npx tsc --noEmit before build": {
+      "exit_code": 2,
+      "diagnostic": "Cannot find name LayoutProps; Next generated types absent in fresh worktree"
+    }
+  },
+  "limitations": [
+    "Current data is Codex-authored synthetic test fixture, not AI Studio output.",
+    "No external-model generations, Gemini response, screenshots, deployment or browser manual test claimed.",
+    "npm installation reported eight moderate vulnerabilities; no audit fix was applied.",
+    "No credentials, production database access, commits, pushes, PRs or merges performed."
+  ],
+  "secret_scan": {
+    "non_ignored_files": 74,
+    "reachable_history_blobs": 161,
+    "findings": 0,
+    "scope": "bounded common-key patterns and environment-file tracking; no values emitted"
+  },
+  "documentation_checks": {
+    "historical_ai_log_prefix_preserved": true,
+    "local_links_valid": true
+  }
+}

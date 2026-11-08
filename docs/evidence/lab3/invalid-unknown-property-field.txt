@@ -1,0 +1,13 @@
+
+> neighborhood-listing-platform-lab@0.1.0 validate:data
+> tsx scripts/validate-listings.ts tests/fixtures/unknown-property-field.json
+
+{
+  "valid": false,
+  "issues": [
+    {
+      "path": "properties.0",
+      "message": "Unrecognized key: \"secret_notes\""
+    }
+  ]
+}
