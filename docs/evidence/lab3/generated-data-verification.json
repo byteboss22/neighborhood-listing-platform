@@ -54,5 +54,6 @@
     "files_scanned": 88,
     "findings": 0,
     "scope": "bounded common key patterns and tracked/nonignored environment filenames"
-  }
+  },
+  "log_formatting": "Trailing terminal whitespace and empty EOF lines in build/lint output were removed for repository hygiene; diagnostic text, exit codes and reported results unchanged. Raw model response artifacts were not modified."
 }

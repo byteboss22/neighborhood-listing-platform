@@ -54,9 +54,11 @@ all five properties, three sponsors, six relationships and source facts match.
 2. Eric [reported the local page works without issues](../evidence/lab3/student-review.json).
    No item-by-item browser checklist or partner contribution is inferred. His
    generation/tool interactions and hardening decision are separately recorded.
-3. Commit/push this generation/review follow-up and open a Lab 3 PR with evidence.
-   Initial implementation is `bbd6903` and publication `30eec3d`. Main already
-   includes the midterm, so review base/integration conflicts before merging.
+3. Generation/review follow-up is published as `9f4620c`; initial implementation
+   is `bbd6903` and publication `30eec3d`. A read-only merge check found conflicts
+   against main in docs/ai-log.md, package.json, package-lock.json and
+   src/app/page.tsx. Prepare a draft PR and resolve integration deliberately
+   before any merge, retaining both the Lab 3 and midterm work.
 4. Deploy a lab-specific preview if needed and submit actual Canvas links.
 
 ## Later labs
