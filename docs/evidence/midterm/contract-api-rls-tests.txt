@@ -1,0 +1,34 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test
+> node --conditions=react-server --import tsx --test tests/*.test.ts
+
+✔ strict runtime contract rejects absent, malformed, extra and PostgreSQL-overflow values (1.953292ms)
+▶ actual route handlers through Supabase SDK with a mocked network boundary
+  ✔ GET uses anonymous approved-only public-column query (22.920125ms)
+  ✔ 400 structured errors and malformed JSON do not reach database (0.912ms)
+  ✔ missing/invalid user returns 401 (4.004833ms)
+  ✔ client, admin-profile-only and absent profile return 403 (8.869917ms)
+  ✔ provider and merchant insert their own draft, returning persisted row/201 (1.615667ms)
+  ✔ database RLS denial is safe 403; database failure is safe 503 (1.052667ms)
+  ✔ public booking inserts without selecting/echoing client contact information (1.404834ms)
+  ✔ missing server configuration fails closed with safe response (0.100708ms)
+✔ actual route handlers through Supabase SDK with a mocked network boundary (41.650917ms)
+▶ migration rebuild and PostgreSQL RLS positive/negative authorization matrix
+  ✔ all five tables have RLS enabled (1.185208ms)
+  ✔ anonymous sees approved services, active categories and approved mappings only (2.554791ms)
+  ✔ anonymous may insert a booking but sees no bookings, including its own (0.420417ms)
+  ✔ provider owns draft/suspended CRUD; other-provider, pending/live writes denied (6.083875ms)
+  ✔ provider reads only bookings for its services; merchant is equivalent (1.582458ms)
+  ✔ client can book but cannot read bookings or create services/escalate role (1.874291ms)
+  ✔ admin profile alone has no elevation; trusted service_role has oversight of all five tables (3.385583ms)
+  ✔ database rejects invalid checks, duplicate mappings and missing foreign keys (2.203917ms)
+  ✔ category/service cascading deletes and auth-user cascade with provider RESTRICT (1.178625ms)
+✔ migration rebuild and PostgreSQL RLS positive/negative authorization matrix (758.325583ms)
+ℹ tests 20
+ℹ suites 0
+ℹ pass 20
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 922.594541

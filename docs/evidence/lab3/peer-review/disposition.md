@@ -37,6 +37,8 @@ References: [Ajv fractional multipleOf option](https://ajv.js.org/options.html#m
 schema consistency and generated-data validation passed with Next 16.4.6. The
 production-only dependency audit reports zero findings; the full audit exits 1
 with seven moderate findings. No force fix or clean full-audit claim is made.
-The actual command logs are retained alongside the report. These fixes do not resolve the existing merge conflicts against main.
+The actual command logs are retained alongside the report. Those peer-review fixes did not resolve main conflicts at that checkpoint.
+The later [combined integration](../../../integration-lab3.md) reconciles them
+on the Lab 3 branch for a new review, without merging the feature into main.
 Main, midterm-baseline, lab2-baseline and the midterm feature branch are unchanged.
 No review reply, approval, merge, production migration or deployment is claimed.

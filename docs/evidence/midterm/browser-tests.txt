@@ -1,0 +1,26 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test:ui
+> playwright test
+
+[WebServer] (node:19243) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:19256) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 6 tests using 1 worker
+
+[WebServer] (node:19244) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:19289) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] Route / is rendering with server caches disabled. For this navigation, Component Metadata in React DevTools will not accurately reflect what is statically prerenderable and runtime prefetchable. See more info here: https://nextjs.org/docs/messages/cache-bypass-in-dev
+  ✓  1 tests/services.spec.ts:14:7 › services grid at 390px has 1 columns, no overflow, and no automated accessibility violations (504ms)
+  ✓  2 tests/services.spec.ts:14:7 › services grid at 820px has 2 columns, no overflow, and no automated accessibility violations (384ms)
+  ✓  3 tests/services.spec.ts:14:7 › services grid at 1280px has 3 columns, no overflow, and no automated accessibility violations (390ms)
+  ✓  4 tests/services.spec.ts:27:5 › Tab, Shift+Tab, Enter and Space navigate/open/close booking form with visible focus (479ms)
+  ✓  5 tests/services.spec.ts:62:5 › booking form posts fictional details and announces receipt (342ms)
+  ✓  6 tests/services.spec.ts:77:5 › empty, unavailable and invalid service data fail safely (360ms)
+
+  6 passed (4.4s)

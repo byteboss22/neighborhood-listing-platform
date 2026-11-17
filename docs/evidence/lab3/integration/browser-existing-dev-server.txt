@@ -1,0 +1,19 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test:ui
+> playwright test
+
+Error: Process from config.webServer was not able to start. Exit code: 1
+
+[WebServer] (node:93060) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] (node:93062) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+[WebServer] ⨯ Another next dev server is already running.
+[WebServer]
+[WebServer] - Local:        http://localhost:3000
+[WebServer] - PID:          92578
+[WebServer] - Dir:          /Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3
+[WebServer] - Log:          .next/dev/logs/next-development.log
+[WebServer]
+[WebServer] You can access the existing server at http://localhost:3000,
+[WebServer] or run kill 92578 to stop it and start a new one.

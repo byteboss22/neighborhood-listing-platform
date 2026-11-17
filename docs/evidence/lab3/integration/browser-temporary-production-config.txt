@@ -1,0 +1,16 @@
+
+Running 7 tests using 1 worker
+
+  ✓  1 tests/combined-page.spec.ts:3:1 › validated Lab 3 listings and filters coexist with midterm appointment controls (465ms)
+  ✓  2 tests/services.spec.ts:14:3 › services grid at 390px has 1 columns, no overflow, and no automated accessibility violations (388ms)
+  ✓  3 tests/services.spec.ts:14:3 › services grid at 820px has 2 columns, no overflow, and no automated accessibility violations (320ms)
+  ✓  4 tests/services.spec.ts:14:3 › services grid at 1280px has 3 columns, no overflow, and no automated accessibility violations (306ms)
+  ✓  5 tests/services.spec.ts:27:1 › Tab, Shift+Tab, Enter and Space navigate/open/close booking form with visible focus (396ms)
+  ✓  6 tests/services.spec.ts:62:1 › booking form posts fictional details and announces receipt (195ms)
+  ✓  7 tests/services.spec.ts:77:1 › empty, unavailable and invalid service data fail safely (147ms)
+
+  7 passed (3.1s)
+[WebServer] (node:1129) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:1130) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

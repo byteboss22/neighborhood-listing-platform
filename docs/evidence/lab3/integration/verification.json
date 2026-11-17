@@ -1,0 +1,104 @@
+{
+  "executed_at_utc": "2026-11-17T02:18:44.590102+00:00",
+  "lab3_parent": "d999d8a913cdc9da30615e24c7ac297fd0f24102",
+  "main_parent": "b167c473f406837531ab7d7b796e945dc4ff4099",
+  "branch": "lab3/data-contracts",
+  "next_version": "16.4.6",
+  "checks": [
+    {
+      "name": "schema",
+      "command": "npm run schema:check",
+      "exit_code": 0,
+      "log": "schema.txt"
+    },
+    {
+      "name": "data",
+      "command": "npm run validate:data -- data/generated/ai-studio-attempt-01.json",
+      "exit_code": 0,
+      "log": "data.txt"
+    },
+    {
+      "name": "unit",
+      "command": "npm test",
+      "exit_code": 0,
+      "log": "unit.txt"
+    },
+    {
+      "name": "lint",
+      "command": "npm run lint",
+      "exit_code": 0,
+      "log": "lint-final.txt",
+      "rechecked_after": "Adding the reproducible production Playwright config."
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "exit_code": 0,
+      "log": "build.txt"
+    },
+    {
+      "name": "typescript",
+      "command": "npx tsc --noEmit",
+      "exit_code": 0,
+      "log": "typescript-final.txt",
+      "rechecked_after": "Adding the reproducible production Playwright config."
+    },
+    {
+      "name": "browser",
+      "command": "npm run test:ui:production",
+      "exit_code": 0,
+      "log": "browser.txt",
+      "initial_exit_code": 1,
+      "initial_log": "browser-initial-missing-binary.txt",
+      "initial_reason": "Chromium executable missing; installed matching Playwright Chromium/headless shell.",
+      "intermediate_exit_code": 1,
+      "intermediate_log": "browser-existing-dev-server.txt",
+      "intermediate_reason": "User dev server already running for this worktree on port 3000; left it running.",
+      "final_configuration": "Tracked playwright.production.config.ts runs the built app on isolated localhost:3100 with the same browser/workers/tests. Existing user dev server remains running on port 3000.",
+      "existing_server_attempt_exit_code": 1,
+      "existing_server_attempt_log": "browser-existing-server-render-failure.txt",
+      "existing_server_attempt_result": "Pre-existing dev server rendered service loading state without the mocked cards; not treated as a pass. No source fix or definitive cause claimed for that running server.",
+      "production_probe_log": "browser-temporary-production-config.txt"
+    },
+    {
+      "name": "production-audit",
+      "command": "npm audit --omit=dev --json",
+      "exit_code": 0,
+      "log": "production-audit.json",
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    },
+    {
+      "name": "full-audit",
+      "command": "npm audit --json",
+      "exit_code": 1,
+      "log": "full-audit.json",
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 7,
+        "high": 0,
+        "critical": 0,
+        "total": 7
+      }
+    }
+  ],
+  "scope": "Local combined integration checks. Browser service/booking traffic is intercepted with fictional fixtures. No live Supabase writes, account changes or production deployment.",
+  "browser_rerun_at_utc": "2026-11-17T02:28:37.258076+00:00",
+  "unit_test_count": 42,
+  "browser_test_count": 7,
+  "browser_final_at_utc": "2026-11-17T02:29:32.059984+00:00",
+  "preservation": "preservation.json",
+  "secret_scan": {
+    "command": "python3 scripts/scan-secrets.py",
+    "exit_code": 0,
+    "log": "secret-scan.txt",
+    "scope": "bounded heuristic, not an absolute guarantee"
+  }
+}

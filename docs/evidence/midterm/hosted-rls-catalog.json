@@ -1,0 +1,15 @@
+{
+  "recorded_on": "2026-11-04",
+  "timezone": "America/Los_Angeles",
+  "source": "Student-pasted result from the development Supabase SQL Editor, supplied in this conversation. Codex transcribed and compared the result with the migration; Codex did not directly execute this hosted catalog query.",
+  "query_file": "supabase/tests/exam_rls_catalog.sql",
+  "expected_table_count": 5,
+  "rows": [
+    { "table_name": "bookings", "table_exists": true, "rls_enabled": true, "policy_count": 2 },
+    { "table_name": "profiles", "table_exists": true, "rls_enabled": true, "policy_count": 1 },
+    { "table_name": "service_categories", "table_exists": true, "rls_enabled": true, "policy_count": 1 },
+    { "table_name": "service_category_mappings", "table_exists": true, "rls_enabled": true, "policy_count": 1 },
+    { "table_name": "services", "table_exists": true, "rls_enabled": true, "policy_count": 5 }
+  ],
+  "comparison_with_prescribed_migration": "PASS: all five required tables exist, all five RLS flags are true, and all policy counts match the migration. This result is administrative catalog evidence; role isolation is established separately by executed live tests."
+}

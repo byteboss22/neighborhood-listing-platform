@@ -2,6 +2,7 @@ import PropertyExplorer from "@/components/PropertyExplorer";
 import listingSeed from "../../data/generated/ai-studio-attempt-01.json";
 import { listingView } from "@/lib/listingView";
 import SponsorBanner from "@/components/SponsorBanner";
+import ServiceExplorer from "@/components/ServiceExplorer";
 
 const features = [
   {
@@ -20,8 +21,6 @@ const features = [
       "Learn how voice assistance can make it easier to find information around the platform.",
   },
 ];
-
-
 
 export default function Home() {
   const listings = listingView(listingSeed);
@@ -75,6 +74,11 @@ export default function Home() {
           ) : (
             <p role="status" className="mt-6 rounded-xl border p-5">{listings.error}</p>
           )}
+        </section>
+        <section aria-labelledby="services-heading" className="mt-16">
+          <h2 id="services-heading" className="text-3xl font-semibold tracking-tight">Local services &amp; appointments</h2>
+          <p className="mt-3 text-zinc-600 dark:text-zinc-300">Browse approved services and request an appointment with a local provider.</p>
+          <ServiceExplorer />
         </section>
       </div>
     </main>

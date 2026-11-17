@@ -57,11 +57,12 @@ all five properties, three sponsors, six relationships and source facts match.
 3. Grace's [actual GitHub review and fixes](../evidence/lab3/peer-review/disposition.md)
    are recorded. Current checks are in [peer verification](../evidence/lab3/peer-review/verification.json).
    Generation/review follow-up is published as `9f4620c`; initial implementation
-   is `bbd6903` and publication `30eec3d`. A read-only merge check found conflicts
-   against main in docs/ai-log.md, package.json, package-lock.json and
-   src/app/page.tsx. Draft [PR #5](https://github.com/byteboss22/neighborhood-listing-platform/pull/5)
-   is open. Resolve integration deliberately
-   before any merge, retaining both the Lab 3 and midterm work.
+   is `bbd6903` and publication `30eec3d`. The original main conflicts have now
+   been reconciled on the Lab 3 branch, preserving both features; see
+   [integration decisions and verification](../integration-lab3.md).
+   Draft [PR #5](https://github.com/byteboss22/neighborhood-listing-platform/pull/5)
+   remains the review location. Grace's earlier review does not automatically
+   approve this new combined result. Main and both baselines remain unchanged.
 4. Deploy a lab-specific preview if needed and submit actual Canvas links.
 
 ## Later labs

@@ -1,0 +1,41 @@
+{
+  "recorded_at": "2026-11-05T01:35:40.203Z",
+  "implementation_commit": "d8344a1838354764190d38f644fd9e4695a88184",
+  "mode": "hosted-category-mapping-user-sessions",
+  "scope": "Development Supabase/PostgREST. Category fixtures are fictional. Ordinary user JWTs enforce provider/client RLS. Admin-generated links are exchanged in memory; no email is sent or password changed.",
+  "limitations": "Does not query PostgreSQL RLS catalog flags. Category active_status is not a coverage-zone flag.",
+  "outcomes": [
+    {
+      "test": "Trusted admin: fictional categories and approved/draft mapping fixtures exist",
+      "result": "PASS"
+    },
+    {
+      "test": "Anonymous: active category visible; known inactive category hidden",
+      "result": "PASS"
+    },
+    {
+      "test": "Anonymous: approved-service mapping visible; known draft-service mapping hidden",
+      "result": "PASS"
+    },
+    {
+      "test": "Provider: real user session sees active categories and approved mappings only",
+      "result": "PASS"
+    },
+    {
+      "test": "Provider: category update and mapping insert are forbidden",
+      "result": "PASS"
+    },
+    {
+      "test": "Client: real user session sees active categories and approved mappings only",
+      "result": "PASS"
+    },
+    {
+      "test": "Client: category update and mapping insert are forbidden",
+      "result": "PASS"
+    },
+    {
+      "test": "Trusted admin: inactive category remains visible and administrative update succeeds",
+      "result": "PASS"
+    }
+  ]
+}

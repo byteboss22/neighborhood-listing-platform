@@ -1,0 +1,396 @@
+Ran list workspace files
+Ran find API routes
+Analyzed 20261029140000_exam_services_persistence.sql:L1-123
+Analyzed exam_rls_catalog.sql:L1-16
+Analyzed route.ts:L1-50
+Analyzed service.ts:L1-22
+Analyzed supabaseServer.ts:L1-26
+Analyzed route.ts:L1-22
+Analyzed booking.ts:L1-10
+Analyzed apiResponse.ts:L1-14
+Analyzed api.test.ts:L1-142
+Analyzed security.test.ts:L1-145
+Analyzed ai-prompts-midterm.md:L1-301
+Analyzed ServiceCard.tsx:L1-71
+Analyzed ServiceExplorer.tsx:L1-33
+Analyzed requirements.md:L1-128
+Analyzed security-audit.md:L1-124
+Ran check z.strictObject in Zod
+Analyzed package.json:L1-41
+Ran run test suite
+Ran check z.iso.date in Zod 4
+Ran grep for SERVICE_ROLE
+Ran grep for supabaseAdminForTrustedOperation
+Ran test multipleOf floating point in Zod
+Analyzed services.spec.ts:L1-88
+
+# CIS 3610 Midterm Implementation Review: Security & Compliance Audit
+
+---
+
+## 1. Scope & Review Limitations
+
+> [!NOTE]
+> **Review Limitations & Ground Rules**:
+> - This assessment is a **static code and architectural audit** conducted exclusively on the repository files in this workspace (migrations, schemas, route handlers, components, and documentation).
+> - **No live database inspection or test execution is claimed**: I have not queried, inspected, or executed tests against your live hosted Supabase instance or production environment.
+> - Security and compliance determinations are based strictly on PostgreSQL semantics, Next.js App Router server/client runtime boundaries, Zod data contracts, and the provided CIS 3610 Version B specifications.
+
+---
+
+## 2. Compliance & Area-by-Area Technical Evaluation
+
+Each required area was analyzed against the codebase. For each area where **no defect was found**, the architectural and database-level reasons for compliance are detailed below.
+
+---
+
+### Requirement 1: Five Tables & Requirement 2: Row-Level Security Enabled on All Five
+
+* **Files Reviewed**: [20261029140000_exam_services_persistence.sql](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/supabase/migrations/20261029140000_exam_services_persistence.sql#L5-L54), [exam_rls_catalog.sql](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/supabase/tests/exam_rls_catalog.sql#L3-L16).
+* **Implementation Analysis**:
+  * The migration defines the exact five specified tables: `profiles`, `service_categories`, `services`, `service_category_mappings`, and `bookings`.
+  * Primary keys, foreign keys (`REFERENCES auth.users`, `REFERENCES public.profiles`, etc.), check constraints (`char_length`, regex patterns, numeric ranges), and cascading rules are fully declared.
+  * Lines 49–53 explicitly enable RLS across every table:
+    ```sql
+    ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+    ALTER TABLE public.service_categories ENABLE ROW LEVEL SECURITY;
+    ALTER TABLE public.services ENABLE ROW LEVEL SECURITY;
+    ALTER TABLE public.service_category_mappings ENABLE ROW LEVEL SECURITY;
+    ALTER TABLE public.bookings ENABLE ROW LEVEL SECURITY;
+    ```
+  * Lines 57–58 execute a comprehensive `REVOKE ALL ... FROM PUBLIC, anon, authenticated;`, dismantling Supabase’s permissive defaults before establishing targeted grants.
+* **Finding**: **Compliant / No Defect**. All five tables exist with the specified structures, and RLS is enabled and fortified by default-deny permission revocations.
+
+---
+
+### Requirement 3: Anonymous Users See Approved Services & Active Categories Only
+
+* **Files Reviewed**: [20261029140000_exam_services_persistence.sql](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/supabase/migrations/20261029140000_exam_services_persistence.sql#L61-L83).
+* **Implementation Analysis**:
+  * **Categories**:
+    ```sql
+    CREATE POLICY categories_active_read ON public.service_categories
+      FOR SELECT TO anon, authenticated
+      USING (active_status = true);
+    ```
+    Anonymous callers only match rows where `active_status` is `true`. Inactive categories return 0 rows.
+  * **Services**:
+    ```sql
+    GRANT SELECT (id, title, hourly_rate, duration_minutes, coverage_radius_miles, status, created_at)
+      ON public.services TO anon;
+    CREATE POLICY services_public_read ON public.services
+      FOR SELECT TO anon, authenticated
+      USING (status = 'approved');
+    ```
+    The RLS policy restricts visibility exclusively to `status = 'approved'`. Draft, pending, and suspended records evaluate to false. Furthermore, the column grant explicitly omits `provider_id`, ensuring anonymous callers cannot query provider identities at the SQL level.
+  * **Mappings**:
+    ```sql
+    CREATE POLICY mappings_approved_read ON public.service_category_mappings
+      FOR SELECT TO anon, authenticated
+      USING (EXISTS (SELECT 1 FROM public.services s WHERE s.id = service_id AND s.status = 'approved'));
+    ```
+* **Finding**: **Compliant / No Defect**. RLS policies and column-level privileges ensure anonymous actors cannot observe inactive categories or unapproved services.
+
+---
+
+### Requirement 4: Merchants/Providers Can Modify Only Their Own Draft or Suspended Services
+
+* **Files Reviewed**: [20261029140000_exam_services_persistence.sql](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/supabase/migrations/20261029140000_exam_services_persistence.sql#L68-L105).
+* **Implementation Analysis**:
+  * **Update Guardrails**:
+    ```sql
+    CREATE POLICY services_provider_update ON public.services
+      FOR UPDATE TO authenticated
+      USING (provider_id = (SELECT auth.uid()) AND status IN ('draft', 'suspended') AND EXISTS (
+        SELECT 1 FROM public.profiles p WHERE p.id = (SELECT auth.uid()) AND p.role IN ('merchant', 'provider')
+      ))
+      WITH CHECK (provider_id = (SELECT auth.uid()) AND status IN ('draft', 'suspended') AND EXISTS (
+        SELECT 1 FROM public.profiles p WHERE p.id = (SELECT auth.uid()) AND p.role IN ('merchant', 'provider')
+      ));
+    ```
+    * `USING` verifies that the existing record belongs to `auth.uid()` and is currently in `draft` or `suspended` status. Any attempt to update an `approved` or `pending` service, or a service owned by another provider, fails to match (yielding 0 affected rows).
+    * `WITH CHECK` verifies that the updated row remains in `draft` or `suspended` status and remains owned by `auth.uid()`, preventing self-approval or privilege escalation.
+    * Line 68 omits `provider_id` from `GRANT UPDATE (...)`, making ownership transfer impossible at the PostgreSQL grant level.
+  * **Delete Guardrails**:
+    ```sql
+    CREATE POLICY services_provider_delete ON public.services
+      FOR DELETE TO authenticated
+      USING (provider_id = (SELECT auth.uid()) AND status IN ('draft', 'suspended') AND EXISTS (
+        SELECT 1 FROM public.profiles p WHERE p.id = (SELECT auth.uid()) AND p.role IN ('merchant', 'provider')
+      ));
+    ```
+* **Finding**: **Compliant / No Defect**. Both `USING` and `WITH CHECK` clauses enforce that providers cannot modify or delete services outside their own `draft` or `suspended` listings.
+
+---
+
+### Requirement 5: Public Visitors May Insert Bookings; Clients Cannot Read Bookings
+
+* **Files Reviewed**: [20261029140000_exam_services_persistence.sql](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/supabase/migrations/20261029140000_exam_services_persistence.sql#L70-L71), [route.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/app/api/bookings/route.ts#L12-L18).
+* **Implementation Analysis**:
+  * **Public Insertion**:
+    ```sql
+    GRANT INSERT (service_id, client_email, requested_date, notes) ON public.bookings TO anon, authenticated;
+    CREATE POLICY bookings_public_insert ON public.bookings FOR INSERT TO anon, authenticated WITH CHECK (true);
+    ```
+    Visitors (both `anon` and `authenticated`) can insert bookings.
+  * **Zero Read Access for Clients**:
+    * In PostgreSQL: No SELECT policy is created for `anon` on `bookings` (default deny). For `authenticated`, the only SELECT policy is `bookings_provider_read`, which checks `p.role IN ('merchant', 'provider')` and `s.provider_id = auth.uid()`. Because a client has `p.role = 'client'`, the check evaluates to `false`. Clients see 0 rows.
+    * In the API: [src/app/api/bookings/route.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/app/api/bookings/route.ts#L15-L18) does not expose a `GET` handler, invokes `insert()` without `.select()`, and returns `{ received: true }, 201`, preventing any echo or leakage of client contact details.
+* **Finding**: **Compliant / No Defect**. Clients cannot read booking records through either PostgREST or the Next.js API layer.
+
+---
+
+### Requirement 6: Providers Can Read Bookings Only for Their Own Services
+
+* **Files Reviewed**: [20261029140000_exam_services_persistence.sql](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/supabase/migrations/20261029140000_exam_services_persistence.sql#L115-L119).
+* **Implementation Analysis**:
+  ```sql
+  CREATE POLICY bookings_provider_read ON public.bookings FOR SELECT TO authenticated
+    USING (EXISTS (
+      SELECT 1 FROM public.services s JOIN public.profiles p ON p.id = s.provider_id
+      WHERE s.id = service_id AND s.provider_id = (SELECT auth.uid()) AND p.role IN ('merchant', 'provider')
+    ));
+  ```
+  * When a provider queries `public.bookings`, the subquery joins `services` and `profiles`.
+  * Only bookings whose foreign key matches a service owned by the caller (`s.provider_id = auth.uid()`) where the caller's verified role is `merchant` or `provider` are returned.
+  * Bookings for services owned by other providers return 0 rows.
+* **Finding**: **Compliant / No Defect**. Booking visibility is strictly bound to service ownership and provider role verification.
+
+---
+
+### Requirement 7: Elevated Admin Credentials Remain Server-Only
+
+* **Files Reviewed**: [supabaseServer.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/lib/supabaseServer.ts#L1-L26).
+* **Implementation Analysis**:
+  * Line 1 enforces physical environment isolation via `import "server-only";`. If any client component attempts to import this module, the Next.js compiler halts the build.
+  * The administrative factory:
+    ```typescript
+    export function supabaseAdminForTrustedOperation() {
+      return createClient(required("SUPABASE_URL"), required("SUPABASE_SERVICE_ROLE_KEY"), { auth });
+    }
+    ```
+    is never exported to the browser, is not exposed via any `NEXT_PUBLIC_` prefix, and is not imported by any API route handler in `src/app/api/`.
+  * Normal server operations ([supabaseServer()](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/lib/supabaseServer.ts#L13-L18)) exclusively initialize with `SUPABASE_ANON_KEY`.
+* **Finding**: **Compliant / No Defect**. The `service_role` key is strictly isolated to trusted server utilities and cannot leak into client bundles or public endpoints.
+
+---
+
+### Requirement 8: Provider API Actions Must Use Authenticated User-Scoped Credentials
+
+* **Files Reviewed**: [route.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/app/api/services/route.ts#L25-L41), [supabaseServer.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/lib/supabaseServer.ts#L13-L18).
+* **Implementation Analysis**:
+  * In [src/app/api/services/route.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/app/api/services/route.ts#L25-L30), the Bearer token is extracted from the incoming request `Authorization` header.
+  * The client is instantiated via `supabaseServer(token)`, which forwards the user's JWT to PostgREST:
+    ```typescript
+    global: accessToken ? { headers: { Authorization: `Bearer ${accessToken}` } } : undefined
+    ```
+  * PostgREST decodes the JWT and switches the database connection role to `authenticated` with `request.jwt.claim.sub` set to the user’s ID.
+  * This guarantees that when `.insert(...)` executes, PostgreSQL itself enforces the `services_provider_insert` RLS policy using the authenticated caller's identity rather than bypassing RLS with an administrative key.
+* **Finding**: **Compliant / No Defect**. Provider actions operate under the caller’s database identity, ensuring full RLS policy evaluation.
+
+---
+
+### Requirement 9: GET /api/services Returns Only id, title, hourly_rate, duration_minutes, coverage_radius_miles
+
+* **Files Reviewed**: [route.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/app/api/services/route.ts#L5-L15), [service.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/schemas/service.ts#L21-L22).
+* **Implementation Analysis**:
+  * In [src/schemas/service.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/schemas/service.ts#L21-L22):
+    ```typescript
+    export const PUBLIC_SERVICE_COLUMNS = "id,title,hourly_rate,duration_minutes,coverage_radius_miles";
+    ```
+  * In [src/app/api/services/route.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/app/api/services/route.ts#L8-L11):
+    ```typescript
+    const { data, error } = await supabaseServer().from("services")
+      .select(PUBLIC_SERVICE_COLUMNS).eq("status", "approved").order("created_at");
+    if (error) return unavailable();
+    return json(data);
+    ```
+  * The query uses the anonymous client (ignoring any caller session), explicitly filters for `status = 'approved'`, and projects only the five required columns. Internal metadata (`provider_id`, `status`, `created_at`) are excluded from the output.
+  * Responses are sent with `Cache-Control: no-store` to prevent caching of dynamic data.
+* **Finding**: **Compliant / No Defect**. The endpoint returns an array containing strictly the five public fields specified.
+
+---
+
+### Requirement 10: POST Validates a Strict Four-Field Payload, Rejects Extra Fields, Verifies Provider Identity, and Creates an Owned Draft
+
+* **Files Reviewed**: [service.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/schemas/service.ts#L8-L13), [route.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/app/api/services/route.ts#L17-L46).
+* **Implementation Analysis**:
+  * **Strict Payload Validation**:
+    [src/schemas/service.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/schemas/service.ts#L8-L13) defines `serviceSchema` with `z.strictObject(...)`:
+    ```typescript
+    export const serviceSchema = z.strictObject({
+      title,
+      hourly_rate: z.number().min(0).max(99999999.99).multipleOf(0.01),
+      duration_minutes: pgInteger.min(15),
+      coverage_radius_miles: pgInteger.positive(),
+    });
+    ```
+    Any extra properties (e.g., `id`, `status`, `provider_id`, `created_at`) cause `serviceSchema.safeParse(...)` to fail, returning HTTP 400 with structured validation issues before reaching the database.
+  * **Identity & Role Verification**:
+    In [src/app/api/services/route.ts](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/app/api/services/route.ts#L30-L38):
+    1. `db.auth.getUser(token)` verifies the JWT against Supabase Auth (returns 401 on failure).
+    2. A query to `public.profiles` checks that the caller's stored role is `provider` or `merchant` (returns 403 on client/admin/absent profiles).
+  * **Owned Draft Creation**:
+    ```typescript
+    const { data, error } = await db.from("services").insert({
+      ...parsed.data, provider_id: user.id, status: "draft",
+    }).select(`${PUBLIC_SERVICE_COLUMNS},provider_id,status,created_at`).single();
+    ```
+    `provider_id` is locked to `user.id`, and `status` is hardcoded to `'draft'`. Both constraints are re-verified by PostgreSQL RLS (`services_provider_insert`). The handler returns HTTP 201 with the created record.
+* **Finding**: **Compliant / No Defect**. Validates the strict four fields, rejects unexpected properties, verifies provider status, and persists an owned draft.
+
+---
+
+## 3. Architecture & Assignment Decisions: Districts and Coverage Zones
+
+* **Requirement**: The assignment mentions districts and active coverage zones but supplies no schema for them.
+* **Review of Documentation & Codebase**:
+  * In [docs/requirements.md](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/docs/requirements.md#L57-L69), Story 2 explicitly documents:
+    > **Not implemented: district categorization or active coverage-zone filtering.**
+    > The supplied five-table schema has no district, zone, location, or zone-active field. `coverage_radius_miles` is a numeric specification, not a coverage zone; `service_categories.active_status` describes categories, not zones. Neither is used to simulate the missing behavior.
+  * In [src/components/ServiceExplorer.tsx](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/components/ServiceExplorer.tsx#L30-L32), services are rendered in the required responsive 1/2/3 grid without simulated zone filtering.
+* **Finding**: **Compliant / No Defect**. In accordance with defensive engineering principles, the codebase refrains from inventing unassigned tables or overloading unrelated columns (such as `coverage_radius_miles` or `active_status`), and properly documents the schema gap as an open item for the instructor.
+
+---
+
+## 4. Findings & Architectural Hypotheses
+
+This section details observations, potential edge cases, and architectural considerations, categorized into confirmed defects versus hypotheses.
+
+---
+
+### Summary of Classification
+
+| Identifier | Category | Area | Summary |
+| :--- | :--- | :--- | :--- |
+| **HYP-01** | Hypothesis (Business Logic / Integrity) | Migration / Bookings | Booking insertion permits targeting unapproved (draft/suspended) services |
+| **HYP-02** | Hypothesis (Input Hardening / DoS) | Zod Schemas | Unbounded string length on `title` and `notes` |
+| **HYP-03** | Hypothesis (Business Logic) | Booking Schema / UI | Appointment booking dates allow past calendar dates |
+| **HYP-04** | Hypothesis (SQL Robustness) | Migration / RLS | Unqualified `service_id` column reference in `bookings_provider_read` |
+| **HYP-05** | Hypothesis (Operational Defense) | Booking API Route | Unauthenticated public booking route lacks rate limiting |
+
+---
+
+### Detailed Findings
+
+#### Finding HYP-01: Booking Insert Policy Allows Targeting Draft or Suspended Services
+
+* **Classification**: **Hypothesis / Assignment Discrepancy** (Complies with literal assignment instructions, but constitutes a data integrity risk in production).
+* **File & Code Reference**:
+  * [20261029140000_exam_services_persistence.sql:112-113](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/supabase/migrations/20261029140000_exam_services_persistence.sql#L112-L113)
+    ```sql
+    CREATE POLICY bookings_public_insert ON public.bookings FOR INSERT TO anon, authenticated
+      WITH CHECK (true);
+    ```
+  * [src/app/api/bookings/route.ts:15-16](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/app/api/bookings/route.ts#L15-L16)
+* **Impact**:
+  * The foreign key constraint ensures that `service_id` exists in `public.services`. However, `WITH CHECK (true)` does not verify that the referenced service is `approved`.
+  * If an attacker discovers or guesses the UUID of a service that is currently in `draft`, `pending`, or `suspended` status, they can successfully insert bookings against it.
+  * *Note*: The code comments and `docs/requirements.md` note that this was implemented deliberately based on the prompt *"public and authenticated callers can insert for any existing service"*. For production, this should restrict insertion to approved services.
+* **Verification Tests**:
+  * **Positive Test**: Submit a booking payload with a valid `service_id` belonging to an `approved` service $\rightarrow$ Request succeeds with HTTP 201 (`{ received: true }`).
+  * **Negative Test**: Submit a booking payload referencing a known `draft` or `suspended` `service_id` $\rightarrow$ Currently succeeds (returns 201); under hardened logic (`WITH CHECK (EXISTS (SELECT 1 FROM public.services s WHERE s.id = service_id AND s.status = 'approved'))`), the database should reject the insert with RLS error `42501`.
+
+---
+
+#### Finding HYP-02: Unbounded String Lengths for `title` and `notes`
+
+* **Classification**: **Hypothesis / Security Hardening** (Resource Exhaustion / DoS).
+* **File & Code Reference**:
+  * [src/schemas/service.ts:4-6](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/schemas/service.ts#L4-L6)
+    ```typescript
+    const title = z.string().refine((value) => [...value].length >= 5, {
+      message: "Title must contain at least 5 characters.",
+    });
+    ```
+  * [src/schemas/booking.ts:7-9](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/schemas/booking.ts#L7-L9)
+    ```typescript
+    notes: z.string().refine((value) => [...value].length >= 10, {
+      message: "Notes must contain at least 10 characters.",
+    })
+    ```
+* **Impact**:
+  * While minimum lengths (`>= 5` for title, `>= 10` for notes) and numeric boundaries (`hourly_rate <= 99999999.99`, integer max `2147483647`) are strictly bounded, string fields do not specify an upper bound (e.g., `.max(200)`).
+  * In PostgreSQL, `title TEXT` and `notes TEXT` can store up to 1 GB.
+  * A caller could submit exceptionally large strings (e.g., megabytes of text in `notes` or `title`), causing database storage inflation, memory pressure in query deserialization, or layout degradation in client UI components.
+* **Verification Tests**:
+  * **Positive Test**: Submit a payload with `title` of 60 characters and `notes` of 200 characters $\rightarrow$ Validates successfully and creates record.
+  * **Negative Test**: Submit a payload with a `title` containing 5,000 characters $\rightarrow$ Currently passes schema validation; when hardened with `title.max(150)`, schema validation should reject the payload with HTTP 400 and an issue on path `["title"]`.
+
+---
+
+#### Finding HYP-03: Lack of Future-Date Validation on Booking Requests
+
+* **Classification**: **Hypothesis / Business Logic**.
+* **File & Code Reference**:
+  * [src/schemas/booking.ts:6](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/schemas/booking.ts#L6)
+    ```typescript
+    requested_date: z.iso.date(),
+    ```
+  * [src/components/ServiceCard.tsx:51](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/components/ServiceCard.tsx#L51)
+* **Impact**:
+  * `z.iso.date()` enforces standard calendar format (`YYYY-MM-DD`) and rejects invalid dates like `2026-02-30`.
+  * However, neither the Zod schema nor the database constraint enforces that `requested_date >= CURRENT_DATE`.
+  * Public visitors can submit bookings with past dates (e.g., `2020-01-01`), producing invalid historical appointment requests.
+* **Verification Tests**:
+  * **Positive Test**: Submit a booking with `requested_date` set to tomorrow's date $\rightarrow$ Returns 201 Created.
+  * **Negative Test**: Submit a booking with `requested_date: "2015-05-10"` $\rightarrow$ Currently returns 201 Created; with temporal validation, should return 400 Bad Request.
+
+---
+
+#### Finding HYP-04: Unqualified Column Reference in `bookings_provider_read` Policy
+
+* **Classification**: **Hypothesis / Schema Maintainability**.
+* **File & Code Reference**:
+  * [20261029140000_exam_services_persistence.sql:115-119](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/supabase/migrations/20261029140000_exam_services_persistence.sql#L115-L119)
+    ```sql
+    CREATE POLICY bookings_provider_read ON public.bookings FOR SELECT TO authenticated
+      USING (EXISTS (
+        SELECT 1 FROM public.services s JOIN public.profiles p ON p.id = s.provider_id
+        WHERE s.id = service_id AND s.provider_id = (SELECT auth.uid()) AND p.role IN ('merchant', 'provider')
+      ));
+    ```
+* **Impact**:
+  * In the subquery `WHERE s.id = service_id`, `service_id` is unqualified. Because `public.services` only has `id` (and no `service_id` column), PostgreSQL resolves `service_id` to `public.bookings.service_id` from the outer query.
+  * While this functions correctly under the current schema, if a future migration were to add a column named `service_id` to `public.services`, PostgreSQL's scope resolution would shadow the outer column, breaking the policy.
+* **Verification Tests**:
+  * **Positive Test**: Execute `SELECT * FROM public.bookings` as an authenticated provider who owns service `S1` $\rightarrow$ Successfully returns bookings matching `bookings.service_id = S1`.
+  * **Negative Test / Defense**: Replace `s.id = service_id` with `s.id = public.bookings.service_id` $\rightarrow$ The query remains explicit and immune to future column additions on `public.services`.
+
+---
+
+#### Finding HYP-05: Public Booking Endpoint Lacks Rate Limiting
+
+* **Classification**: **Hypothesis / Operational Security**.
+* **File & Code Reference**:
+  * [src/app/api/bookings/route.ts:5-22](file:///Users/ejuarez/Documents/Github/neighborhood-listing-platform-main/src/app/api/bookings/route.ts#L5-L22)
+* **Impact**:
+  * The `POST /api/bookings` route is publicly exposed to accept anonymous appointment requests.
+  * Without an edge rate-limiter (e.g., Upstash / Redis token bucket or IP-based rate limiting), an automated script could flood the `bookings` table with high volumes of synthetic requests, causing denial of service or filling database storage.
+* **Verification Tests**:
+  * **Positive Test**: Send a single legitimate booking request $\rightarrow$ Returns 201 Created.
+  * **Negative Test**: Send 50 sequential booking requests within 1 second from a single client $\rightarrow$ Currently all 50 succeed; with rate limiting enabled, subsequent requests should receive HTTP 429 Too Many Requests.
+
+---
+
+## 5. Summary Matrix
+
+```
+┌────────────────────────────────────────────────────────┬──────────────┬────────────────────────────────────────────────────────┐
+│ Requirement / Area                                     │ Status       │ Architectural Details                                  │
+├────────────────────────────────────────────────────────┼──────────────┼────────────────────────────────────────────────────────┤
+│ 1. Five Tables & Constraints                           │ PASS         │ Profiles, categories, services, mappings, bookings     │
+│ 2. RLS Enabled on All Five Tables                      │ PASS         │ Default deny with REVOKE ALL; selective policies       │
+│ 3. Anonymous Visibility (Approved & Active Only)       │ PASS         │ services_public_read & categories_active_read enforce  │
+│ 4. Provider Modifies Only Own Draft/Suspended Services │ PASS         │ USING and WITH CHECK enforce status & auth.uid()       │
+│ 5. Public Booking Insert & Zero Client Read Access     │ PASS         │ Anonymous insert allowed; no client SELECT policy      │
+│ 6. Provider Booking Read Isolation                     │ PASS         │ bookings_provider_read restricts by service provider   │
+│ 7. Elevated Admin Credentials Server-Only              │ PASS         │ import "server-only"; no client imports or leakages    │
+│ 8. Authenticated User-Scoped Provider Actions          │ PASS         │ Bearer JWT passed to Supabase client; evaluates RLS    │
+│ 9. GET /api/services Column Projection                 │ PASS         │ Returns strictly the 5 specified public fields         │
+│ 10. POST Strict 4-Field Contract & Draft Creation      │ PASS         │ z.strictObject; rejects extra keys; forces draft status│
+│ 11. Districts and Active Coverage Zones Gap            │ PASS         │ Documented in docs/requirements.md; no fake columns    │
+└────────────────────────────────────────────────────────┴──────────────┴────────────────────────────────────────────────────────┘
+```
+
+The implementation strictly satisfies all core assignment requirements and security constraints. The identified findings represent **defense-in-depth and business-logic hardening hypotheses** (such as restricting bookings to approved services, capping string lengths, and enforcing future booking dates) rather than defects against the course specification.

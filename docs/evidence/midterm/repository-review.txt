@@ -1,0 +1,45 @@
+main d7f7cd4892bbe3f3688025098bbf87423b0b8626 unchanged
+setup/app-shell 37c437f976dcb1074b546508160f366b0e0e9603 unchanged
+lab2-baseline e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b unchanged
+exam/services-booking-eval e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b unchanged
+Tracked diff and added-file whitespace checks: PASS
+Existing Lab 2 components, data, types, layout and artwork: unchanged
+Required environment/dependency/build ignore checks: PASS
+November 7, 2026 weekday: Saturday
+Files changed/added:
+ M .gitignore
+ M README.md
+ M docs/ai-log.md
+ M package-lock.json
+ M package.json
+ M src/app/page.tsx
+?? docs/ai-prompts-midterm.md
+?? docs/evidence/midterm/browser-tests.txt
+?? docs/evidence/midterm/build.txt
+?? docs/evidence/midterm/contract-api-rls-tests.txt
+?? docs/evidence/midterm/dependency-audit.json
+?? docs/evidence/midterm/lint.txt
+?? docs/evidence/midterm/production-audit.txt
+?? docs/evidence/midterm/repository-review.txt
+?? docs/evidence/midterm/secret-scan.txt
+?? docs/evidence/midterm/typescript.txt
+?? docs/midterm-setup.md
+?? docs/requirements.md
+?? docs/security-audit.md
+?? docs/testing-midterm.md
+?? playwright.config.ts
+?? scripts/scan-secrets.py
+?? src/app/api/bookings/route.ts
+?? src/app/api/services/route.ts
+?? src/components/ServiceCard.tsx
+?? src/components/ServiceExplorer.tsx
+?? src/lib/apiResponse.ts
+?? src/lib/supabaseServer.ts
+?? src/schemas/booking.ts
+?? src/schemas/service.ts
+?? supabase/migrations/20261029140000_exam_services_persistence.sql
+?? tests/api.test.ts
+?? tests/security.test.ts
+?? tests/services.spec.ts
+
+Staging area: empty. No environment files staged or listed as untracked.

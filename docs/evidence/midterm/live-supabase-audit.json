@@ -1,0 +1,63 @@
+{
+  "recorded_at": "2026-11-05T01:27:37.474Z",
+  "implementation_commit": "4a87d16558a45ad34942d92cc6b68bfef96d067c",
+  "mode": "interactive-authenticated",
+  "scope": "Hosted Supabase Auth/PostgREST and localhost API; no passwords, keys, tokens or contact details recorded.",
+  "fixture_note": "Requires the three fictional seeded services and the known public booking. Provider updates retain existing titles. A temporary audit service is deleted; an authenticated fictional audit booking is retained.",
+  "limitations": "Does not inspect PostgreSQL RLS enablement metadata or prove inactive-category filtering without category fixtures. NOT_RUN items remain pending.",
+  "outcomes": [
+    {
+      "test": "Anonymous: known approved service is visible; both known drafts are hidden",
+      "result": "PASS"
+    },
+    {
+      "test": "Anonymous: known persisted booking is hidden",
+      "result": "PASS"
+    },
+    {
+      "test": "Anonymous: profile and provider-ID column reads are denied",
+      "result": "PASS"
+    },
+    {
+      "test": "Local GET services: exact public columns and approved fixture only",
+      "result": "PASS"
+    },
+    {
+      "test": "Provider A: real Auth password sign-in and protected profile role",
+      "result": "PASS"
+    },
+    {
+      "test": "Merchant B: real Auth password sign-in and protected profile role",
+      "result": "PASS"
+    },
+    {
+      "test": "Client: real Auth password sign-in and protected profile role",
+      "result": "PASS"
+    },
+    {
+      "test": "Providers: own draft update succeeds; other-provider/live-service updates affect zero rows",
+      "result": "PASS"
+    },
+    {
+      "test": "Providers: A sees the known booking; B cannot read it",
+      "result": "PASS"
+    },
+    {
+      "test": "Provider API: real bearer session persists own draft with 201; own draft deletion succeeds",
+      "result": "PASS"
+    },
+    {
+      "test": "Client: service submission is forbidden; profile role escalation is denied",
+      "result": "FAIL",
+      "code": "ERR_ASSERTION"
+    },
+    {
+      "test": "Client: real authenticated booking INSERT succeeds, with no booking read access",
+      "result": "PASS"
+    },
+    {
+      "test": "Trusted admin: reads all five tables and updates an already-approved service",
+      "result": "PASS"
+    }
+  ]
+}

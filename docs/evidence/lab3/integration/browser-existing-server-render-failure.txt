@@ -1,0 +1,212 @@
+
+Running 7 tests using 1 worker
+
+  ✘  1 tests/combined-page.spec.ts:3:1 › validated Lab 3 listings and filters coexist with midterm appointment controls (5.2s)
+  ✘  2 tests/services.spec.ts:14:3 › services grid at 390px has 1 columns, no overflow, and no automated accessibility violations (5.2s)
+  ✘  3 tests/services.spec.ts:14:3 › services grid at 820px has 2 columns, no overflow, and no automated accessibility violations (5.2s)
+  ✘  4 tests/services.spec.ts:14:3 › services grid at 1280px has 3 columns, no overflow, and no automated accessibility violations (5.2s)
+  ✘  5 tests/services.spec.ts:27:1 › Tab, Shift+Tab, Enter and Space navigate/open/close booking form with visible focus (5.1s)
+  ✘  6 tests/services.spec.ts:62:1 › booking form posts fictional details and announces receipt (30.0s)
+  ✘  7 tests/services.spec.ts:77:1 › empty, unavailable and invalid service data fail safely (5.2s)
+
+
+  1) tests/combined-page.spec.ts:3:1 › validated Lab 3 listings and filters coexist with midterm appointment controls
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('region', { name: 'Local services & appointments' }).getByRole('article')
+    Expected: 1
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('region', { name: 'Local services & appointments' }).getByRole('article') with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Local services & appointments' }).getByRole('article')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      14 |   const services = page.getByRole("region", { name: "Local services & appointments" });
+      15 |   await expect(listings.getByRole("article")).toHaveCount(5);
+    > 16 |   await expect(services.getByRole("article")).toHaveCount(1);
+         |                                               ^
+      17 |   await expect(page.getByText("Example Maintenance (Fictional)", { exact: true })).toBeVisible();
+      18 |
+      19 |   await page.getByLabel("City", { exact: true }).selectOption("Maplehaven");
+        at /Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/tests/combined-page.spec.ts:16:47
+
+    Error Context: test-results/combined-page-validated-La-2caf4-idterm-appointment-controls/error-context.md
+
+  2) tests/services.spec.ts:14:3 › services grid at 390px has 1 columns, no overflow, and no automated accessibility violations
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('region', { name: 'Local services & appointments' }).getByRole('article')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('region', { name: 'Local services & appointments' }).getByRole('article') with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Local services & appointments' }).getByRole('article')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      16 |     await page.goto("/");
+      17 |     const section = page.getByRole("region", { name: "Local services & appointments" });
+    > 18 |     await expect(section.getByRole("article")).toHaveCount(3);
+         |                                                ^
+      19 |     const actualColumns = await section.locator(".grid").evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(" ").length);
+      20 |     expect(actualColumns).toBe(columns);
+      21 |     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+        at /Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/tests/services.spec.ts:18:48
+
+    Error Context: test-results/services-services-grid-at--ff906-ed-accessibility-violations/error-context.md
+
+  3) tests/services.spec.ts:14:3 › services grid at 820px has 2 columns, no overflow, and no automated accessibility violations
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('region', { name: 'Local services & appointments' }).getByRole('article')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('region', { name: 'Local services & appointments' }).getByRole('article') with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Local services & appointments' }).getByRole('article')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      16 |     await page.goto("/");
+      17 |     const section = page.getByRole("region", { name: "Local services & appointments" });
+    > 18 |     await expect(section.getByRole("article")).toHaveCount(3);
+         |                                                ^
+      19 |     const actualColumns = await section.locator(".grid").evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(" ").length);
+      20 |     expect(actualColumns).toBe(columns);
+      21 |     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+        at /Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/tests/services.spec.ts:18:48
+
+    Error Context: test-results/services-services-grid-at--1da5e-ed-accessibility-violations/error-context.md
+
+  4) tests/services.spec.ts:14:3 › services grid at 1280px has 3 columns, no overflow, and no automated accessibility violations
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('region', { name: 'Local services & appointments' }).getByRole('article')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('region', { name: 'Local services & appointments' }).getByRole('article') with timeout 5000ms
+      - waiting for getByRole('region', { name: 'Local services & appointments' }).getByRole('article')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      16 |     await page.goto("/");
+      17 |     const section = page.getByRole("region", { name: "Local services & appointments" });
+    > 18 |     await expect(section.getByRole("article")).toHaveCount(3);
+         |                                                ^
+      19 |     const actualColumns = await section.locator(".grid").evaluate((element) => getComputedStyle(element).gridTemplateColumns.split(" ").length);
+      20 |     expect(actualColumns).toBe(columns);
+      21 |     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+        at /Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/tests/services.spec.ts:18:48
+
+    Error Context: test-results/services-services-grid-at--45d05-ed-accessibility-violations/error-context.md
+
+  5) tests/services.spec.ts:27:1 › Tab, Shift+Tab, Enter and Space navigate/open/close booking form with visible focus
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('button', { name: 'Book appointment for Fictional inspection 1', exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('button', { name: 'Book appointment for Fictional inspection 1', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: 'Book appointment for Fictional inspection 1', exact: true })
+
+
+      28 |   await page.goto("/");
+      29 |   const button = page.getByRole("button", { name: "Book appointment for Fictional inspection 1", exact: true });
+    > 30 |   await expect(button).toBeVisible();
+         |                        ^
+      31 |   for (let i = 0; i < 20 && !(await button.evaluate((element) => element === document.activeElement)); i++) {
+      32 |     await page.keyboard.press("Tab");
+      33 |   }
+        at /Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/tests/services.spec.ts:30:24
+
+    Error Context: test-results/services-Tab-Shift-Tab-Ent-c8bd6-ing-form-with-visible-focus/error-context.md
+
+  6) tests/services.spec.ts:62:1 › booking form posts fictional details and announces receipt ──────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('button', { name: 'Book appointment for Fictional inspection 1', exact: true })
+
+
+      66 |   });
+      67 |   await page.goto("/");
+    > 68 |   await page.getByRole("button", { name: "Book appointment for Fictional inspection 1", exact: true }).click();
+         |                                                                                                        ^
+      69 |   const form = page.getByRole("form", { name: "Request appointment for Fictional inspection 1" });
+      70 |   await form.getByLabel("Your email").fill("resident@example.test");
+      71 |   await form.getByLabel("Requested date").fill("2026-12-01");
+        at /Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/tests/services.spec.ts:68:104
+
+    Error Context: test-results/services-booking-form-post-1b902-tails-and-announces-receipt/error-context.md
+
+  7) tests/services.spec.ts:77:1 › empty, unavailable and invalid service data fail safely ─────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByText('No approved services are available yet.')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByText('No approved services are available yet.') with timeout 5000ms
+      - waiting for getByText('No approved services are available yet.')
+
+
+      78 |   await page.route("**/api/services", (route) => route.fulfill({ json: [] }));
+      79 |   await page.goto("/");
+    > 80 |   await expect(page.getByText("No approved services are available yet.")).toBeVisible();
+         |                                                                           ^
+      81 |   await page.route("**/api/services", (route) => route.fulfill({ status: 503, json: { error: "Unavailable" } }));
+      82 |   await page.reload();
+      83 |   await expect(page.getByText("Local services are temporarily unavailable. Please try again later.")).toBeVisible();
+        at /Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab3/tests/services.spec.ts:80:75
+
+    Error Context: test-results/services-empty-unavailable-f2309-id-service-data-fail-safely/error-context.md
+
+  7 failed
+    tests/combined-page.spec.ts:3:1 › validated Lab 3 listings and filters coexist with midterm appointment controls
+    tests/services.spec.ts:14:3 › services grid at 390px has 1 columns, no overflow, and no automated accessibility violations
+    tests/services.spec.ts:14:3 › services grid at 820px has 2 columns, no overflow, and no automated accessibility violations
+    tests/services.spec.ts:14:3 › services grid at 1280px has 3 columns, no overflow, and no automated accessibility violations
+    tests/services.spec.ts:27:1 › Tab, Shift+Tab, Enter and Space navigate/open/close booking form with visible focus
+    tests/services.spec.ts:62:1 › booking form posts fictional details and announces receipt ───────
+    tests/services.spec.ts:77:1 › empty, unavailable and invalid service data fail safely ──────────
+(node:93950) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94027) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94097) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94226) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94294) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:94655) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
