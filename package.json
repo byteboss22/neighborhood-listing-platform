@@ -13,7 +13,7 @@
     "schema:check": "tsx scripts/export-listing-schema.ts --check"
   },
   "dependencies": {
-    "next": "16.4.3",
+    "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "zod": "^4.6.7"
@@ -25,7 +25,7 @@
     "@types/react-dom": "^19",
     "ajv": "^8.20.0",
     "eslint": "^9",
-    "eslint-config-next": "16.4.3",
+    "eslint-config-next": "16.4.6",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5"

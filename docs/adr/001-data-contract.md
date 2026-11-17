@@ -1,7 +1,8 @@
 # ADR 001: Validated listing data from a single contract
 
-Status: implemented locally; additional-model responses and student hardening
-decision, retrieval screenshot and student-reported UI review recorded; publication pending.
+Status: published in draft PR #5; model artifacts, screenshot, student UI report
+and Grace's peer review recorded. Review follow-up and integration status are
+tracked in [peer-review disposition](../evidence/lab3/peer-review/disposition.md).
 Branch: `lab3/data-contracts`, starting at the preserved Lab 2 commit `e57a87b`.
 This is new Lab 3 work, not a retroactive claim that the midterm completed it.
 
@@ -25,6 +26,14 @@ SVG illustrations. Their attribution and component behavior should survive.
 from Zod; `npm run schema:export` emits Draft 2020-12 JSON Schema. Ajv checks the
 export independently, and `schema:check` detects stale generated files. See
 [Zod's official conversion reference](https://zod.dev/json-schema).
+
+Grace identified that default Ajv rejects valid cent values such as 19.99 despite
+the declared multipleOf=0.01. The independent Ajv checks now use
+multipleOfPrecision=8 per [Ajv's fractional-divisor guidance](https://ajv.js.org/options.html#multipleofprecision).
+Regression cases cover 0.29, 19.99, 1234.56 and other valid values plus negative
+and sub-cent failures. No input rounding or coercion is performed. This setting
+handles float division error for the tested cases, not every possible numeric
+edge case. The full Zod/integrity boundary remains canonical and mandatory.
 
 All object boundaries reject unknown fields. IDs are stable lowercase slugs,
 not database row positions. ZIP is a string to preserve leading zeroes. Price

@@ -45,7 +45,7 @@ confirmation and Eric's decision to defer optional hardening are recorded.
 validation passed. Both Ajv and Zod/integrity checks cover the generated dataset;
 all five properties, three sponsors, six relationships and source facts match.
 
-## Remaining handoff
+## Peer review and current handoff
 
 1. The [actual retrieval screenshot](../evidence/lab3/ai-studio-retrieval.png) is
    saved and visually inspected, with hash/dimensions in the provenance record.
@@ -54,10 +54,13 @@ all five properties, three sponsors, six relationships and source facts match.
 2. Eric [reported the local page works without issues](../evidence/lab3/student-review.json).
    No item-by-item browser checklist or partner contribution is inferred. His
    generation/tool interactions and hardening decision are separately recorded.
-3. Generation/review follow-up is published as `9f4620c`; initial implementation
+3. Grace's [actual GitHub review and fixes](../evidence/lab3/peer-review/disposition.md)
+   are recorded. Current checks are in [peer verification](../evidence/lab3/peer-review/verification.json).
+   Generation/review follow-up is published as `9f4620c`; initial implementation
    is `bbd6903` and publication `30eec3d`. A read-only merge check found conflicts
    against main in docs/ai-log.md, package.json, package-lock.json and
-   src/app/page.tsx. Prepare a draft PR and resolve integration deliberately
+   src/app/page.tsx. Draft [PR #5](https://github.com/byteboss22/neighborhood-listing-platform/pull/5)
+   is open. Resolve integration deliberately
    before any merge, retaining both the Lab 3 and midterm work.
 4. Deploy a lab-specific preview if needed and submit actual Canvas links.
 

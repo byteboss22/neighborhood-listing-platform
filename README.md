@@ -66,5 +66,7 @@ Codex-authored source fixtures remain separate from the student-supplied AI Stud
 first generation now rendered through validation. See [generation notes](docs/data-generation-notes.md)
 and [16-test follow-up evidence](docs/evidence/lab3/generated-data-verification.json).
 Gemini review, the student's hardening decision and the actual Studio retrieval
-screenshot are recorded. Publication/PR and deployment remain pending; no
-completed submission is claimed.
+screenshot are recorded. [Draft PR #5](https://github.com/byteboss22/neighborhood-listing-platform/pull/5)
+is published and Grace's peer review is recorded. See [current peer follow-up](docs/evidence/lab3/peer-review/disposition.md)
+for validation fixes, patched Next 16.4.6 and new execution evidence. Integration
+conflicts and Canvas submission remain pending; no completed submission is claimed.

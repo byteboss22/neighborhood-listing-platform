@@ -6,7 +6,10 @@ import { listingBundleSchema, listingJsonSchema, validateListingBundle } from ".
 import { listingView } from "../src/lib/listingView";
 
 const seed = JSON.parse(readFileSync(new URL("../data/fixtures/listings.synthetic.json", import.meta.url), "utf8"));
-const ajv = new Ajv2020({ allErrors: true });
+// Ajv's default integer-division check misclassifies valid cent amounts.
+// See https://ajv.js.org/options.html#multipleofprecision; Zod remains the
+// canonical full validator. This tolerance does not round or mutate input.
+const ajv = new Ajv2020({ allErrors: true, multipleOfPrecision: 8 });
 const structural = ajv.compile(listingJsonSchema());
 
 test("student-supplied AI Studio generation preserves source facts and passes both validators before UI mapping", () => {
@@ -35,12 +38,12 @@ test("five fictional records validate through both Zod and exported JSON Schema"
   assert.equal(structural(seed), true);
 });
 
-for (const [file, path] of [
-  ["missing-id", "properties.0.property_id"],
-  ["negative-price", "properties.0.price"],
-  ["bad-zip", "properties.0.zip_code"],
-  ["unknown-property-field", "properties.0"],
-]) {
+for (const [file, path, ajvPath, keyword, parameter, parameterValue] of [
+  ["missing-id", "properties.0.property_id", "/properties/0", "required", "missingProperty", "property_id"],
+  ["negative-price", "properties.0.price", "/properties/0/price", "minimum", "limit", 0],
+  ["bad-zip", "properties.0.zip_code", "/properties/0/zip_code", "pattern", "pattern", "^[0-9]{5}(?:-[0-9]{4})?$"],
+  ["unknown-property-field", "properties.0", "/properties/0", "additionalProperties", "additionalProperty", "secret_notes"],
+] as const) {
   test(`${file} fails for the expected path in Zod and JSON Schema`, () => {
     const value = JSON.parse(readFileSync(new URL(`./fixtures/${file}.json`, import.meta.url), "utf8"));
     const result = validateListingBundle(value);
@@ -48,6 +51,10 @@ for (const [file, path] of [
     if (result.success) return;
     assert.ok(result.issues.some((issue) => issue.path === path), JSON.stringify(result.issues));
     assert.equal(structural(value), false);
+    assert.ok(structural.errors?.some((error) =>
+      error.instancePath === ajvPath && error.keyword === keyword &&
+      error.params[parameter] === parameterValue,
+    ), JSON.stringify(structural.errors));
   });
 }
 
@@ -65,7 +72,31 @@ test("duplicate property and sponsor primary keys are denied", () => {
   for (const kind of ["properties", "sponsors"]) {
     const value = structuredClone(seed);
     value[kind].push(value[kind][0]);
-    assert.equal(validateListingBundle(value).success, false);
+    const result = validateListingBundle(value);
+    assert.equal(result.success, false);
+    if (result.success) return;
+    const field = kind === "properties" ? "property_id" : "sponsor_id";
+    const index = value[kind].length - 1;
+    assert.deepEqual(result.issues, [{
+      path: `${kind}.${index}.${field}`,
+      message: "Duplicate value; first occurrence is at index 0.",
+    }]);
+  }
+});
+
+test("cent prices agree between Zod and configured Ajv without accepting sub-cent prices", () => {
+  for (const price of [0, 0.01, 0.29, 19.99, 1234.56, 1850.01, 99999.99]) {
+    const value = structuredClone(seed);
+    value.properties[0].price = price;
+    assert.equal(validateListingBundle(value).success, true, `Zod rejected ${price}`);
+    assert.equal(structural(value), true, `Ajv rejected ${price}: ${JSON.stringify(structural.errors)}`);
+    assert.equal(value.properties[0].price, price, "Validation must not round or mutate input.");
+  }
+  for (const price of [-0.01, 0.291, 12.345, 19.991]) {
+    const value = structuredClone(seed);
+    value.properties[0].price = price;
+    assert.equal(validateListingBundle(value).success, false, `Zod accepted ${price}`);
+    assert.equal(structural(value), false, `Ajv accepted ${price}`);
   }
 });
 

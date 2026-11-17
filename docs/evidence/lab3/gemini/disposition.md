@@ -39,4 +39,7 @@ changes as future improvements. This is a new Lab 3 decision, not a copied
 midterm decision. No schema, UI or test implementation changed for this review.
 AI Studio raw generation has subsequently been supplied and independently
 validated; see [generated-data evidence](../generated-data-verification.json).
-The redacted Studio screenshot/export is still pending.
+The [actual Studio retrieval screenshot](../ai-studio-retrieval.png) was later
+supplied and inspected. It shows the retrieval turn, not original generation
+settings. See [current peer-review follow-up](../peer-review/disposition.md) for
+the separately attributable Grace review and subsequent validation fixes.

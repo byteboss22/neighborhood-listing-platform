@@ -1,0 +1,83 @@
+{
+  "executed_at_utc": "2026-11-17T02:12:51.118279+00:00",
+  "branch": "lab3/data-contracts",
+  "reference_before_fixes": "3a138717f8fdfc66ef5898fc517f90d3314d1941",
+  "next_version": "16.4.6",
+  "checks": [
+    {
+      "name": "tests",
+      "command": "npm test",
+      "exit_code": 0
+    },
+    {
+      "name": "schema-check",
+      "command": "npm run schema:check",
+      "exit_code": 0
+    },
+    {
+      "name": "data",
+      "command": "npm run validate:data -- data/generated/ai-studio-attempt-01.json",
+      "exit_code": 0
+    },
+    {
+      "name": "lint",
+      "command": "npm run lint",
+      "exit_code": 0
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "exit_code": 0
+    },
+    {
+      "name": "typescript",
+      "command": "npx tsc --noEmit",
+      "exit_code": 0
+    },
+    {
+      "name": "production-audit",
+      "command": "npm audit --omit=dev --json",
+      "exit_code": 0,
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    },
+    {
+      "name": "full-audit",
+      "command": "npm audit --json",
+      "exit_code": 1,
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 7,
+        "high": 0,
+        "critical": 0,
+        "total": 7
+      }
+    }
+  ],
+  "test_count": 17,
+  "initial_build_failure": {
+    "observed": true,
+    "exit_code": 1,
+    "next_version": "16.4.3",
+    "reason": "Build stopped on SecurityFatalError; peer reported GHSA-mfr8-8qww-v76h, confirmed in vendor advisory."
+  },
+  "review_source": "grace-review.json",
+  "scope": "Local reviewer follow-up. No merge, main change, production database operation or manual browser retest.",
+  "working_file_secret_scan": {
+    "files": 102,
+    "configured_pattern_matches": 0,
+    "scope": "bounded common-key patterns and nonignored environment filenames"
+  },
+  "preservation_checks": {
+    "canonical_json_schema_unchanged": true,
+    "raw_generation_unchanged": true,
+    "raw_model_review_unchanged": true
+  }
+}

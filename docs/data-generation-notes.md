@@ -53,5 +53,8 @@ records exactly what is visible. The actual image is now saved as
 [ai-studio-retrieval.png](evidence/lab3/ai-studio-retrieval.png), inspected and
 hashed without image edits. Eric subsequently reported that the local page works
 with no issues; [his exact statement and limits](evidence/lab3/student-review.json)
-are recorded. Publication/PR and applicable demo URL remain pending. No screenshot is fabricated
+are recorded. Draft PR #5 and Grace's peer review were subsequently recorded;
+see [peer follow-up](evidence/lab3/peer-review/disposition.md) for the decimal/test
+fixes, patched dependency and current validation. Integration and Canvas submission
+remain pending. No screenshot is fabricated
 from the text reports.

@@ -65,11 +65,19 @@ export function validateListingBundle(input: unknown): ValidationResult {
     })) };
   }
   const issues: ContractIssue[] = [];
-  function unique(values: string[], path: string) {
-    if (new Set(values).size !== values.length) issues.push({ path, message: "Duplicate values are not allowed." });
+  function unique(values: string[], path: string, field?: string) {
+    const firstIndex = new Map<string, number>();
+    values.forEach((value, index) => {
+      const original = firstIndex.get(value);
+      if (original !== undefined) issues.push({
+        path: `${path}.${index}${field ? `.${field}` : ""}`,
+        message: `Duplicate value; first occurrence is at index ${original}.`,
+      });
+      else firstIndex.set(value, index);
+    });
   }
-  unique(parsed.data.properties.map((p) => p.property_id), "properties");
-  unique(parsed.data.sponsors.map((s) => s.sponsor_id), "sponsors");
+  unique(parsed.data.properties.map((p) => p.property_id), "properties", "property_id");
+  unique(parsed.data.sponsors.map((s) => s.sponsor_id), "sponsors", "sponsor_id");
   const sponsorIds = new Set(parsed.data.sponsors.map((s) => s.sponsor_id));
   const relationships: PropertySponsor[] = [];
   parsed.data.properties.forEach((property, index) => {
