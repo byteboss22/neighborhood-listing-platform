@@ -174,3 +174,14 @@ does not claim automated production browser/keyboard testing; earlier local
 Chromium results remain separate evidence. The earlier protected preview URL
 and screenshot of temporary unavailability are historical troubleshooting
 evidence, superseded by the successful public production HTTP checks.
+
+
+## Later combined Lab 3 verification
+
+The [Lab 3 integration record](integration-lab3.md) and
+[executed combined results](evidence/lab3/integration/verification.json) cover
+bringing main into the Lab 3 branch. Existing midterm routes, server client,
+schemas, service components, migration and test sources were imported unchanged.
+The combined homepage keeps services/bookings alongside validated properties.
+These local combined checks are not a new hosted security audit or production
+booking submission. The final feature-into-main merge remains a review step.

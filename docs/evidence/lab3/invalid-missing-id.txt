@@ -1,0 +1,13 @@
+
+> neighborhood-listing-platform-lab@0.1.0 validate:data
+> tsx scripts/validate-listings.ts tests/fixtures/missing-id.json
+
+{
+  "valid": false,
+  "issues": [
+    {
+      "path": "properties.0.property_id",
+      "message": "Invalid input: expected string, received undefined"
+    }
+  ]
+}

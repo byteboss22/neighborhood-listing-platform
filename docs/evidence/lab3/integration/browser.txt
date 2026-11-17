@@ -1,0 +1,20 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test:ui:production
+> playwright test --config=playwright.production.config.ts
+
+
+Running 7 tests using 1 worker
+
+  ✓  1 tests/combined-page.spec.ts:3:1 › validated Lab 3 listings and filters coexist with midterm appointment controls (417ms)
+  ✓  2 tests/services.spec.ts:14:3 › services grid at 390px has 1 columns, no overflow, and no automated accessibility violations (348ms)
+  ✓  3 tests/services.spec.ts:14:3 › services grid at 820px has 2 columns, no overflow, and no automated accessibility violations (311ms)
+  ✓  4 tests/services.spec.ts:14:3 › services grid at 1280px has 3 columns, no overflow, and no automated accessibility violations (300ms)
+  ✓  5 tests/services.spec.ts:27:1 › Tab, Shift+Tab, Enter and Space navigate/open/close booking form with visible focus (415ms)
+  ✓  6 tests/services.spec.ts:62:1 › booking form posts fictional details and announces receipt (180ms)
+  ✓  7 tests/services.spec.ts:77:1 › empty, unavailable and invalid service data fail safely (139ms)
+
+  7 passed (2.9s)
+[WebServer] (node:2153) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+(node:2172) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)

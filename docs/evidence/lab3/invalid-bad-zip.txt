@@ -1,0 +1,13 @@
+
+> neighborhood-listing-platform-lab@0.1.0 validate:data
+> tsx scripts/validate-listings.ts tests/fixtures/bad-zip.json
+
+{
+  "valid": false,
+  "issues": [
+    {
+      "path": "properties.0.zip_code",
+      "message": "Invalid string: must match pattern /^[0-9]{5}(?:-[0-9]{4})?$/"
+    }
+  ]
+}

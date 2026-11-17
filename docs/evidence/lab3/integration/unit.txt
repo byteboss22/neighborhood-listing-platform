@@ -1,0 +1,56 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test
+> node --conditions=react-server --import tsx --test tests/*.test.ts
+
+✔ strict runtime contract rejects absent, malformed, extra and PostgreSQL-overflow values (1.381125ms)
+▶ actual route handlers through Supabase SDK with a mocked network boundary
+  ✔ GET uses anonymous approved-only public-column query (10.861875ms)
+  ✔ 400 structured errors and malformed JSON do not reach database (0.794834ms)
+  ✔ missing/invalid user returns 401 (1.055458ms)
+  ✔ client, admin-profile-only and absent profile return 403 (1.22825ms)
+  ✔ provider and merchant insert their own draft, returning persisted row/201 (1.244333ms)
+  ✔ database RLS denial is safe 403; database failure is safe 503 (1.098958ms)
+  ✔ public booking inserts without selecting/echoing client contact information (1.176875ms)
+  ✔ missing server configuration fails closed with safe response (0.088875ms)
+✔ actual route handlers through Supabase SDK with a mocked network boundary (18.141292ms)
+✔ client escalation audit targets the authenticated profile and confirms unchanged role (15.699084ms)
+✔ client escalation audit does not accept an unrelated safe-update error as authorization proof (1.671917ms)
+✔ client escalation audit rejects a changed role even after a denial response (0.788875ms)
+✔ student-supplied AI Studio generation preserves source facts and passes both validators before UI mapping (3.471292ms)
+✔ five fictional records validate through both Zod and exported JSON Schema (0.269875ms)
+✔ missing-id fails for the expected path in Zod and JSON Schema (0.73625ms)
+✔ negative-price fails for the expected path in Zod and JSON Schema (0.352208ms)
+✔ bad-zip fails for the expected path in Zod and JSON Schema (0.279042ms)
+✔ unknown-property-field fails for the expected path in Zod and JSON Schema (0.34025ms)
+✔ unknown fields are rejected at root, address and sponsor boundaries (0.381792ms)
+✔ duplicate property and sponsor primary keys are denied (0.222334ms)
+✔ cent prices agree between Zod and configured Ajv without accepting sub-cent prices (0.933458ms)
+✔ missing sponsor reference and repeated relationship are denied (0.229458ms)
+✔ amenities use controlled values with no repeated membership (0.24325ms)
+✔ zero rent and studio bedrooms are valid; negative dimensions are denied (0.2225ms)
+✔ US ZIP values retain leading zeroes and support ZIP+4 (0.353083ms)
+✔ price precision, fractional bedrooms and unsupported units fail (0.305583ms)
+✔ local image allowlist and fictional HTTPS destinations reject unsafe URLs (0.224625ms)
+✔ invalid source data fails closed before any property reaches the UI (0.145375ms)
+✔ malformed containers and whitespace-only facts fail safely (0.193917ms)
+✔ password validation retries short/mismatched input before returning a confirmed 12-character password (0.825417ms)
+✔ password input cancellation propagates without returning a password (0.182041ms)
+▶ migration rebuild and PostgreSQL RLS positive/negative authorization matrix
+  ✔ all five tables have RLS enabled (2.257416ms)
+  ✔ anonymous sees approved services, active categories and approved mappings only (2.314625ms)
+  ✔ anonymous may insert a booking but sees no bookings, including its own (0.288958ms)
+  ✔ provider owns draft/suspended CRUD; other-provider, pending/live writes denied (5.085584ms)
+  ✔ provider reads only bookings for its services; merchant is equivalent (1.268584ms)
+  ✔ client can book but cannot read bookings or create services/escalate role (1.199833ms)
+  ✔ admin profile alone has no elevation; trusted service_role has oversight of all five tables (2.388125ms)
+  ✔ database rejects invalid checks, duplicate mappings and missing foreign keys (1.674916ms)
+  ✔ category/service cascading deletes and auth-user cascade with provider RESTRICT (1.185459ms)
+✔ migration rebuild and PostgreSQL RLS positive/negative authorization matrix (588.098917ms)
+ℹ tests 42
+ℹ suites 0
+ℹ pass 42
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 783.559875

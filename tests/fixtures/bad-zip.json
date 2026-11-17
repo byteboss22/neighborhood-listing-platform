@@ -1,0 +1,156 @@
+{
+  "synthetic": true,
+  "properties": [
+    {
+      "property_id": "maple-court-apartment",
+      "title": "Maple Court Apartment",
+      "address": {
+        "street": "120 Example Maple Lane",
+        "city": "Maplehaven",
+        "state": "CA",
+        "country": "US"
+      },
+      "zip_code": "ABCDE",
+      "price": 1850,
+      "currency": "USD",
+      "price_period": "month",
+      "property_type": "apartment",
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "square_feet": 850,
+      "amenities": [
+        "parking",
+        "laundry"
+      ],
+      "local_sponsors": [
+        "example-maintenance"
+      ],
+      "image_path": "/images/maple-court.svg",
+      "image_alt": "Original fictional building illustration; reused demonstration artwork, not a photograph of this listing."
+    },
+    {
+      "property_id": "cedar-window-studio",
+      "title": "Cedar Window Studio",
+      "address": {
+        "street": "24 Example Cedar Walk",
+        "city": "Cedarbrook Heights",
+        "state": "CA",
+        "country": "US"
+      },
+      "zip_code": "90002",
+      "price": 1250,
+      "currency": "USD",
+      "price_period": "month",
+      "property_type": "studio",
+      "bedrooms": 0,
+      "bathrooms": 1,
+      "square_feet": 480,
+      "amenities": [
+        "laundry"
+      ],
+      "local_sponsors": [
+        "example-maintenance",
+        "example-inspections"
+      ],
+      "image_path": "/images/cedar-studio.svg",
+      "image_alt": "Original fictional building illustration; reused demonstration artwork, not a photograph of this listing."
+    },
+    {
+      "property_id": "willow-porch-house",
+      "title": "Willow Porch House",
+      "address": {
+        "street": "86 Example Willow Way",
+        "city": "Maplehaven",
+        "state": "CA",
+        "country": "US"
+      },
+      "zip_code": "90001",
+      "price": 2600,
+      "currency": "USD",
+      "price_period": "month",
+      "property_type": "house",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "square_feet": 1500,
+      "amenities": [
+        "garden",
+        "parking"
+      ],
+      "local_sponsors": [
+        "example-gardens"
+      ],
+      "image_path": "/images/willow-house.svg",
+      "image_alt": "Original fictional building illustration; reused demonstration artwork, not a photograph of this listing."
+    },
+    {
+      "property_id": "maple-courtyard-condo",
+      "title": "Maple Courtyard Condo",
+      "address": {
+        "street": "42 Example Courtyard Road",
+        "city": "Maplehaven",
+        "state": "CA",
+        "country": "US"
+      },
+      "zip_code": "90001-1234",
+      "price": 2100,
+      "currency": "USD",
+      "price_period": "month",
+      "property_type": "condo",
+      "bedrooms": 2,
+      "bathrooms": 1.5,
+      "square_feet": 1100,
+      "amenities": [
+        "balcony",
+        "elevator"
+      ],
+      "local_sponsors": [],
+      "image_path": "/images/maple-court.svg",
+      "image_alt": "Original fictional building illustration; reused demonstration artwork, not a photograph of this listing."
+    },
+    {
+      "property_id": "cedar-garden-townhouse",
+      "title": "Cedar Garden Townhouse",
+      "address": {
+        "street": "65 Example Garden Street",
+        "city": "Cedarbrook Heights",
+        "state": "CA",
+        "country": "US"
+      },
+      "zip_code": "90002",
+      "price": 2400,
+      "currency": "USD",
+      "price_period": "month",
+      "property_type": "townhouse",
+      "bedrooms": 3,
+      "bathrooms": 2.5,
+      "square_feet": 1400,
+      "amenities": [
+        "garden",
+        "laundry"
+      ],
+      "local_sponsors": [
+        "example-gardens",
+        "example-inspections"
+      ],
+      "image_path": "/images/willow-house.svg",
+      "image_alt": "Original fictional building illustration; reused demonstration artwork, not a photograph of this listing."
+    }
+  ],
+  "sponsors": [
+    {
+      "sponsor_id": "example-maintenance",
+      "business_name": "Example Maintenance (Fictional)",
+      "website_url": "https://example.com"
+    },
+    {
+      "sponsor_id": "example-gardens",
+      "business_name": "Example Gardens (Fictional)",
+      "website_url": "https://example.org"
+    },
+    {
+      "sponsor_id": "example-inspections",
+      "business_name": "Example Inspections (Fictional)",
+      "website_url": "https://example.net"
+    }
+  ]
+}

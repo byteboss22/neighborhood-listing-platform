@@ -206,3 +206,117 @@ output is invented.
 - The saved audit reports retain 16 moderate development-tooling findings and
   zero production findings at the recorded audit checkpoint; no newer clean
   audit is claimed.
+
+
+## Eric Juarez — Lab 3 data contracts, November 7, 2026
+
+This is newly performed Lab 3 work on `lab3/data-contracts` from the preserved
+Lab 2 integration commit `e57a87b`. Historical Lab 1/2 entries remain unchanged.
+The midterm work is not relabeled as completion of Labs 3–7.
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Lab planning / Codex | Eric requested separate Lab 3–7 branches from the preserved post-Lab-2 baseline and supplied the lab specifications. He clarified that the attachment's completed Lab 3/PR #5 summary was unrelated and should be disregarded. | Inspected Git and GitHub, retained all existing branches, created five local branch starting points and a separate Lab 3 worktree. Recorded the actual later-lab partners and pending external evidence. | Did not claim the nonexistent PR #5, prior passing lab tests or midterm evidence as completion of these labs. No retroactive dates or partner contributions. | Clean-tree and branch-ref checks; GitHub had PRs #1–#4 only. Main and midterm were not changed. | Baseline `e57a87b`; implementation `bbd69036fd3451ab159dff95bc94b212ba53d04b`. |
+| Contract and normalization / Codex | Implement the supplied Lab 3 strict property contract, JSON Schema, validator, seeds, tests and ADR in the existing Lab 2 app. | Added strict Zod source with inferred types and generated Draft 2020-12 JSON Schema. Derived PropertySponsor pairs from ID-only local_sponsors; added primary-key/reference/set checks beyond structural validation. Controlled amenities and fixture-only URLs/images are explicit assumptions. | Rejected duplicate sponsor business records, silent coercion/repair, handwritten parallel canonical TS types, and pretending the exported JSON Schema can enforce cross-record foreign keys. | Read installed Next server/client and image documentation and official Zod JSON Schema conversion documentation. Compared ADR and contract; independent Ajv structural checks and schema export consistency. | `bbd69036fd3451ab159dff95bc94b212ba53d04b`. |
+| Fixtures and UI / Codex | Render only validated records through the existing components, with safe failure handling. | Added five Codex-authored synthetic fixtures, four intentionally invalid fixtures and a fail-closed view adapter. Reused existing original Lab 2 SVGs with accurate illustrative alt text; retained existing components and old unconsumed seed file. | Did not label these fixtures as AI Studio output or fake a failed model generation, external critique, screenshot, human approval or hosted preview. | 15 tests passed, including the four required invalid cases, normalization, unsafe URLs, leading-zero ZIPs and invalid data producing no UI props. CLI invalid-fixture logs retain actual nonzero outcomes. | `bbd69036fd3451ab159dff95bc94b212ba53d04b`. |
+| Validation / Codex | Run the supplied lab checks and record actual failures and fixes. | Tests, lint and production build passed. The initial standalone TypeScript check failed because Next LayoutProps were not generated yet; build generated the required types, then the check was rerun. | Did not change the existing layout to hide the initial error. Did not apply npm audit fix --force or call the dependency audit clean; npm reported eight moderate findings. | [Actual verification summary](evidence/lab3/verification.json) and CLI logs; dependency installation warnings retained as a limitation. | `bbd69036fd3451ab159dff95bc94b212ba53d04b`. |
+| AI Studio / student-supplied raw generation and report | [Exact prepared prompt](lab3/ai-prompts.md) and reported model models/gemini-3.8-flash are in the supplied generation report. | Saved the actual JSON pasted by Eric as attempt 01 and preserved its five property/three sponsor facts. The page now consumes this validated artifact; six join pairs are derived. No repair needed. | Did not fabricate a failed model generation or screenshot, reconstruct raw output from the source fixture, or equate external reported commands with local evidence. Corrected the report's CLI/Ajv attribution. | [16-test independent follow-up](evidence/lab3/generated-data-verification.json) includes Ajv plus Zod/integrity checks, exact source-fact preservation, CLI validation, schema consistency, lint, build and TypeScript. Actual retrieval screenshot subsequently saved and inspected; no original generation-settings screenshot or deployment claim. | Implementation bbd6903/publication 30eec3d; generation integration/evidence `9f4620c`. |
+| Gemini / student-supplied Lab 3 review | [Prepared normalization/adversarial prompt](lab3/ai-prompts.md); Eric confirmed using it unchanged; displayed model not supplied. | Preserved the actual static response and used its reasoning to cross-check IDs, normalization, strict boundaries and fail-closed UI behavior. Recorded optional uniqueness-export and input-limit proposals. | Codex rejected unsupported subsidy/habitability explanations, formal 3NF/zero-drift assurances and the claim that JSON Schema cannot express primitive-array uniqueness. Eric confirmed retaining current nonnegative rules and deferring stricter bathroom minima, unspecified string caps and export uniqueness as future improvements. | [Source comparison and limitations](evidence/lab3/gemini/disposition.md), raw response/hash. No test execution is attributed to Gemini; no schema, UI or test code changed in this review. | Reviewed implementation `bbd6903`, publication `30eec3d`; review documentation `9f4620c`. |
+
+Assistant-performed local checks are distinguished from the student's supplied
+external-model artifacts. The UI report, actual retrieval screenshot and draft
+PR #5 were subsequently recorded. Grace's attributable peer review is recorded
+below; integration and Canvas steps remain pending. Eric subsequently authorized
+committing and publishing the current branch so AI Studio can inspect it.
+
+### Initial branch publication preparation
+
+Eric asked: "okay so I will have ai studio load the repo can we make some commits so it gets the lastest info are we forking or how are we doing this?"
+
+Codex reviewed/staged the 28 implementation/evidence files, checked staged
+whitespace and common credential patterns (zero findings), and created the
+implementation commit referenced above. This follow-up records that real hash.
+A normal push of only `lab3/data-contracts` was authorized; remote verification
+is reported after the push. No fork, main/midterm merge, deployment, completed
+external generation or new test pass is implied by publication.
+
+### Received generation follow-up
+
+Eric supplied the full attempt-01 JSON and confirmed the Lab 3 review decision
+"Keep current rules; defer hardening (recommended)". Codex stored the supplied
+JSON without altering values, independently validated it through Zod/integrity
+and Ajv, checked the source facts, updated the page import, and recorded all
+six successful command runs with logs. No schema changes or fake regeneration
+were introduced. [Generation notes](data-generation-notes.md) distinguish the
+raw response, original fixture, negative tests and external reported execution.
+
+
+### Screenshot evidence received
+
+Eric supplied an AI Studio image showing Gemini 3.8 Flash, the exact follow-up
+request to print the original JSON file, the JSON response beginning, and an
+application preview. [Visual observation and limitations](evidence/lab3/ai-studio-screenshot-observation.md)
+distinguish the retrieval step from generation settings and test execution.
+No accessible image binary was found locally; the actual image still needs
+saving for repository evidence or separate Canvas submission. No screenshot was
+fabricated or recreated. The original generation model identifier remains
+attributed to the supplied text report; the screenshot confirms the shorter
+visible model label for the retrieval session only.
+
+
+### Screenshot file saved and inspected
+
+Eric saved the actual image under docs/lab3. Codex inspected the local PNG,
+moved it without modifying image bytes to
+[ai-studio-retrieval.png](evidence/lab3/ai-studio-retrieval.png), and recorded its
+hash/dimensions in the Studio provenance report. This resolves the earlier missing
+binary status. The screenshot's limits remain explicit; no new test execution,
+student UI review, publication or deployment is inferred from saving the file.
+
+
+### Student local review
+
+After receiving local-page review instructions, Eric reported: "perfect looks
+like its working and no issues". This is preserved as
+[student review evidence](evidence/lab3/student-review.json). It is a general
+student-reported success, not an invented detailed keyboard/viewport checklist
+or an assistant-observed browser session. Codex prepared the reviewed generation,
+UI import, screenshot and review evidence for the next normal branch publication.
+
+
+### Published follow-up and integration check
+
+Generation/review/student-report evidence was committed and pushed as `9f4620c`.
+A read-only merge-tree check against current origin/main found conflicts in the
+AI log, package manifest/lock and homepage, where midterm work also changed the
+Lab 2 baseline. No merge, rebase or main modification was performed. The next
+PR is a draft review artifact; reconciling these changes requires preserving
+both lab and midterm behavior before merge. Build/lint logs had trailing terminal
+whitespace; a formatting-only follow-up removes it without altering results or
+raw model artifacts. No new full test pass is claimed for that documentation fix.
+
+
+### November 16, 2026 — Grace's actual peer review
+
+[Grace Bernardo (Gracie-B-code)](https://github.com/byteboss22/neighborhood-listing-platform/pull/5#pullrequestreview-5931301507)
+submitted a COMMENTED review of commit 3a13871. Her actual findings, reported
+commands and manual inspection are preserved in
+[grace-review.json](evidence/lab3/peer-review/grace-review.json). She reported a
+16-test pass and a build security stop; neither is relabeled as approval or a
+new assistant test run. This supplies the previously pending peer contribution.
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Peer-review follow-up / Codex | Eric asked to inspect his partner's submitted review, then asked to resume after interruption. | Reproduced default Ajv's valid-cent failures, strengthened both-engine fixture diagnostics and duplicate-ID locations, corrected current pending status, and pinned Next/eslint-config-next to patched 16.4.6 on Lab 3 only. Preserved Grace's attributable review. | Did not dismiss a genuine reviewer defect, round/repair prices, claim universal float parity, bypass the security warning, alter raw model/peer artifacts, invent approval, or merge main into the lab branch. | Official Ajv option/vendor advisory and installed Next guides; [actual follow-up commands](evidence/lab3/peer-review/verification.json) distinguish the observed initial build failure from the patched run. [Disposition](evidence/lab3/peer-review/disposition.md) maps each finding to the change. | Reviewed 3a13871; follow-up commit pending. |
+
+
+## Lab 3 / midterm integration — November 16, 2026
+
+Eric agreed to prepare the combined branch after the proposal to merge main into
+Lab 3, resolve conflicts, run both suites and let Grace review before merging
+back into main. Exact request: "okay that sounds like a good idea can we proceed
+with that? SO we can get this resolved?"
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Combined integration / Codex | Resolve Lab 3/main conflicts while preserving validated property data and midterm services/bookings, then update PR #5 for review. | Merged fetched main into Lab 3 locally. Combined the homepage and manifest, regenerated the lock and preserved both complete journal additions. Kept Next 16.4.6, all test commands and protected refs. Added a browser regression for the combined page. | Did not choose one side wholesale, remove either feature, rewrite raw generation/review evidence, move backups, copy credentials, apply migrations or perform the final merge into main. Browser network fixtures are not live Supabase evidence. | [Integration decisions](integration-lab3.md), [actual combined checks](evidence/lab3/integration/verification.json), raw-section/source-file preservation checks. Initial browser launch lacked the matching Chromium binary; that failure is retained and the binary installed. A second attempt found a user dev server on port 3000; it was not stopped. That existing-server attempt stayed in the loading state and failed. The final production-build suite passed all seven tests on isolated port 3100; test:ui:production and a separate tracked config now reproduce that check without stopping the user server. | Lab 3 parent d999d8a; main parent b167c47; merge commit recorded by Git. |

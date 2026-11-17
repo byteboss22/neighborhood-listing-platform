@@ -1,0 +1,5 @@
+
+> neighborhood-listing-platform-lab@0.1.0 schema:check
+> tsx scripts/export-listing-schema.ts --check
+
+PASS: exported JSON Schema matches the Zod source.

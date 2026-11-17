@@ -1,0 +1,30 @@
+{
+  "protected_refs": {
+    "main": "b167c473f406837531ab7d7b796e945dc4ff4099",
+    "midterm-baseline": "b167c473f406837531ab7d7b796e945dc4ff4099",
+    "lab2-baseline": "e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b",
+    "exam/services-booking-eval": "9a4d17e5b18f4d33970dff698fe49b75c12b8217",
+    "lab4/discovery-requirements": "e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b",
+    "feature/database": "e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b",
+    "lab6": "e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b",
+    "lab7": "e57a87bd3b71ab5d8332d9fa8b918c42149a6b7b"
+  },
+  "midterm_files_verified": [
+    "src/app/api/bookings/route.ts",
+    "src/app/api/services/route.ts",
+    "src/components/ServiceCard.tsx",
+    "src/components/ServiceExplorer.tsx",
+    "src/lib/apiResponse.ts",
+    "src/lib/supabaseServer.ts",
+    "src/schemas/booking.ts",
+    "src/schemas/service.ts",
+    "supabase/migrations/20261029140000_exam_services_persistence.sql",
+    "supabase/tests/exam_rls_catalog.sql",
+    "tests/api.test.ts",
+    "tests/client-authorization.test.ts",
+    "tests/password-input.test.ts",
+    "tests/security.test.ts",
+    "tests/services.spec.ts"
+  ],
+  "both_ai_log_sections_preserved": true
+}
