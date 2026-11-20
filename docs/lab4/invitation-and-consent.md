@@ -1,21 +1,28 @@
 # Responsible discovery materials — draft, not sent
 
-Proposed review owner: Grace. **No outreach is authorized by this file.** Eric
-chose simulated discovery. No participant was recruited or consented as part of
-this package. Actual instructor/participant approval would be required before
-any future real contact. Do not fabricate an approval date, signature or reply.
+Proposed review owner: Grace. **No outreach is authorized by this file.** This
+package documents an Eric-selected classroom simulation. No real participant was
+recruited or consented, and no instructor or participant approval is recorded.
+Instructor approval and specific participant permission are required before any
+future real contact. Do not fabricate an approval date, signature or reply.
 
 ## Future invitation template
 
 Subject: Optional CIS 3610 student-project conversation
 
-Hello [participant-chosen name],
+Hello [participant-chosen name or approved neutral address],
 
-We are students in CIS 3610 working on a classroom Neighborhood Listing Platform.
-We are learning how [property professionals / local sponsors] prepare, review and
-maintain public content. If you are interested, we would like to request about
-15 minutes at a time you choose. This duration is a proposed invitation detail,
-not an appointment already agreed with anyone.
+We are students in [approved CIS 3610 course section/instructor] working on a
+classroom Neighborhood Listing Platform. The purpose is to learn how
+[approved property professional / local sponsor role] prepare, review and
+maintain public content for class requirements. This is not a sales pitch,
+endorsement request or attempt to impersonate you.
+
+If you are interested, we would request about 15 minutes at a time you choose.
+The duration is proposed only and is not an appointment or commitment until
+instructor and participant approvals are recorded. The course section,
+instructor identity, student contact method and time request remain unapproved
+until [instructor approval pending].
 
 Participation is voluntary. You may decline, skip questions or stop without any
 penalty or effect on services. This is a student exercise, not a sales pitch or
@@ -23,10 +30,12 @@ a representation that you endorse the platform. We will not impersonate you or
 ask you to endorse AI-generated statements.
 
 With your permission, we would take minimal notes and use de-identified themes
-for class requirements and grading. The class repository may be public; names,
-contact details, tenant/customer data and identifying business details must not
-be included. No audio/video recording is planned. We do not need passwords,
-financial records, private client data or other sensitive information.
+for class requirements and grading. We would not promise confidentiality beyond
+the actual approved storage and repository setup. The class repository may be
+public; names, contact details, tenant/customer data and identifying business
+details must not be included. No audio/video recording is planned. We do not
+need passwords, financial records, private client data or sensitive personal
+information.
 
 Before you decide, we will explain [instructor-approved storage location and
 access], [retention/deletion period], and how to request withdrawal or correction.
@@ -45,7 +54,11 @@ Thank you, Team B — Beacon, CIS 3610
 - Explain voluntary participation, skipping/stopping, and the intended notes/use.
 - Explain public-repository risks and that identifiable/sensitive content will
   not be entered into Git, prompts or AI tools.
-- Resolve storage/access/retention and withdrawal limits before asking agreement.
+- Resolve [instructor-approved storage location and access],
+  [retention/deletion period], the withdrawal process and the correction process
+  before asking agreement. These values are pending and must not be guessed or
+  filled as if approved. Explain the limits of withdrawing irreversibly
+  de-identified material before agreement.
   Do not promise removal from irreversibly de-identified material without explaining
   the practical limits first.
 - Ask permission for minimal notes. No recording or AI processing of identifiable
