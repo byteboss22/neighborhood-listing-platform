@@ -1,41 +1,48 @@
-# Interview guide v2 — prospective simulation/review draft
+# Interview guide — prospective v2 simulation/review draft
 
-Proposed review owner: Grace. Status: not yet team-approved, not used for a real
-interview, and not the wording that generated the stored Claude answer rows.
-The [v1 proposal and prompts](ai-prompts.md) and raw abbreviated question labels
-remain preserved. Select eight questions for a future exercise; keep this version
-distinction rather than claiming old answers came from a new guide.
+Proposed review owner: Grace. This v2 is not team-approved, has not been used for
+an interview and did not generate the existing Claude answer rows. The
+[v1 proposal and prompts](ai-prompts.md) and [A01-A08/B01-B08 simulated answers](../evidence/lab4/claude/simulation.md)
+remain preserved. A future v2 simulation must retain the v1/v2 mismatch or include
+a separately recorded response to the revised questions.
 
-## Eight neutral questions
+All interviews referenced in this package are **SIMULATED / ASSUMPTION**, not
+evidence of real stakeholder behavior or approval.
 
-1. How do you currently share information about a property or offer, if at all?
-2. If people respond, what information do they usually ask for first?
-3. What information should be checked for accuracy before publication?
-4. Who should have final authority to publish the content?
-5. What should happen when the information is no longer current?
-6. What outcome would make using this platform worthwhile to you?
-7. What could make the content difficult to read or use?
-8. What information should remain private?
+## Eight proposed v2 questions
 
-For a real interview, use the relevant role's term rather than assuming the
-person publishes both listings and offers. Accept "not applicable" or "I don't
-know". Do not seek a diagnosis, personal contact details, tenant information,
-financial records, demographic targeting or sensitive stories. A question about
-barriers is not a request to disclose disability or another person's identity.
+1. How do you currently prepare and share information about a property or offer,
+   if at all? Please describe the process, not only the digital tools involved.
+2. When people respond or ask about the information, what do they usually want
+   to know first? You may describe observations or say you are unsure.
+3. What details do you check for accuracy before information is made public?
+4. Who has authority to approve or publish the information, and who could make
+   later changes or removals?
+5. When information changes or is no longer available, what should happen?
+6. What outcome would make preparing or sharing this information worthwhile to you?
+7. What could make the information difficult to read, find or use on a device?
+8. What information, if any, should not be collected or shared, and why?
 
-## Proposed changes after Gemini critique
+Use the participant's role-specific term: ask about a listing or an offer, not
+assume the person publishes both. Ask one question at a time and allow "not
+applicable," "I don't know" or skipping. Do not seek diagnoses, personal contact
+details, tenant or customer information, financial records, disability status,
+demographic targeting or sensitive stories. A question about barriers is not a
+request to disclose disability or another person's identity.
 
-| Topic | Proposed refinement / rationale |
+## Review decisions after the Gemini critique
+
+| Topic | Decision and rationale |
 | --- | --- |
-| Workflow | Add "if at all"; do not assume a current digital publishing system |
-| Audience | Ask about observed information requests rather than guessing audience demographics/motivations |
-| Accuracy | Retain one accuracy-focused question rather than combining checklist and mistake frequency |
-| Approval | Focus this question on publication authority; use existing source notes/unknowns to distinguish editing/removal later |
-| Freshness | Do not presuppose automatic expiry or that property and sponsor policies are identical |
-| Success | Use plain outcome wording without imposing ROI or invented targets |
-| Accessibility | Ask about barriers without requiring medical/assistive-tool disclosure or guessing disability needs |
-| Privacy | Focus on boundaries; no pressure to disclose examples of sensitive information |
+| Workflow | **Accepted in substance:** "if at all" prevents assuming a formal or digital workflow. |
+| Audience | **Accepted in substance:** question 2 asks for observed requests rather than inferred demographics or motivations. |
+| Accuracy | **Accepted:** one accuracy topic avoids bundling mistake frequency into the same question. |
+| Approval/removal | **Accepted partly:** question 4 still names two governance topics, so later use should separate authority to publish from authority to edit/remove if answers are incomplete. |
+| Freshness | **Accepted:** question 5 does not assume fixed expiry or identical property/sponsor policies. |
+| Success | **Accepted:** outcome wording does not impose ROI or numeric targets. |
+| Accessibility/devices | **Accepted with limits:** question 7 asks about barriers without requiring diagnosis or assistive-tool disclosure. |
+| Privacy | **Accepted:** question 8 permits a boundary-based answer and does not require a sensitive example. |
 
-Grace should record the changes she actually accepts/rejects, why, and any further
-edits. This revision is Codex's draft response to the critique, not a statement
-that every Gemini rewrite was adopted or that this guide has been validated.
+This is Grace's review of the prospective wording, not validation of A01-A08 or
+B01-B08. Neither the critique nor the v1 proposal is being silently substituted
+for a real interview or a stakeholder-approved guide.
