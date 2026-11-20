@@ -320,3 +320,49 @@ with that? SO we can get this resolved?"
 | Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Combined integration / Codex | Resolve Lab 3/main conflicts while preserving validated property data and midterm services/bookings, then update PR #5 for review. | Merged fetched main into Lab 3 locally. Combined the homepage and manifest, regenerated the lock and preserved both complete journal additions. Kept Next 16.4.6, all test commands and protected refs. Added a browser regression for the combined page. | Did not choose one side wholesale, remove either feature, rewrite raw generation/review evidence, move backups, copy credentials, apply migrations or perform the final merge into main. Browser network fixtures are not live Supabase evidence. | [Integration decisions](integration-lab3.md), [actual combined checks](evidence/lab3/integration/verification.json), raw-section/source-file preservation checks. Initial browser launch lacked the matching Chromium binary; that failure is retained and the binary installed. A second attempt found a user dev server on port 3000; it was not stopped. That existing-server attempt stayed in the loading state and failed. The final production-build suite passed all seven tests on isolated port 3100; test:ui:production and a separate tracked config now reproduce that check without stopping the user server. | Lab 3 parent d999d8a; main parent b167c47; merge commit recorded by Git. |
+
+
+## Lab 4 — simulated discovery preparation, November 16, 2026
+
+Eric chose simulated interviews and requested prompts for Claude/Gemini and a
+separate working copy on the Lab 4 branch. The untouched Lab 4 starting branch
+was fast-forwarded normally to merged main `7a5dc1c`; no reset or rewrite, fork,
+real outreach, team role/contribution or instructor approval is claimed.
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Setup and discovery questions / Codex | Eric requested simulated discovery, different model assistance and a Lab 4 copy of newly merged main. | Created a linked Lab 4 worktree and proposed eight questions covering workflow, audience, accuracy, approval, updates, success, accessibility and privacy. Prepared separate Claude simulation, Gemini critique and required Studio theme prompts with explicit synthetic/assumption labels. | Did not claim real interview evidence, consent, approval, board creation or actual teammate work. Claude is optional assistance, not a silent replacement for the required Studio step. | Verified clean baseline at 7a5dc1c, preserved protected refs, exactly eight questions and read the supplied Lab 4 specification. | Baseline 7a5dc1c; local documentation pending commit. |
+| Gemini critique / student-supplied response | Eric supplied a Lab 4 critical review. [Prepared prompt](lab4/ai-prompts.md) exists; unchanged use and model are not yet confirmed. | Preserved response/hash and used the critique to identify candidate source-traceability checks (notably CR-02), caution against invented consensus and keep personas hypothetical. | Codex did not accept source-specific accusations without the original Claude notes, classify abbreviated labels as the full question wording, automatically adopt multi-part rewrites as neutral, or treat an opinion about typical users' expertise as fact. Student dispositions remain pending. | [Source gap and assistant evaluation](evidence/lab4/gemini/disposition.md). Original simulation A01-A08/B01-B08 and CR-01..CR-09 are not yet supplied; no line-by-line theme verification or actual interviews/tests claimed. | Local evidence pending commit; no application changes. |
+
+Original Claude simulation, tool/prompt metadata, Studio themes, student decisions,
+traceable personas/backlog/MVP, actual team contributions and GitHub planning
+artifacts remain pending. The supplied critique is not substituted for those
+sources. Historical labs and midterm entries above remain unchanged.
+
+
+### Lab 4 Claude source received and compared
+
+Eric supplied Claude's complete original and stated it came before the Gemini
+critique. The earlier source gap is now resolved. All sixteen interview-note
+rows and nine original candidate requirements are preserved as synthetic model
+output, not real interview evidence.
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Claude simulation / student-supplied response | Classroom simulation with property professional/local sponsor roles; the prepared prompt exists, exact use and model not yet confirmed. | Preserved A01-A08/B01-B08, unknowns and original CR-01..09 unchanged, with explicit simulated-assumption labels and a hash. | Codex rejected unsupported synthesis that both roles want removal transparency, universal expiry/reminders, shared preview/sign-off and citing sponsor speed as mobile-authoring evidence. No raw text was silently corrected. Student dispositions remain pending. | [Original/hash](evidence/lab4/claude/provenance.json), [line-by-line source comparison](lab4/source-review.md), and comparison with the actual Gemini critique. This checks fidelity to fictional notes, not real-world truth. | Local discovery evidence; commit pending. |
+| Source adjudication / Codex | Compare the first Claude response with Gemini's concerns and prepare the reviewed-source step. | Verified source-dependent findings, split role-specific requirements and retained explicit uncertainties. Prepared source packet for the required Studio theme turn after Eric's decisions. | Did not assume every Gemini rewrite is neutral, omit source ideas without scope labels, infer jurisdictional rules, fabricate real interviews or generate a fake Studio result. | All 16 note IDs and CR-01..09 identified; source-to-inference corrections cite exact IDs. Real stakeholder confirmation remains required for any future empirical claim. | Local documentation; commit pending. |
+
+
+### Lab 4 team starter — November 19, 2026
+
+Eric asked for current Lab 4 status and a package that each teammate can review
+and commit. He reported Estevan unresponsive and requested dividing active work
+among Eric, Grace and Vanessa. He confirmed Studio has not yet been run and asked
+to prepare drafts. No formal roster change, outreach or instructor approval is
+inferred. The Claude/Gemini model names and unchanged-prompt confirmations remain
+not supplied; no new invocation is invented.
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Discovery package / Codex | Prepare Lab 4 drafts and divide meaningful contribution work across three active students while retaining actual model provenance. | Drafted value proposition, facts/assumptions, prospective v2 guide, unsent consent/invitation, source-traced personas, ten-story backlog with high-priority criteria/owners/estimates, MVP, content workflow, board-entry aid and Studio worksheet. | Did not claim v2 produced the existing Claude answers, implement future backlog stories, invent Studio themes, real stakeholder research, approval or teammate participation. Source corrections remain proposed for student review. | [Package checks](evidence/lab4/package-check.json), source-ID/link/hash checks, bounded secret scan; no app test rerun for document-only work. | Assisted starter on lab4/discovery-requirements; commit recorded by Git. |
+| Team handoff / Codex | Make the starter available so Grace, Vanessa and Eric can each make attributable work. | Prepared distinct file ownership/review templates, personal-branch/PR workflow and assistant prompts. Verified Grace/Vanessa push access through owner API. Proposed role rotation, not claimed performed. | Did not create commits under classmates' identities, fill their reviews, accept roles on their behalf, tag absent users, or treat prepared templates as completed contributions. | [Team handoff](lab4/team-handoff.md), actual publication links when created, current Git/permissions check. Project access/Studio/individual work remain pending. | Shared starter only; teammate commit links pending. |
