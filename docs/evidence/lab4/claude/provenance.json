@@ -1,0 +1,10 @@
+{
+  "tool": "Claude",
+  "source": "Student supplied this original response and stated Claude produced it first, before Gemini review.",
+  "received_client_date": "2026-11-16",
+  "model": "not supplied for this Lab 4 response",
+  "exact_prompt": "Prepared simulation prompt exists; unchanged use not yet confirmed.",
+  "raw_sha256": "202a5c0c3880b99d72be2f2f1d40c5db0cc5f1986b1aaf8c6db9e8d9be5d50c1",
+  "sequence": "Claude simulation first, Gemini critique second, Studio themes pending.",
+  "evidence_class": "All A/B interview answers are fictional simulated assumptions; not real interviews, observations, consent or approval."
+}
