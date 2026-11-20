@@ -35,6 +35,13 @@
     "Actual Studio theme output and line-by-line verification",
     "Team decisions and genuine individual contributions",
     "Live Project board/access",
-    "Publication/issue/PR and Canvas handoff"
-  ]
+    "Final review/merge and Canvas handoff"
+  ],
+  "publication_followup": {
+    "starter_commit": "c177deae295ac1a5dde59e28757b4dbc8b08868c",
+    "planning_issue": "https://github.com/byteboss22/neighborhood-listing-platform/issues/6",
+    "draft_pr": "https://github.com/byteboss22/neighborhood-listing-platform/pull/7",
+    "project_board": "pending access/setup",
+    "teammate_contributions": "pending actual work"
+  }
 }

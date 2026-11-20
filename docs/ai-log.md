@@ -366,3 +366,13 @@ not supplied; no new invocation is invented.
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Discovery package / Codex | Prepare Lab 4 drafts and divide meaningful contribution work across three active students while retaining actual model provenance. | Drafted value proposition, facts/assumptions, prospective v2 guide, unsent consent/invitation, source-traced personas, ten-story backlog with high-priority criteria/owners/estimates, MVP, content workflow, board-entry aid and Studio worksheet. | Did not claim v2 produced the existing Claude answers, implement future backlog stories, invent Studio themes, real stakeholder research, approval or teammate participation. Source corrections remain proposed for student review. | [Package checks](evidence/lab4/package-check.json), source-ID/link/hash checks, bounded secret scan; no app test rerun for document-only work. | Assisted starter on lab4/discovery-requirements; commit recorded by Git. |
 | Team handoff / Codex | Make the starter available so Grace, Vanessa and Eric can each make attributable work. | Prepared distinct file ownership/review templates, personal-branch/PR workflow and assistant prompts. Verified Grace/Vanessa push access through owner API. Proposed role rotation, not claimed performed. | Did not create commits under classmates' identities, fill their reviews, accept roles on their behalf, tag absent users, or treat prepared templates as completed contributions. | [Team handoff](lab4/team-handoff.md), actual publication links when created, current Git/permissions check. Project access/Studio/individual work remain pending. | Shared starter only; teammate commit links pending. |
+
+
+### Lab 4 starter publication
+
+The assisted starter was committed/pushed as `c177deae295ac1a5dde59e28757b4dbc8b08868c` on the shared Lab 4
+branch. Actual planning issue: https://github.com/byteboss22/neighborhood-listing-platform/issues/6. Actual draft PR: https://github.com/byteboss22/neighborhood-listing-platform/pull/7.
+These publish reviewable drafts; they do not complete Studio, Project setup,
+student review decisions or classmates' contributions. No main merge or manual
+app deployment occurred. The teammate handoff identifies personal branches and
+PR targets, preserving each person's actual future work and authorship.

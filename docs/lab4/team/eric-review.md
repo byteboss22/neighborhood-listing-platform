@@ -12,5 +12,7 @@ not evidence that Eric independently authored every paragraph or completed Studi
 - Backlog/MVP/policy/owner decisions Eric personally confirmed: pending.
 - Own tests/review performed: record actual activity; no app test claim supplied
   for this document-only package.
-- Shared starter commit / planning issue / PR: pending publication.
+- Assisted starter commit: `c177deae295ac1a5dde59e28757b4dbc8b08868c`.
+- Planning issue: https://github.com/byteboss22/neighborhood-listing-platform/issues/6
+- Shared draft PR: https://github.com/byteboss22/neighborhood-listing-platform/pull/7
 - Team contribution links: pending real Grace/Vanessa work.

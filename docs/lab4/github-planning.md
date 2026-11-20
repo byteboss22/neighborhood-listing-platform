@@ -45,6 +45,6 @@ Use plaintext names rather than inventing assignees or tagging absent users.
 ## Actual publication records
 
 - Project URL: pending.
-- Team planning issue: pending.
-- Shared Lab 4 PR: pending.
+- Team planning issue: https://github.com/byteboss22/neighborhood-listing-platform/issues/6
+- Shared Lab 4 PR (draft): https://github.com/byteboss22/neighborhood-listing-platform/pull/7
 - Teammate PRs/commits: pending; see [team handoff](team-handoff.md).

@@ -21,7 +21,7 @@ The existing application, midterm, Lab 3 and backups are not changed by this lab
 | Eight or more stories; owners/estimates/criteria | [Ten-story backlog](backlog.md), proposed ownership, not completed implementation |
 | Week 8 MVP | [MVP](mvp.md), course-planning target, not a backdated delivery claim |
 | Listing/sponsor approval workflow | [Content workflow](content-approval-workflow.md), proposed policy |
-| GitHub board and team planning issue | [Planning setup](github-planning.md), content prepared; remote URLs pending |
+| GitHub board and team planning issue | [Planning issue](https://github.com/byteboss22/neighborhood-listing-platform/issues/6), [draft PR](https://github.com/byteboss22/neighborhood-listing-platform/pull/7); live Project board still pending |
 | Each student's contribution | [Team handoff](team-handoff.md), real reviews/commits must follow this starter |
 | AI provenance | [Journal](../ai-log.md), [prepared prompts](ai-prompts.md), actual Claude/Gemini evidence; Studio/model details still pending |
 
@@ -46,3 +46,11 @@ is labeled as a teammate's independent work.
 No new app deployment is required by this documentation-only package. The existing
 demo can be linked as an existing platform demonstration; it does not prove that
 the new backlog stories are implemented or that real discovery was conducted.
+
+
+## Published starter
+
+The assisted starter is published as `c177deae295ac1a5dde59e28757b4dbc8b08868c`. Team members should start
+from the shared branch and submit personal PRs back into it as described in
+[team handoff](team-handoff.md). The original source artifacts are not replaced
+by teammate edits; each review records its own author and evidence.
