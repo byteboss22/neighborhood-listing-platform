@@ -1,0 +1,106 @@
+{
+  "environment": "isolated in-memory PGlite; exact migration attempted first; subsequent probes use explicitly documented COALESCE-only diagnostic variant; no live Supabase",
+  "results": [
+    {
+      "name": "exact attempt 02 migration",
+      "ok": false,
+      "code": "42883",
+      "message": "function pg_catalog.coalesce(integer, integer) does not exist"
+    },
+    {
+      "name": "diagnostic variant with only pg_catalog.coalesce replaced by COALESCE",
+      "ok": true
+    },
+    {
+      "name": "anonymous eligible junction read",
+      "ok": true,
+      "rows": [
+        {
+          "property_id": "sample-house",
+          "sponsor_id": "sample-sponsor"
+        }
+      ],
+      "affectedRows": 0
+    },
+    {
+      "name": "anonymous approved-property inquiry INSERT",
+      "ok": true,
+      "rows": [],
+      "affectedRows": 1
+    },
+    {
+      "name": "anonymous draft-property inquiry INSERT denied",
+      "ok": false,
+      "code": "42501",
+      "message": "new row violates row-level security policy for table \"inquiries\""
+    },
+    {
+      "name": "service_role SELECT",
+      "ok": true,
+      "rows": [
+        {
+          "property_id": "sample-draft"
+        },
+        {
+          "property_id": "sample-house"
+        }
+      ],
+      "affectedRows": 0
+    },
+    {
+      "name": "owner A inquiry read",
+      "ok": true,
+      "rows": [
+        {
+          "property_id": "sample-house"
+        }
+      ],
+      "affectedRows": 0
+    },
+    {
+      "name": "other owner B inquiry isolation",
+      "ok": true,
+      "rows": [],
+      "affectedRows": 0
+    },
+    {
+      "name": "authenticated non-owner private owner-ID exposure on approved property",
+      "ok": true,
+      "rows": [
+        {
+          "property_id": "sample-house",
+          "owner_id": "10000000-0000-4000-8000-000000000001"
+        }
+      ],
+      "affectedRows": 0
+    },
+    {
+      "name": "fractional-cent rejection",
+      "ok": false,
+      "code": "23514",
+      "message": "new row for relation \"properties\" violates check constraint \"properties_price_valid\""
+    },
+    {
+      "name": "non-half-bath rejection",
+      "ok": false,
+      "code": "23514",
+      "message": "new row for relation \"properties\" violates check constraint \"properties_bathrooms_half_steps\""
+    },
+    {
+      "name": "duplicate amenities rejection",
+      "ok": false,
+      "code": "23514",
+      "message": "Duplicate values in amenities are not allowed."
+    },
+    {
+      "name": "timestamp offset check in non-UTC session",
+      "ok": true,
+      "rows": [
+        {
+          "timestamp_offset_seconds": 28800
+        }
+      ],
+      "affectedRows": 1
+    }
+  ]
+}

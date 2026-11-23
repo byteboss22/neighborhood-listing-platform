@@ -1,0 +1,31 @@
+{
+  "environment": "isolated in-memory PGlite; existing midterm plus extracted proposed SQL; no live database",
+  "results": [
+    {
+      "name": "anonymous approved property read",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "name": "anonymous approved sponsor read",
+      "ok": true,
+      "rows": 1
+    },
+    {
+      "name": "anonymous public junction read",
+      "ok": false,
+      "code": "42501",
+      "message": "permission denied for table properties"
+    },
+    {
+      "name": "anonymous inquiry insert for approved property",
+      "ok": false,
+      "code": "42501",
+      "message": "permission denied for table properties"
+    },
+    {
+      "name": "elevated role SELECT privilege",
+      "elevated_properties_select": false
+    }
+  ]
+}

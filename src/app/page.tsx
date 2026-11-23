@@ -3,6 +3,7 @@ import listingSeed from "../../data/generated/ai-studio-attempt-01.json";
 import { listingView } from "@/lib/listingView";
 import SponsorBanner from "@/components/SponsorBanner";
 import ServiceExplorer from "@/components/ServiceExplorer";
+import LiveListings from "@/components/LiveListings";
 
 const features = [
   {
@@ -74,6 +75,11 @@ export default function Home() {
           ) : (
             <p role="status" className="mt-6 rounded-xl border p-5">{listings.error}</p>
           )}
+        </section>
+        <section aria-labelledby="approved-listings-heading" className="mt-16">
+          <h2 id="approved-listings-heading" className="text-3xl font-semibold tracking-tight">Approved property listings</h2>
+          <p className="mt-3 text-zinc-600 dark:text-zinc-300">Approved fictional listings and local sponsors. The sample listings above are a separate demonstration.</p>
+          <LiveListings />
         </section>
         <section aria-labelledby="services-heading" className="mt-16">
           <h2 id="services-heading" className="text-3xl font-semibold tracking-tight">Local services &amp; appointments</h2>

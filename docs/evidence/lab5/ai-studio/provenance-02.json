@@ -1,0 +1,11 @@
+{
+  "tool": "Google AI Studio, identified by student",
+  "received_client_date": "2026-11-23",
+  "model": "not supplied",
+  "exact_submitted_prompt": "follow-up prompt prepared; unchanged use not yet confirmed",
+  "raw_sha256": "9fbe2db70b82a7bbf72aecf7fc156c01b1475108ba34008568395e08217630e0",
+  "source_access": "Response states it read all three attachments; remote execution not independently observed.",
+  "disposition": "Retained as proposed SQL; exact migration fails local bootstrap. Diagnostic variant and findings documented separately. No live migration applied.",
+  "student_prompt_confirmation_2026_11_23": "Student confirmed using prepared prompts unchanged for the Lab 5 reviews.",
+  "student_model_report_2026_11_23": "gemini hydrogen; tool-specific model attribution/display spelling not established. Original not-supplied-at-receipt metadata retained."
+}

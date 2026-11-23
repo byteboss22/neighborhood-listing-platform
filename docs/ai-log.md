@@ -320,3 +320,81 @@ with that? SO we can get this resolved?"
 | Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Combined integration / Codex | Resolve Lab 3/main conflicts while preserving validated property data and midterm services/bookings, then update PR #5 for review. | Merged fetched main into Lab 3 locally. Combined the homepage and manifest, regenerated the lock and preserved both complete journal additions. Kept Next 16.4.6, all test commands and protected refs. Added a browser regression for the combined page. | Did not choose one side wholesale, remove either feature, rewrite raw generation/review evidence, move backups, copy credentials, apply migrations or perform the final merge into main. Browser network fixtures are not live Supabase evidence. | [Integration decisions](integration-lab3.md), [actual combined checks](evidence/lab3/integration/verification.json), raw-section/source-file preservation checks. Initial browser launch lacked the matching Chromium binary; that failure is retained and the binary installed. A second attempt found a user dev server on port 3000; it was not stopped. That existing-server attempt stayed in the loading state and failed. The final production-build suite passed all seven tests on isolated port 3100; test:ui:production and a separate tracked config now reproduce that check without stopping the user server. | Lab 3 parent d999d8a; main parent b167c47; merge commit recorded by Git. |
+
+
+### Lab 5 planning start — November 23, 2026
+
+Eric authorized starting Lab 5 independently while Lab 4 team work remains open.
+Codex created an isolated lab5/database worktree from main at 7a5dc1c, preserving
+the pre-existing feature/database branch at e57a87b. Codex inspected the current
+listing schema/homepage, server-only Supabase client and midterm migration, then
+prepared a coexistence design, assignment checklist, planned security matrix and
+AI prompts under docs/lab5. These are proposals; no new SQL, routes, live
+configuration, external model runs or passing Lab 5 tests are claimed.
+
+
+### Lab 5 AI Studio DDL attempt 01 — November 23, 2026
+
+Eric supplied an actual AI Studio response; raw text/provenance are retained under
+docs/evidence/lab5/ai-studio. The response reports missing design/midterm sources
+and old Lab 3 context. Codex compared it with the supplied assignment/design and
+ran focused isolated PGlite checks: direct approved reads succeeded; public
+junction/inquiry operations failed 42501; explicit elevated SELECT was absent in
+clean bootstrap. See docs/lab5/ai-studio-review.md and saved results. No live DB
+change, completed Lab 5 suite, accepted product decision or model metadata was
+invented. Revised context-complete prompt prepared; no SQL installed as migration.
+
+
+### Lab 5 AI Studio DDL attempt 02 — November 23, 2026
+
+Eric supplied the revised actual response reporting all three source attachments
+read. Codex preserved it and ran isolated PGlite probes. Exact SQL failed 42883
+on pg_catalog.coalesce; an explicitly COALESCE-only diagnostic variant loaded
+and fixed prior public join/inquiry grant failures. It rejected tested fractional
+cents, fractional baths and duplicate amenities, but exposed owner_id to a signed-in
+non-owner and shifted updated_at +8 hours in a non-UTC session. Full results and
+limitations are recorded in docs/lab5/ai-studio-review-02.md. No live migration,
+complete suite, Gemini run, student acceptance or missing model label was invented.
+
+
+### Lab 5 Gemini defensive review — November 23, 2026
+
+Eric supplied the actual Gemini response and confirmed prepared prompt use
+unchanged. He reported “gemini hydrogen” as the model; exact tool-specific display
+was not independently established. Codex preserved raw output, confirmed the
+prior authenticated private-column leak, reclassified elevated created_at/cascade/
+hypothetical definer claims and retained useful audit/test suggestions. Isolated
+checks showed ordinary created_at spoof denied 42501 and Gemini CTE/DO syntax
+failed 42601; the full proposed suite was not run. Eric requested an inquiry-access
+recommendation; Codex recommended signed-in-client submission with own-property
+owner reads and trusted admin oversight, without claiming student approval.
+See docs/lab5/gemini-disposition.md. No live DB, implementation or publication.
+
+
+### Lab 5 local implementation and paired handoff — November 23, 2026
+
+Eric authorized starting the implementation and reserving independent work for
+Grace. Codex implemented an additive four-table migration reusing protected
+profiles, corrected SQL/grants/timestamptz handling, added a narrow authenticated
+ownership helper, fictional SQL-only seed generator, strict listing/inquiry
+contracts, user-scoped routes and a live read UI. Signed-in-client inquiries follow
+the prepared recommendation; no anonymous inquiry policy was retained. Earlier
+AI-generated SQL is preserved unchanged as evidence, not installed verbatim.
+
+Baseline tests and production-browser tests were actually run, with actual
+results/limits in docs/evidence/lab5/local-validation.json. Grace owns independent
+expanded tests/review and hosted evidence; her handoff is not a completed review.
+No shared branch was committed/pushed, no live project configured or migrated,
+no main merge/deployment performed. Existing seven moderate development audit
+findings remain; production audit was zero.
+
+
+### Lab 5 starter commit preparation — November 23, 2026
+
+Eric authorized committing the local Lab 5 starter and preparing Grace's scoped
+handoff. Codex reviewed/staged only the Lab 5 worktree's implementation, evidence
+and documentation, preserving the separate Lab 4 pending edits. Existing local
+validation is retained; no application code changed during commit preparation.
+Grace's own security tests/review remain for her, not attributed as completed.
+No push, main merge, deployment or live database change is authorized by this
+commit operation. Exact starter hash is available in Git and the private handoff.

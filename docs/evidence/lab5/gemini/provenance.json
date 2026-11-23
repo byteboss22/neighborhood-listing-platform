@@ -1,0 +1,8 @@
+{
+  "tool": "Gemini, identified by student",
+  "received_client_date": "2026-11-23",
+  "exact_prompt": "Student confirmed prepared prompts were used unchanged.",
+  "model": "Student reported label: gemini hydrogen; exact display and attribution across Gemini/AI Studio not independently verified.",
+  "raw_sha256": "8d51953f374ba7fffecccc2cbd8b2987b061370ec1f4f7123398a4a42afe6117",
+  "disposition": "Codex verified and classified findings separately. No blanket acceptance, live migration or complete test suite claimed."
+}

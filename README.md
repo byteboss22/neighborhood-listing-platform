@@ -89,3 +89,10 @@ combined interface, run `npm run build` then `npm run test:ui:production`.
 The latter starts an isolated local production server on port 3100; service and
 booking requests in the tests use fictional intercepted responses. It does not
 submit live bookings. See [integration evidence](docs/integration-lab3.md).
+
+
+## Lab 5 local work
+
+[Lab 5 implementation and paired-review status](docs/lab5/README.md) records the
+additive persistence/API work and actual local evidence. Hosted migration and
+Grace's independent contribution remain pending.

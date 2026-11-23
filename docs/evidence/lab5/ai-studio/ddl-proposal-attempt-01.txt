@@ -1,0 +1,576 @@
+Missing Context & Execution Boundaries
+Unavailable artifacts in this workspace: Neither design.md nor the SQL body of supabase/migrations/20261029140000_exam_services_persistence.sql is present in the current lab3/data-contracts workspace. Only the Lab 3 contract files (schemas/listing-bundle.schema.json, docs/adr/001-data-contract.md, docs/lab3/checklist.md, src/types/index.ts) and the initial turn's file tree and route snippets (src/app/api/services/route.ts, src/app/api/bookings/route.ts) were observable.
+
+No actions executed: No files were modified, no external project or database was connected, no migration was applied, and no tests were run.
+
+1. Assignment Rules vs. Proposed Decisions
+Topic	Assignment Rule (Fixed)	Proposed Decision (From Lab 3 / Proposed Design — Verify Against design.md)
+Midterm preservation	Additive migration only; the existing midterm migration and its 5 tables must stay intact.	Reference public.profiles(id) via foreign keys only; do not ALTER or drop profiles, services, bookings, or the other two midterm tables.
+Target tables	Create properties, sponsors, property_sponsors, and inquiries, reusing protected profiles.	Derive property_sponsors from Lab 3's { property_id, sponsor_id } composite relationship (docs/adr/001-data-contract.md).
+Public visibility	anon / public readers may see only approved listings and approved active sponsors.	property_sponsors rows are publicly visible only when the linked property is approved and the linked sponsor is both approved and is_active = true.
+Owner permissions	Authenticated owners may edit only their own unapproved records and cannot approve or transfer ownership.	Owners may INSERT/UPDATE/DELETE their own draft or pending records; column-level GRANT/REVOKE, RLS WITH CHECK, and a BEFORE UPDATE trigger all block status -> 'approved' and owner_id changes.
+Privilege model	Default-deny RLS; service_role is strictly for trusted server-only operations, never owner routes.	Revoke ALL from PUBLIC, anon, and authenticated, then grant minimal table/column privileges. Never call service_role from client or owner-facing endpoints.
+Data constraints	Fictional data only.	Preserve Lab 3 schema rules: US-only addressing, 5/9-digit zip_code strings, USD/month non-negative rent, half-bath increments, closed amenities list, local SVG image_path allowlist, and https://...example.(com|org|net) sponsor URLs.
+2. Ambiguities to Resolve Before Applying
+Exact public.profiles definition and role constraint:
+
+From src/app/api/services/route.ts (initial context), profiles contains id (matching auth.users.id) and role (checking ['provider', 'merchant']).
+
+Ambiguity: Does profiles.role enforce a CHECK constraint or enum, and should any authenticated profile user be allowed to own a property/sponsor, or only specific roles (e.g., 'provider', 'merchant', 'owner')? Also verify whether the midterm migration already defines a reusable updated_at trigger function.
+
+Primary key format (uuid vs. Lab 3 slug):
+
+schemas/listing-bundle.schema.json uses lowercase slug identifiers (^[a-z0-9]+(?:-[a-z0-9]+)*$) for property_id and sponsor_id.
+
+Ambiguity: Does design.md use id uuid PRIMARY KEY DEFAULT gen_random_uuid() alongside a unique slug text, or use text slugs directly as primary keys? The proposal below uses uuid PKs + unique slug columns (so unapproved drafts can be renamed safely without cascading PK updates).
+
+Unapproved lifecycle (draft / pending / rejected) and DELETE:
+
+Ambiguity: Are rejected records editable/resubmittable by the owner or terminal? Should owners be allowed to DELETE unapproved drafts, or only update them?
+
+Who may manage property_sponsors links:
+
+Ambiguity: Can a property owner attach/detach an already-approved active sponsor to their own unapproved property, or must links be moderated/approved separately?
+
+Inquiry visibility (inquiries):
+
+In the midterm bookings pattern (src/app/api/bookings/route.ts), anon inserts rows with no SELECT policy (201 { received: true }).
+
+Ambiguity: Should property owners be allowed to SELECT inquiries for properties they own via RLS, or should inquiries remain write-only for clients and readable only via a trusted server-side workflow (service_role) to minimize client-side PII exposure? (The SQL below defaults to server-only read—no SELECT grant to anon or authenticated—with an optional commented owner-SELECT policy if design.md explicitly requires direct client reads.)
+
+Sponsor is_active control:
+
+Ambiguity: Should an authenticated owner be able to toggle is_active = false on their own approved sponsor, or is is_active strictly moderation-controlled / immutable once approved? Strict adherence to "edit only their own unapproved records" keeps is_active uneditable by owners once approved.
+
+3. Schema, Grant, and RLS Design Review
+Keys: Surrogate uuid PKs (gen_random_uuid()) plus UNIQUE slug (slug text) on properties and sponsors; composite PK (property_id, sponsor_id) on property_sponsors prevents duplicate pairings.
+
+Foreign Keys & Cascade Behavior:
+
+properties.owner_id -> public.profiles(id) ON DELETE RESTRICT: avoids silent loss of moderated/historical listings if a profile deletion is attempted.
+
+sponsors.owner_id -> public.profiles(id) ON DELETE RESTRICT: same audit/integrity protection.
+
+property_sponsors.property_id -> public.properties(id) ON DELETE CASCADE and sponsor_id -> public.sponsors(id) ON DELETE CASCADE: join rows have no meaning independent of the parent records.
+
+inquiries.property_id -> public.properties(id) ON DELETE RESTRICT: preserves inquiry history; since owners cannot delete approved properties, RESTRICT prevents accidental deletion.
+
+NULLs & Checks:
+
+NOT NULL enforced on all required Lab 3 fields, ownership FKs, statuses, and timestamps.
+
+CHECK constraints enforce Lab 3 structural boundaries (state ~ '^[A-Z]{2}$', country = 'US', zip_code ~ '^[0-9]{5}(?:-[0-9]{4})?$', price >= 0, bedrooms >= 0, bathrooms >= 0 in 0.5 increments, square_feet > 0, controlled amenities subset via <@, allowlisted local SVGs and https://...example.(com|org|net) URLs for fictional demo safety).
+
+Moderation consistency CHECK: (status = 'approved') = (approved_at IS NOT NULL) (and optional approved_by) prevents half-approved states.
+
+Timestamps: created_at and updated_at (timestamptz NOT NULL DEFAULT now()) with a BEFORE UPDATE trigger (SET search_path = pg_catalog, public) that forces created_at immutable and updates updated_at.
+
+Column Grants & Trigger Defense-in-Depth:
+
+REVOKE ALL on all 4 tables from PUBLIC, anon, and authenticated.
+
+anon receives SELECT on public-safe columns of properties, sponsors, and property_sponsors, plus INSERT (property_id, inquirer_name, inquirer_email, message) only on inquiries (no SELECT / RETURNING on inquiries).
+
+authenticated receives INSERT/UPDATE only on owner-editable columns (explicitly excluding owner_id on UPDATE, status approval transitions, approved_at, approved_by, and is_active escalation).
+
+A BEFORE INSERT OR UPDATE guard trigger rejects status = 'approved', approved_at IS NOT NULL, approved_by IS NOT NULL, or owner_id reassignment when current_user IN ('anon', 'authenticated') (so service_role retains full moderation capability).
+
+Default-Deny RLS:
+
+ENABLE ROW LEVEL SECURITY on all 4 tables; no FOR ALL blanket policies.
+
+Note: Do not apply FORCE ROW LEVEL SECURITY in a way that blocks table-owner migrations or trusted service_role if running in a custom role setup; verify service_role bypasses RLS in the target Postgres/Supabase environment.
+
+4. Proposed Additive PostgreSQL Migration SQL
+Proposed SQL only (supabase/migrations/<timestamp>_lab5_properties_sponsors_inquiries.sql — not written or applied). Adjust profiles FK/role checks after inspecting the midterm migration.
+SQL
+BEGIN;
+
+-- 1. Helper trigger functions (namespaced for Lab 5 to avoid colliding with midterm functions)
+CREATE OR REPLACE FUNCTION public.lab5_set_timestamps()
+RETURNS trigger
+LANGUAGE plpgsql
+SET search_path = pg_catalog, public
+AS $$
+BEGIN
+  IF TG_OP = 'INSERT' THEN
+    NEW.created_at := COALESCE(NEW.created_at, clock_timestamp());
+    NEW.updated_at := clock_timestamp();
+  ELSIF TG_OP = 'UPDATE' THEN
+    NEW.created_at := OLD.created_at;
+    NEW.updated_at := clock_timestamp();
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION public.lab5_enforce_moderation_boundary()
+RETURNS trigger
+LANGUAGE plpgsql
+SET search_path = pg_catalog, public
+AS $$
+DECLARE
+  jwt_role text := NULLIF(current_setting('request.jwt.claim.role', true), '');
+  is_client_role boolean := (current_user IN ('anon', 'authenticated') OR jwt_role IN ('anon', 'authenticated'));
+BEGIN
+  IF is_client_role THEN
+    IF TG_OP = 'INSERT' THEN
+      IF NEW.status NOT IN ('draft', 'pending') THEN
+        RAISE EXCEPTION 'Clients may only create draft or pending records.' USING ERRCODE = '42501';
+      END IF;
+      IF NEW.approved_at IS NOT NULL OR NEW.approved_by IS NOT NULL THEN
+        RAISE EXCEPTION 'Clients cannot set approval metadata.' USING ERRCODE = '42501';
+      END IF;
+    ELSIF TG_OP = 'UPDATE' THEN
+      IF NEW.owner_id IS DISTINCT FROM OLD.owner_id THEN
+        RAISE EXCEPTION 'Ownership transfer is not permitted.' USING ERRCODE = '42501';
+      END IF;
+      IF OLD.status NOT IN ('draft', 'pending') THEN
+        RAISE EXCEPTION 'Approved or finalized records cannot be modified by owners.' USING ERRCODE = '42501';
+      END IF;
+      IF NEW.status NOT IN ('draft', 'pending') THEN
+        RAISE EXCEPTION 'Owners cannot approve or reject records.' USING ERRCODE = '42501';
+      END IF;
+      IF NEW.approved_at IS DISTINCT FROM OLD.approved_at
+         OR NEW.approved_by IS DISTINCT FROM OLD.approved_by THEN
+        RAISE EXCEPTION 'Approval metadata is server-managed.' USING ERRCODE = '42501';
+      END IF;
+    END IF;
+  END IF;
+  RETURN NEW;
+END;
+$$;
+
+-- 2. Tables
+CREATE TABLE IF NOT EXISTS public.properties (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug text NOT NULL UNIQUE,
+  owner_id uuid NOT NULL REFERENCES public.profiles(id) ON DELETE RESTRICT,
+  title text NOT NULL,
+  street text NOT NULL,
+  city text NOT NULL,
+  state char(2) NOT NULL,
+  country char(2) NOT NULL DEFAULT 'US',
+  zip_code text NOT NULL,
+  price numeric(10, 2) NOT NULL,
+  currency char(3) NOT NULL DEFAULT 'USD',
+  price_period text NOT NULL DEFAULT 'month',
+  property_type text NOT NULL,
+  bedrooms integer NOT NULL,
+  bathrooms numeric(3, 1) NOT NULL,
+  square_feet integer NOT NULL,
+  amenities text[] NOT NULL DEFAULT '{}',
+  image_path text NOT NULL,
+  image_alt text NOT NULL,
+  status text NOT NULL DEFAULT 'draft',
+  approved_at timestamptz NULL,
+  approved_by uuid NULL REFERENCES public.profiles(id) ON DELETE SET NULL,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now(),
+
+  CONSTRAINT properties_slug_format CHECK (slug ~ '^[a-z0-9]+(?:-[a-z0-9]+)*$' AND char_length(slug) >= 3),
+  CONSTRAINT properties_title_valid CHECK (title ~ '\S' AND char_length(btrim(title)) >= 5),
+  CONSTRAINT properties_street_valid CHECK (street ~ '\S'),
+  CONSTRAINT properties_city_valid CHECK (city ~ '\S'),
+  CONSTRAINT properties_state_valid CHECK (state ~ '^[A-Z]{2}$'),
+  CONSTRAINT properties_country_us CHECK (country = 'US'),
+  CONSTRAINT properties_zip_valid CHECK (zip_code ~ '^[0-9]{5}(?:-[0-9]{4})?$'),
+  CONSTRAINT properties_price_nonnegative CHECK (price >= 0),
+  CONSTRAINT properties_currency_usd CHECK (currency = 'USD'),
+  CONSTRAINT properties_period_month CHECK (price_period = 'month'),
+  CONSTRAINT properties_type_enum CHECK (property_type IN ('apartment', 'studio', 'house', 'condo', 'townhouse')),
+  CONSTRAINT properties_bedrooms_nonnegative CHECK (bedrooms >= 0),
+  CONSTRAINT properties_bathrooms_half_steps CHECK (bathrooms >= 0 AND (bathrooms * 2) = floor(bathrooms * 2)),
+  CONSTRAINT properties_sqft_positive CHECK (square_feet > 0),
+  CONSTRAINT properties_amenities_enum CHECK (
+    amenities <@ ARRAY['parking', 'laundry', 'elevator', 'balcony', 'garden', 'air_conditioning']::text[]
+  ),
+  CONSTRAINT properties_image_allowlist CHECK (
+    image_path IN ('/images/maple-court.svg', '/images/cedar-studio.svg', '/images/willow-house.svg')
+  ),
+  CONSTRAINT properties_image_alt_valid CHECK (image_alt ~ '\S' AND char_length(btrim(image_alt)) >= 10),
+  CONSTRAINT properties_status_enum CHECK (status IN ('draft', 'pending', 'approved', 'rejected')),
+  CONSTRAINT properties_approval_consistency CHECK ((status = 'approved') = (approved_at IS NOT NULL))
+);
+
+CREATE TABLE IF NOT EXISTS public.sponsors (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug text NOT NULL UNIQUE,
+  owner_id uuid NOT NULL REFERENCES public.profiles(id) ON DELETE RESTRICT,
+  business_name text NOT NULL,
+  website_url text NOT NULL,
+  status text NOT NULL DEFAULT 'draft',
+  is_active boolean NOT NULL DEFAULT false,
+  approved_at timestamptz NULL,
+  approved_by uuid NULL REFERENCES public.profiles(id) ON DELETE SET NULL,
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now(),
+
+  CONSTRAINT sponsors_slug_format CHECK (slug ~ '^[a-z0-9]+(?:-[a-z0-9]+)*$' AND char_length(slug) >= 3),
+  CONSTRAINT sponsors_name_valid CHECK (business_name ~ '\S' AND char_length(btrim(business_name)) >= 3),
+  CONSTRAINT sponsors_url_fictional_https CHECK (
+    website_url ~ '^https://(?:[a-z0-9-]+\.)?example\.(?:com|org|net)/?$'
+  ),
+  CONSTRAINT sponsors_status_enum CHECK (status IN ('draft', 'pending', 'approved', 'rejected')),
+  CONSTRAINT sponsors_active_requires_approved CHECK (NOT is_active OR status = 'approved'),
+  CONSTRAINT sponsors_approval_consistency CHECK ((status = 'approved') = (approved_at IS NOT NULL))
+);
+
+CREATE TABLE IF NOT EXISTS public.property_sponsors (
+  property_id uuid NOT NULL REFERENCES public.properties(id) ON DELETE CASCADE,
+  sponsor_id uuid NOT NULL REFERENCES public.sponsors(id) ON DELETE CASCADE,
+  created_at timestamptz NOT NULL DEFAULT now(),
+
+  PRIMARY KEY (property_id, sponsor_id)
+);
+
+CREATE TABLE IF NOT EXISTS public.inquiries (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  property_id uuid NOT NULL REFERENCES public.properties(id) ON DELETE RESTRICT,
+  inquirer_name text NOT NULL,
+  inquirer_email text NOT NULL,
+  message text NOT NULL,
+  created_at timestamptz NOT NULL DEFAULT now(),
+
+  CONSTRAINT inquiries_name_valid CHECK (inquirer_name ~ '\S' AND char_length(inquirer_name) BETWEEN 2 AND 120),
+  CONSTRAINT inquiries_email_valid CHECK (inquirer_email ~ '^[^@\s]+@[^@\s]+\.[^@\s]+$' AND char_length(inquirer_email) <= 254),
+  CONSTRAINT inquiries_message_valid CHECK (message ~ '\S' AND char_length(message) BETWEEN 10 AND 2000)
+);
+
+-- Indexes for RLS predicates and joins
+CREATE INDEX IF NOT EXISTS idx_properties_owner_status ON public.properties (owner_id, status);
+CREATE INDEX IF NOT EXISTS idx_properties_approved ON public.properties (status) WHERE status = 'approved';
+CREATE INDEX IF NOT EXISTS idx_sponsors_owner_status ON public.sponsors (owner_id, status);
+CREATE INDEX IF NOT EXISTS idx_sponsors_approved_active ON public.sponsors (status, is_active) WHERE status = 'approved' AND is_active = true;
+CREATE INDEX IF NOT EXISTS idx_property_sponsors_sponsor ON public.property_sponsors (sponsor_id);
+CREATE INDEX IF NOT EXISTS idx_inquiries_property ON public.inquiries (property_id);
+
+-- 3. Triggers
+CREATE TRIGGER trg_properties_timestamps
+  BEFORE INSERT OR UPDATE ON public.properties
+  FOR EACH ROW EXECUTE FUNCTION public.lab5_set_timestamps();
+
+CREATE TRIGGER trg_properties_moderation_guard
+  BEFORE INSERT OR UPDATE ON public.properties
+  FOR EACH ROW EXECUTE FUNCTION public.lab5_enforce_moderation_boundary();
+
+CREATE TRIGGER trg_sponsors_timestamps
+  BEFORE INSERT OR UPDATE ON public.sponsors
+  FOR EACH ROW EXECUTE FUNCTION public.lab5_set_timestamps();
+
+CREATE TRIGGER trg_sponsors_moderation_guard
+  BEFORE INSERT OR UPDATE ON public.sponsors
+  FOR EACH ROW EXECUTE FUNCTION public.lab5_enforce_moderation_boundary();
+
+-- 4. Default-deny privileges & least-privilege column grants
+REVOKE ALL ON public.properties, public.sponsors, public.property_sponsors, public.inquiries
+  FROM PUBLIC, anon, authenticated;
+
+-- Public read columns (no internal moderation/audit fields exposed unless intended)
+GRANT SELECT (
+  id, slug, title, street, city, state, country, zip_code,
+  price, currency, price_period, property_type, bedrooms, bathrooms,
+  square_feet, amenities, image_path, image_alt, created_at
+) ON public.properties TO anon;
+
+-- Authenticated owners may also read their own moderation metadata/owner_id
+GRANT SELECT ON public.properties TO authenticated;
+
+GRANT INSERT (
+  slug, owner_id, title, street, city, state, country, zip_code,
+  price, currency, price_period, property_type, bedrooms, bathrooms,
+  square_feet, amenities, image_path, image_alt, status
+) ON public.properties TO authenticated;
+
+GRANT UPDATE (
+  slug, title, street, city, state, country, zip_code,
+  price, currency, price_period, property_type, bedrooms, bathrooms,
+  square_feet, amenities, image_path, image_alt, status
+) ON public.properties TO authenticated;
+
+GRANT DELETE ON public.properties TO authenticated;
+
+-- Sponsors grants
+GRANT SELECT (id, slug, business_name, website_url, is_active, created_at)
+  ON public.sponsors TO anon;
+
+GRANT SELECT ON public.sponsors TO authenticated;
+
+GRANT INSERT (slug, owner_id, business_name, website_url, status)
+  ON public.sponsors TO authenticated;
+
+GRANT UPDATE (slug, business_name, website_url, status)
+  ON public.sponsors TO authenticated;
+
+GRANT DELETE ON public.sponsors TO authenticated;
+
+-- Property-Sponsors join grants
+GRANT SELECT (property_id, sponsor_id, created_at)
+  ON public.property_sponsors TO anon, authenticated;
+
+GRANT INSERT (property_id, sponsor_id)
+  ON public.property_sponsors TO authenticated;
+
+GRANT DELETE ON public.property_sponsors TO authenticated;
+
+-- Inquiries: write-only for anon & authenticated (no SELECT prevents PII exposure)
+GRANT INSERT (property_id, inquirer_name, inquirer_email, message)
+  ON public.inquiries TO anon, authenticated;
+
+-- 5. Enable Default-Deny RLS & Policies
+ALTER TABLE public.properties ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.sponsors ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.property_sponsors ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.inquiries ENABLE ROW LEVEL SECURITY;
+
+-- PROPERTIES RLS
+CREATE POLICY properties_public_read_approved
+  ON public.properties FOR SELECT
+  TO anon, authenticated
+  USING (status = 'approved');
+
+CREATE POLICY properties_owner_read_own
+  ON public.properties FOR SELECT
+  TO authenticated
+  USING (owner_id = (SELECT auth.uid()));
+
+CREATE POLICY properties_owner_insert_unapproved
+  ON public.properties FOR INSERT
+  TO authenticated
+  WITH CHECK (
+    owner_id = (SELECT auth.uid())
+    AND status IN ('draft', 'pending')
+    AND approved_at IS NULL
+    AND approved_by IS NULL
+  );
+
+CREATE POLICY properties_owner_update_unapproved
+  ON public.properties FOR UPDATE
+  TO authenticated
+  USING (
+    owner_id = (SELECT auth.uid())
+    AND status IN ('draft', 'pending')
+  )
+  WITH CHECK (
+    owner_id = (SELECT auth.uid())
+    AND status IN ('draft', 'pending')
+    AND approved_at IS NULL
+    AND approved_by IS NULL
+  );
+
+CREATE POLICY properties_owner_delete_unapproved
+  ON public.properties FOR DELETE
+  TO authenticated
+  USING (
+    owner_id = (SELECT auth.uid())
+    AND status IN ('draft', 'pending')
+  );
+
+-- SPONSORS RLS
+CREATE POLICY sponsors_public_read_approved_active
+  ON public.sponsors FOR SELECT
+  TO anon, authenticated
+  USING (status = 'approved' AND is_active = true);
+
+CREATE POLICY sponsors_owner_read_own
+  ON public.sponsors FOR SELECT
+  TO authenticated
+  USING (owner_id = (SELECT auth.uid()));
+
+CREATE POLICY sponsors_owner_insert_unapproved
+  ON public.sponsors FOR INSERT
+  TO authenticated
+  WITH CHECK (
+    owner_id = (SELECT auth.uid())
+    AND status IN ('draft', 'pending')
+    AND is_active = false
+    AND approved_at IS NULL
+    AND approved_by IS NULL
+  );
+
+CREATE POLICY sponsors_owner_update_unapproved
+  ON public.sponsors FOR UPDATE
+  TO authenticated
+  USING (
+    owner_id = (SELECT auth.uid())
+    AND status IN ('draft', 'pending')
+  )
+  WITH CHECK (
+    owner_id = (SELECT auth.uid())
+    AND status IN ('draft', 'pending')
+    AND is_active = false
+    AND approved_at IS NULL
+    AND approved_by IS NULL
+  );
+
+CREATE POLICY sponsors_owner_delete_unapproved
+  ON public.sponsors FOR DELETE
+  TO authenticated
+  USING (
+    owner_id = (SELECT auth.uid())
+    AND status IN ('draft', 'pending')
+  );
+
+-- PROPERTY_SPONSORS RLS
+CREATE POLICY property_sponsors_public_read_visible
+  ON public.property_sponsors FOR SELECT
+  TO anon, authenticated
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.properties p
+      WHERE p.id = property_sponsors.property_id
+        AND p.status = 'approved'
+    )
+    AND EXISTS (
+      SELECT 1 FROM public.sponsors s
+      WHERE s.id = property_sponsors.sponsor_id
+        AND s.status = 'approved'
+        AND s.is_active = true
+    )
+  );
+
+CREATE POLICY property_sponsors_owner_read_own
+  ON public.property_sponsors FOR SELECT
+  TO authenticated
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.properties p
+      WHERE p.id = property_sponsors.property_id
+        AND p.owner_id = (SELECT auth.uid())
+    )
+  );
+
+CREATE POLICY property_sponsors_owner_insert_unapproved
+  ON public.property_sponsors FOR INSERT
+  TO authenticated
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM public.properties p
+      WHERE p.id = property_sponsors.property_id
+        AND p.owner_id = (SELECT auth.uid())
+        AND p.status IN ('draft', 'pending')
+    )
+    AND EXISTS (
+      SELECT 1 FROM public.sponsors s
+      WHERE s.id = property_sponsors.sponsor_id
+        AND s.status = 'approved'
+        AND s.is_active = true
+    )
+  );
+
+CREATE POLICY property_sponsors_owner_delete_unapproved
+  ON public.property_sponsors FOR DELETE
+  TO authenticated
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.properties p
+      WHERE p.id = property_sponsors.property_id
+        AND p.owner_id = (SELECT auth.uid())
+        AND p.status IN ('draft', 'pending')
+    )
+  );
+
+-- INQUIRIES RLS
+CREATE POLICY inquiries_insert_for_approved_property
+  ON public.inquiries FOR INSERT
+  TO anon, authenticated
+  WITH CHECK (
+    EXISTS (
+      SELECT 1 FROM public.properties p
+      WHERE p.id = inquiries.property_id
+        AND p.status = 'approved'
+    )
+  );
+
+COMMIT;
+5. Key Risks & Mitigations
+PostgREST INSERT ... RETURNING trap on inquiries:
+
+Because anon and authenticated have no SELECT grant or policy on inquiries, calling .insert(data).select() from Supabase JS will fail with 42501. Application routes must insert without .select() (mirroring src/app/api/bookings/route.ts).
+
+Missing profiles row at signup:
+
+owner_id REFERENCES public.profiles(id) fails if a newly authenticated user does not yet have a profiles row. Verify how the midterm migration provisions profiles before letting owners submit listings.
+
+Sponsor deactivation vs. unapproved edit rule:
+
+sponsors_active_requires_approved ensures unapproved sponsors always have is_active = false. Only service_role moderation can set status = 'approved' and is_active = true together. If owners need to pause an already-approved sponsor, that must be handled via an explicit server-side endpoint or narrowed column/trigger exception.
+
+Existence probing on inquiries / property_sponsors:
+
+Attempting to insert an inquiry against a draft property UUID fails RLS (42501), whereas a nonexistent UUID fails FK (23503). Public API routes should map both to a uniform 400 { error: "Property is unavailable." } response.
+
+service_role key leakage:
+
+service_role bypasses RLS. Never instantiate it in client bundles, Server Components rendered for owners, or owner edit routes; restrict it strictly to server-only moderation scripts/admin operations.
+
+Constraint drift with Lab 3:
+
+The properties_amenities_enum and properties_image_allowlist checks mirror schemas/listing-bundle.schema.json. Keep Zod (src/schemas/listing.ts) and Postgres CHECK constraints synchronized when new amenities or assets are introduced.
+
+6. Executable Positive & Negative Test Suggestions (Not Run)
+These can be implemented against @electric-sql/pglite (mirroring the midterm pattern) or a local/dev Supabase instance after applying both the midterm migration and this proposed migration:
+
+Positive Tests (Should Succeed)
+Midterm intact check: Verify the 5 existing midterm tables and their row counts/policies remain untouched and existing midterm RLS/contract tests still pass.
+
+Valid fictional inserts (service_role / owner):
+
+Owner A (authenticated, auth.uid() = owner_a) inserts a draft studio (bedrooms = 0, bathrooms = 1.5, price = 0, zip_code = '01234', amenities = '{laundry}') -> succeeds.
+
+Owner A updates title and status = 'pending' on their own draft -> succeeds; updated_at advances while created_at stays unchanged.
+
+service_role approves property (status = 'approved', approved_at = now()) and sponsor (status = 'approved', is_active = true, approved_at = now()) -> succeeds.
+
+Owner A links an approved + active sponsor to a new draft property via property_sponsors -> succeeds.
+
+Public read (anon):
+
+anon SELECT on properties returns only approved rows (and omits owner_id, approved_by due to column grants).
+
+anon SELECT on sponsors returns only status = 'approved' AND is_active = true rows.
+
+anon SELECT on property_sponsors returns pairs where both property and sponsor are visible.
+
+Public inquiry (anon):
+
+anon INSERT (property_id, inquirer_name, inquirer_email, message) on an approved property using fictional 'resident@example.test' (no RETURNING) -> succeeds.
+
+Negative Tests (Should Fail with 42501 / 23514 / 23505)
+Constraint rejections:
+
+Invalid zip_code ('1234', '12345x6789'), negative price (-1), bathrooms = 1.3, square_feet = 0, invalid state ('ca'), non-US country, unknown amenity ('luxury'), or non-example sponsor URL ('https://evil.invalid') -> 23514 check violation.
+
+Duplicate (property_id, sponsor_id) in property_sponsors -> 23505 unique violation.
+
+Public read isolation (anon):
+
+anon SELECT on draft, pending, or rejected properties returns 0 rows.
+
+anon SELECT on an approved sponsor with is_active = false returns 0 rows.
+
+anon SELECT on property_sponsors linked to a draft property or is_active = false sponsor returns 0 rows.
+
+anon SELECT on inquiries fails with 42501 (insufficient privilege).
+
+Owner privilege escalation & cross-tenant isolation (authenticated):
+
+Owner A attempts to INSERT or UPDATE a property/sponsor with status = 'approved' or is_active = true -> rejected (42501).
+
+Owner A attempts to UPDATE owner_id to Owner B -> rejected (42501).
+
+Owner A attempts to UPDATE or DELETE their own already-approved property -> rejected / 0 rows affected.
+
+Owner A attempts to UPDATE or DELETE Owner B's draft property -> rejected / 0 rows affected.
+
+Owner A attempts to INSERT into property_sponsors referencing an unapproved or is_active = false sponsor -> rejected (42501).
+
+Inquiry abuse prevention:
+
+anon attempts INSERT into inquiries targeting a draft or rejected property -> rejected (42501).
+
+authenticated Owner A attempts SELECT or DELETE on inquiries -> rejected (42501).
+
+Catalog / Grant assertion (extending supabase/tests/exam_rls_catalog.sql):
+
+Query pg_class.relrowsecurity to assert RLS is enabled on all 4 tables, and query information_schema.column_privileges to confirm anon and authenticated hold zero UPDATE privileges on owner_id, approved_at, approved_by, and zero SELECT privileges on inquiries.

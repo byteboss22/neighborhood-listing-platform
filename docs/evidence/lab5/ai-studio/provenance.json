@@ -1,0 +1,11 @@
+{
+  "tool": "Google AI Studio, identified by student",
+  "received_client_date": "2026-11-23",
+  "model": "not supplied",
+  "exact_prompt": "prepared prompt exists; unchanged use not yet confirmed",
+  "raw_sha256": "ddab72858379f5151af1ba9844742f4852e637421e9eb420bf701fb9d4076e90",
+  "limitations": "Response reports old lab3/data-contracts context and missing design.md and midterm migration. No external database or full test suite run claimed.",
+  "disposition": "Retained as incomplete-context proposal; not installed as a migration.",
+  "student_prompt_confirmation_2026_11_23": "Student confirmed using prepared prompts unchanged for the Lab 5 reviews.",
+  "student_model_report_2026_11_23": "gemini hydrogen; tool-specific model attribution/display spelling not established. Original not-supplied-at-receipt metadata retained."
+}
