@@ -2,8 +2,8 @@
 
 I (Vanessa) reviewed and verified my three assigned documents: personas.md,
 content-approval-workflow.md and this review record. I authorized the proposed
-documentation edits after reviewing Codex's recommendations. Final approval and
-authorization to commit or push are still pending.
+documentation edits after reviewing Codex's recommendations. I approved the
+three files and authorized Codex to commit, push and open a PR.
 
 Codex assisted in helping me improve the personas and content workflow. I accepted
 keeping sound sections unchanged and made these decisions:
@@ -35,6 +35,5 @@ and retention, and notification delivery unresolved. No new stakeholder evidence
 I left D-02/D-03/D-04 and MVP decisions for Eric/team confirmation, questions and
 consent to Grace, and Studio themes, planning and AI-log consolidation to Eric.
 
-I have not authorized a commit, push or PR, and none has been performed for this
-contribution. I require any eventual PR to target
+I authorized publication of my contribution. I require the PR to target
 `lab4/discovery-requirements`, not `main`.
