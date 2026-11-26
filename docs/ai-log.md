@@ -420,3 +420,12 @@ and universal nonempty alt, preserve MVP deferrals. Reported model label is
 “gemini hydogen”; spelling retained, not verified. Exact submitted prompt remains
 unconfirmed. Acceptance of assisted recommendations does not imply an independent
 re-performance of all source checks or instructor/stakeholder approval.
+
+
+### Lab 4 Project URL recorded — November 25, 2026
+
+Eric supplied Project 2 view 1 and reported configuring all five required statuses.
+Codex recorded the real URL and prepared per-card copy text from the existing
+backlog, without inventing board items or implementation progress. CLI view/item
+reads failed (read:project missing), web access was restricted. Live card details
+and access verification remain pending. No Project writes or permissions changed.

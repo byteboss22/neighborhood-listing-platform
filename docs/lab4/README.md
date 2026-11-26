@@ -21,7 +21,7 @@ The existing application, midterm, Lab 3 and backups are not changed by this lab
 | Eight or more stories; owners/estimates/criteria | [Ten-story backlog](backlog.md), proposed ownership, not completed implementation |
 | Week 8 MVP | [MVP](mvp.md), course-planning target, not a backdated delivery claim |
 | Listing/sponsor approval workflow | [Content workflow](content-approval-workflow.md), proposed policy |
-| GitHub board and team planning issue | [Planning issue](https://github.com/byteboss22/neighborhood-listing-platform/issues/6), [draft PR](https://github.com/byteboss22/neighborhood-listing-platform/pull/7); live Project board still pending |
+| GitHub board and team planning issue | [Planning issue](https://github.com/byteboss22/neighborhood-listing-platform/issues/6), [draft PR](https://github.com/byteboss22/neighborhood-listing-platform/pull/7); [Project 2](https://github.com/users/byteboss22/projects/2/views/1) supplied; statuses student-reported, item details unverified |
 | Each student's contribution | [Grace PR #8](https://github.com/byteboss22/neighborhood-listing-platform/pull/8) and [Vanessa PR #9](https://github.com/byteboss22/neighborhood-listing-platform/pull/9) merged; Eric planning decisions recorded |
 | AI provenance | [Journal](../ai-log.md), [prepared prompts](ai-prompts.md), actual Claude/Gemini evidence; Studio/model details still pending |
 
@@ -91,3 +91,10 @@ Eric accepted the assisted source-review corrections and existing deferrals.
 Reported model: “gemini hydogen” (unverified spelling retained). Exact submitted
 prompt remains unconfirmed. The live Project and final submission review remain
 pending; historical references above to pending review decisions are superseded.
+
+## Project link recorded — November 25, 2026
+
+Eric supplied the Project 2 board URL and reported setting the required statuses.
+The live item/details and access check remains pending: agent CLI lacks
+read:project and web access is restricted. See github-planning.md for the precise
+evidence boundary; the ten prepared stories are not claimed present or complete.

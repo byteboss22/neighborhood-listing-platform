@@ -80,3 +80,11 @@ recommendations, not a claimed independent re-performance of every source check.
 He reported the model label as “gemini hydogen”; unchanged prepared-prompt use
 was not confirmed in that reply. The earlier pending-decision entries above are
 historical. Live Project verification and final package review remain pending.
+
+## Project setup progress — November 25, 2026
+
+Eric supplied https://github.com/users/byteboss22/projects/2/views/1 and reported finishing the five-status configuration.
+Codex recorded the link; attempts to read fields/items remain blocked by CLI
+scope and restricted web access. Card existence, descriptions, estimates, owners,
+criteria and instructor/team access are still unverified. This is setup progress,
+not a passing board audit or proof that product stories are implemented.

@@ -1,4 +1,4 @@
-# GitHub planning setup — draft content, remote evidence pending
+# GitHub planning — Project link recorded, item verification pending
 
 Required columns: **Backlog, Ready, In Progress, Review, Done**. Product stories
 US-01..US-10 are Backlog until the team confirms owners/criteria and dependencies.
@@ -30,8 +30,8 @@ participant consent, instructor approval or completed teammate work is claimed.
       own PR into the shared Lab 4 branch with actual decisions.
 - [x] Vanessa contribution merged in PR #9; reviews/edits personas and workflow; opens
       own PR into the shared Lab 4 branch with actual decisions.
-- [ ] Eric runs required Studio theme prompt, retains response and compares every
-      claim with the simulated source; confirms backlog/MVP and source decisions.
+- [x] Actual Studio output and assisted source comparison retained; Eric accepted
+      review decisions. Exact submitted prompt remains unconfirmed.
 - [ ] Team confirms proposed owners, role rotation, priorities and policy choices.
 - [ ] Create/verify Project with the five required columns and real item URLs.
 - [ ] Review traceability, simulation/assumption labels, approval boundaries,
@@ -44,7 +44,7 @@ Use plaintext names rather than inventing assignees or tagging absent users.
 
 ## Actual publication records
 
-- Project URL: pending.
+- Project URL supplied by Eric: https://github.com/users/byteboss22/projects/2/views/1
 - Team planning issue: https://github.com/byteboss22/neighborhood-listing-platform/issues/6
 - Shared Lab 4 PR (draft): https://github.com/byteboss22/neighborhood-listing-platform/pull/7
 - Grace: [PR #8](https://github.com/byteboss22/neighborhood-listing-platform/pull/8),
@@ -70,3 +70,18 @@ was created or verified. The private Lab 4 finish packet contains concrete UI
 steps and the ten-item entry aid; do not mark this requirement complete until
 the real board URL, five statuses and items are verified. CLI authorization may
 be expanded by the owner deliberately, but no scope change was performed here.
+
+## Actual Project link supplied — November 25, 2026
+
+Eric created CIS 3610 - Team B planning and supplied the Project 2 board-view URL
+above. The initial screenshot showed an empty three-column board; Eric then
+reported completing the five required statuses. These are student-reported
+configuration results, not independently verified field/item API results.
+
+Both CLI view/item-list commands failed for missing read:project scope, and web
+access to the supplied URL was restricted. No access settings were changed.
+The ten US-01–US-10 items, their descriptions/owners/estimates/criteria and actual
+item URLs have not been verified. Ask for a board screenshot or owner-authorized
+read access before marking the complete Project requirement done. Keep product
+stories in Backlog and instructor/teammate access verification pending as needed.
+Earlier notes saying no Project URL was supplied are historical, superseded here.
