@@ -34,7 +34,7 @@ No sensitive traits, individualized profiling or discriminatory housing targetin
 The 500-candidate/100-ZIP/radius-100-mile bounds are explicit prototype limits;
 they are not additional assignment requirements or a query performance finding.
 Database campaign fields, timestamps and activation must be agreed with Lab 5
-rather than assumed to exist in its current sponsors table. No migration applied.
+rather than assumed to exist in its current sponsors table. No live migration applied; actual isolated rebuild/query evidence is in the integration runbook.
 
 ## Verified numerical boundary correction — November 25, 2026
 
@@ -54,3 +54,12 @@ Equivalent ±180 meridians at equal latitude, identical coordinates and differin
 longitudes at the same exact pole are zero distance before haversine evaluation.
 Both fixes were reproduced red/green. Duplicate ZIP/placement lists remain
 redundant but accepted; optional uniqueness hardening is deferred.
+
+## Local integration implemented — November 25, 2026
+
+The public query, disclosure/fallback UI, impression storage and safe click route
+now exist locally; see integration.md for their precise boundaries. Earlier
+references to future integration describe the original selector checkpoint.
+SQL eligibility implements the same geometry and timestamp rules; a direct
+public insertion capability records eligible anonymous events without trusted
+viewership claims. No service-role key is used by these request handlers.

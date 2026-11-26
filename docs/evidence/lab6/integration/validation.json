@@ -1,0 +1,82 @@
+{
+  "client_date": "2026-11-25",
+  "branch": "feature/sponsor-matching",
+  "checkpoint_commit": "4e4bc1d",
+  "prerequisite_merge": "ac17c67",
+  "lab5_prerequisite": "b07575c (still awaiting separate review)",
+  "scope": "Local integration, isolated PostgreSQL and mocked HTTP/browser; no live project/migration/deployment",
+  "checks": {
+    "npm_test": {
+      "exit_code": 0,
+      "tests": 71,
+      "passed": 71,
+      "failed": 0
+    },
+    "production_browser": {
+      "exit_code": 0,
+      "passed": 10,
+      "failed": 0,
+      "external_HTTP": "mocked; no actual sponsor navigation or production write"
+    },
+    "build": {
+      "exit_code": 0
+    },
+    "lint": {
+      "exit_code": 0
+    },
+    "explain": {
+      "exit_code": 0,
+      "artifact": "docs/evidence/lab6/query-plan.json",
+      "scope": "Actual anonymous PGlite EXPLAIN ANALYZE over fictional fixtures, public projection and eligibility predicates"
+    },
+    "whitespace": "Final staged check passed with scoped raw-transcript preservation rules; no raw log bytes stripped.",
+    "initial_failures_retained": [
+      "Initial build: SDK union type and unknown SQL row type; corrected by runtime array validation/row typing",
+      "Initial EXPLAIN script: CommonJS top-level await; wrapped in async main",
+      "Initial lint: use Next Link for internal root navigation; corrected",
+      "First browser run: 1 failed/9 passed, heading-order violation; raw failure retained, h2 added"
+    ],
+    "tsc_no_emit": {
+      "exit_code": 0
+    },
+    "production_audit": {
+      "exit_code": 0,
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 0,
+        "high": 0,
+        "critical": 0,
+        "total": 0
+      }
+    },
+    "full_audit": {
+      "exit_code": 1,
+      "vulnerabilities": {
+        "info": 0,
+        "low": 0,
+        "moderate": 7,
+        "high": 0,
+        "critical": 0,
+        "total": 7
+      },
+      "note": "Development-tool findings remain; no force fix or dependency changes performed."
+    }
+  },
+  "credential_pattern_scan": {
+    "scope": "Known token/JWT/private-key patterns, not universal proof",
+    "working_files": 285,
+    "history_blobs": 400,
+    "browser_chunks": 13,
+    "matches": 0,
+    "service_role_key_reference_in_browser": false
+  },
+  "protected_source": "Midterm/Lab 5 historical migrations, original listing schema, server client and service/booking routes unchanged",
+  "remaining_manual": [
+    "Review/integrate Grace Lab 5 prerequisite feedback",
+    "Apply only to a dedicated development project with owner access; record real hosted smoke evidence",
+    "Review anonymous telemetry trust/retention and hosting log settings before real use",
+    "Authorize push/PR; no main merge or deploy yet",
+    "Confirm solo submission handling if instructor requires pair approval"
+  ]
+}

@@ -1,0 +1,23 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test:ui:production
+> playwright test --config=playwright.production.config.ts
+
+[WebServer] (node:80736) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 1 worker
+
+(node:80738) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/combined-page.spec.ts:3:1 › validated Lab 3 listings and filters coexist with midterm appointment controls (407ms)
+  ✓   2 tests/lab5-listings.spec.ts:7:1 › live listings show loading, empty, unavailable/retry and validated success without replacing samples (291ms)
+  ✓   3 tests/lab6-placement.spec.ts:4:1 › three fictional properties render disclosed ZIP/radius sponsors and a neutral house message (378ms)
+  ✓   4 tests/lab6-placement.spec.ts:38:1 › placement errors and invalid responses stay distinct from ordinary no-match, details mount only when open (235ms)
+  ✓   5 tests/services.spec.ts:14:3 › services grid at 390px has 1 columns, no overflow, and no automated accessibility violations (302ms)
+  ✓   6 tests/services.spec.ts:14:3 › services grid at 820px has 2 columns, no overflow, and no automated accessibility violations (293ms)
+  ✓   7 tests/services.spec.ts:14:3 › services grid at 1280px has 3 columns, no overflow, and no automated accessibility violations (292ms)
+  ✓   8 tests/services.spec.ts:27:1 › Tab, Shift+Tab, Enter and Space navigate/open/close booking form with visible focus (381ms)
+  ✓   9 tests/services.spec.ts:62:1 › booking form posts fictional details and announces receipt (194ms)
+  ✓  10 tests/services.spec.ts:77:1 › empty, unavailable and invalid service data fail safely (137ms)
+
+  10 passed (3.7s)

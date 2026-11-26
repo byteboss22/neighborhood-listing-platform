@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useId, useState } from "react";
 import type { PropertyCardProps } from "@/types";
+import SponsorPlacement from "@/components/SponsorPlacement";
 
 const usd = new Intl.NumberFormat("en-US", {
   style: "currency",
@@ -72,7 +73,9 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             This is a fictional demonstration listing, not an available rental.
             The illustration does not depict a real property.
           </p>
+          {expanded && <SponsorPlacement key={property.id} propertyId={property.id} propertyTitle={property.title} placement="property-detail" />}
         </div>
+        <SponsorPlacement key={property.id} propertyId={property.id} propertyTitle={property.title} placement="property-card" />
       </div>
     </article>
   );

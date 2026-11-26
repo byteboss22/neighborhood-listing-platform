@@ -30,9 +30,9 @@ claim in Eric's submission.
 ## Branch and dependency boundaries
 
 Working branch: feature/sponsor-matching, from main a2af796. Old lab6 and baseline
-branches remain unchanged. Starter is local/uncommitted/unpublished. No new
-commit/push/merge/deployment or live action is authorized merely by this scope
-change. Final Lab 6 PR will target main when review/integration is ready.
+branches remain unchanged. Selector checkpoint 4e4bc1d and prerequisite merge ac17c67 were explicitly
+authorized later; new integration edits are local and unpublished. No main
+merge/deployment or live action is inferred from this scope update. Final Lab 6 PR will target main when review/integration is ready.
 
 The pure selector and synthetic tests need no env. Lab 5 remains independently
 under review; its approved data contract must be reconciled before database/query

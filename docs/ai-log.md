@@ -589,3 +589,24 @@ Lab 5 b07575c is merged only into the feature branch as an unreviewed prerequisi
 Grace's separate branch/review is untouched and main is not changed. Both AI log
 append sections and package scripts were preserved when resolving conflicts.
 This merge does not claim Lab 5 approval or instructor acceptance.
+
+
+### Lab 6 remaining local integration — November 25, 2026
+
+After authorized checkpoint, Codex implemented an additive campaign/impression
+migration and eligible SQL query, explicit anonymous server repository, safe
+placement/click/event routes, visible Sponsored/fallback card/detail UI and
+three-property demo. Credentials and caller identity are not accepted or stored.
+The narrowly authorized event capability is public anonymous telemetry, not
+trusted billing data. SQL and pure selection share geography/time policy.
+Actual local checks: 71 unit/database/API tests, 10 production-browser tests,
+lint/build pass; actual PGlite EXPLAIN retained. Initial typing/top-level-await/
+internal-Link/heading-order failures were corrected; browser failure log retained.
+No live migration, production verification or external sponsor navigation occurred.
+Lab 5 remains an unreviewed prerequisite pending Grace feedback. Credential-pattern
+scans and original raw review hashes checked; no push/main merge/deploy performed.
+
+Final standalone TypeScript check passed. Production dependency audit reported
+zero vulnerabilities; full audit retains seven moderate development-tool findings.
+No forced dependency update performed. Verified integration is saved as a local
+feature-branch commit; publishing and main integration remain separate steps.

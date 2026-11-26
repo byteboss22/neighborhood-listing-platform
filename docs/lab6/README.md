@@ -1,67 +1,45 @@
-# Lab 6 — contextual sponsor selection starter
+# Lab 6 — contextual sponsor matching, local integration
 
-Status: partial local implementation, November 25, 2026. No commit/push, database
-query, live telemetry, redirect route, UI integration or external AI run claimed.
+Status November 25, 2026: local implementation and verification complete;
+no new push, deployment or live database application. Eric chose solo completion;
+original pair requirements remain disclosed in [his work plan](team-handoff.md).
 
-Branch feature/sponsor-matching from main a2af796 (completed Lab 4, Lab 3/midterm
-preserved). The pre-existing lab6 branch at Lab 2 prevents a lab6/... ref; it was
-left unchanged. Worktree: neighborhood-listing-platform-lab6. Lab 5 is separately
-under review; it is not copied into this branch yet.
+Branch feature/sponsor-matching, originally from main a2af796. Preserved old lab6
+and baseline branches unchanged. Checkpoint 4e4bc1d retains selector/AI review
+work; ac17c67 merges Lab 5 b07575c as an unreviewed feature-branch prerequisite.
+Lab 5's separate review/branch is untouched; this does not approve it for main.
 
-## Implemented locally
+## Implemented files
 
-- src/schemas/sponsorSelection.ts: strict public candidate/page context contract.
-- src/lib/selectSponsor.ts: pure deterministic eligibility and selection, explicit
-  clock, public minimal decision plus house fallback, no identity or network.
-- tests/lab6-selection.test.ts: baseline functional/adversarial cases.
-- data/fixtures/lab6-sponsors.synthetic.json and scripts/demo-sponsor-selection.ts:
-  three fictional properties with predictable ZIP/radius/house outcomes.
+| Requirement | Implementation/evidence |
+| --- | --- |
+| Strict eligibility, pure deterministic selector | src/schemas/sponsorSelection.ts; src/lib/selectSponsor.ts; [policy](policy.md) |
+| Public eligible query with least privilege | supabase/migrations/20261125000000_lab6_sponsor_matching.sql; src/lib/sponsorRepository.ts |
+| ZIP/radius/house outcomes | Fictional fixture/demo script; /sponsor-demo with existing fictional property cards |
+| Visible Sponsored disclosure/fallback | src/components/SponsorPlacement.tsx; card/detail integration |
+| Minimal no-IP impression | /api/sponsor-impressions; narrow default-deny database insertion capability |
+| Approved-record safe redirect | /api/sponsor-click; current stored winner, fixed validated destination |
+| Adversarial reviews and actual decisions | [Gemini](gemini-review.md), [ChatGPT](chatgpt-review.md), raw evidence and submitted prompts |
+| SQL query plan | [Actual isolated EXPLAIN](../evidence/lab6/query-plan.json), scripts/explain-lab6.ts |
+| Reproducible dev setup and security limits | [Integration runbook](integration.md), SQL-only fictional seed generator |
 
-[Policy](policy.md), [Eric’s solo work plan](team-handoff.md) and [prepared AI prompts](ai-prompts.md).
-[Actual local evidence](../evidence/lab6/local-validation.json): 48 tests pass, lint
-passes, and typecheck passes after Next type generation. Initial fresh-worktree
-LayoutProps failure is retained in the report. Three fixture outcomes matched
-ZIP sponsor, radius sponsor and house fallback. No live integration tests claimed.
+The initial 48/55/61-test reports are historical snapshots. [Current integration
+evidence](../evidence/lab6/integration/validation.json): 71 unit/database/API tests,
+10 compiled production-browser tests, lint and build pass. Actual local EXPLAIN
+is retained. Initial type/script/lint/browser failures and fixes are documented.
+[Security audit](security-audit.md) distinguishes isolated/mocked checks from live evidence.
 
-## Required work still pending
+## Still required for final submission
 
-- Safe eligible-sponsor query and explicit public projection against reviewed
-  Lab 5 persistence; no schema/explain-plan result invented.
-- Disclosure/fallback UI at every integrated placement (a returned disclosure
-  field alone does not prove rendered disclosure).
-- Minimal impression event with sponsor ID, placement, timestamp, coarse page
-  context; no IP/caller/resident identity. Define request validation/retention.
-- Click route resolves destination from the approved stored record, validates it,
-  rechecks eligibility and rejects caller-supplied redirect URLs.
-- Real EXPLAIN evidence and only justified indexes.
-- Gemini review received and locally verified: [findings and red/green evidence](gemini-review.md).
-  [ChatGPT review](chatgpt-review.md) is also received/verified, and Eric accepted
-  the corrections and confirmed unchanged prompts.
-- Eric’s genuine solo contribution/AI provenance, PR and eventual demo/submission;
-  original pair requirement remains disclosed for instructor clarification.
+- Review the completed local implementation/evidence and retained limitations.
+- Integrate reviewed Lab 5 fixes before final main promotion; do not bypass Grace.
+- Dedicated development Supabase migration/seed/session and live smoke evidence
+  require owner access; local/mocked checks are not a hosted deployment audit.
+- Final source/diff/credential review, authorized commit/push/PR and Canvas links.
+- Instructor clarification if solo work needs approval under the assigned pair.
+  No fake teammate work or role rotation is claimed.
 
-No .env is needed for this starter's tests/demo. Use current installed Next docs
-before later framework changes and current official provider/API docs if needed.
-
-## Ownership update — November 25, 2026
-
-Eric chose to complete his full Lab 6 himself. Proposed tasks for Grace/Vanessa
-are superseded; their separate assignments/reviews remain unchanged. No fake
-partner participation or instructor approval is claimed. See the solo work plan.
-
-## Gemini verification checkpoint — November 25, 2026
-
-Original 48-test results above are the starter snapshot. Following Gemini feedback,
-seven additional review cases were run and one real radius-boundary issue was
-fixed. Current full suite: 55 pass, 0 fail; lint and TypeScript pass. The initial
-failed boundary result is retained rather than hidden. No live integration or
-external ChatGPT critique is claimed.
-
-## Both reviews complete — November 25, 2026
-
-ChatGPT (student-reported sol 6.2) and Gemini (student-reported gemini hydrogen)
-reviewed the original packet. Verified fixes now include radius equality,
-millisecond timestamp precision and equivalent-point geometry. All 61 tests,
-lint and TypeScript pass; original red results remain evidence. Eric accepted
-these choices and deferred optional duplicate-list hardening. The lab remains
-partial until query/UI/telemetry/redirect/EXPLAIN and end-to-end evidence exist.
+No env is needed for isolated tests/demo/EXPLAIN. Real UI data requires the
+separately configured development project; no sample fallback hides an outage.
+Campaign activation and public property geography are trusted operator data,
+not owner-submitted paid claims. No real geographic dataset is represented.

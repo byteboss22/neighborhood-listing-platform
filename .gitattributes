@@ -1,2 +1,4 @@
 # Preserve verbatim test transcripts, including whitespace emitted by node:test.
 docs/evidence/lab6/*/regression-*.txt -whitespace
+# Next build progress output includes verbatim carriage returns/trailing spaces.
+docs/evidence/lab6/integration/build-results.txt -whitespace

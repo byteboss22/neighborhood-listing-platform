@@ -1,0 +1,120 @@
+{
+  "scope": "Actual in-memory PGlite, three migrations, five fictional properties/three sponsors/two campaigns, anonymous role. Not a hosted/production benchmark.",
+  "query": "SELECT * FROM public.lab6_candidates_for_property('maple-court-apartment','property-card') WHERE status='approved' AND active AND placements @> ARRAY['property-card']::text[] AND starts_at<=$1::timestamptz AND ends_at>$1::timestamptz ORDER BY priority DESC,sponsor_id LIMIT 501",
+  "parameters": [
+    "2026-11-26T05:28:30.348Z"
+  ],
+  "plan": [
+    {
+      "QUERY PLAN": [
+        {
+          "Plan": {
+            "Node Type": "Limit",
+            "Parallel Aware": false,
+            "Async Capable": false,
+            "Startup Cost": 20.26,
+            "Total Cost": 20.27,
+            "Plan Rows": 1,
+            "Plan Width": 237,
+            "Actual Startup Time": 0.948,
+            "Actual Total Time": 0.951,
+            "Actual Rows": 1,
+            "Actual Loops": 1,
+            "Disabled": false,
+            "Shared Hit Blocks": 160,
+            "Shared Read Blocks": 2,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0,
+            "Plans": [
+              {
+                "Node Type": "Sort",
+                "Parent Relationship": "Outer",
+                "Parallel Aware": false,
+                "Async Capable": false,
+                "Startup Cost": 20.26,
+                "Total Cost": 20.27,
+                "Plan Rows": 1,
+                "Plan Width": 237,
+                "Actual Startup Time": 0.945,
+                "Actual Total Time": 0.946,
+                "Actual Rows": 1,
+                "Actual Loops": 1,
+                "Disabled": false,
+                "Sort Key": [
+                  "priority DESC",
+                  "sponsor_id"
+                ],
+                "Sort Method": "quicksort",
+                "Sort Space Used": 17,
+                "Sort Space Type": "Memory",
+                "Shared Hit Blocks": 160,
+                "Shared Read Blocks": 2,
+                "Shared Dirtied Blocks": 0,
+                "Shared Written Blocks": 0,
+                "Local Hit Blocks": 0,
+                "Local Read Blocks": 0,
+                "Local Dirtied Blocks": 0,
+                "Local Written Blocks": 0,
+                "Temp Read Blocks": 0,
+                "Temp Written Blocks": 0,
+                "Plans": [
+                  {
+                    "Node Type": "Function Scan",
+                    "Parent Relationship": "Outer",
+                    "Parallel Aware": false,
+                    "Async Capable": false,
+                    "Function Name": "lab6_candidates_for_property",
+                    "Alias": "lab6_candidates_for_property",
+                    "Startup Cost": 0.25,
+                    "Total Cost": 20.25,
+                    "Plan Rows": 1,
+                    "Plan Width": 237,
+                    "Actual Startup Time": 0.932,
+                    "Actual Total Time": 0.934,
+                    "Actual Rows": 1,
+                    "Actual Loops": 1,
+                    "Disabled": false,
+                    "Filter": "(active AND (placements @> '{property-card}'::text[]) AND (starts_at <= '2026-11-26 05:28:30.348+00'::timestamp with time zone) AND (ends_at > '2026-11-26 05:28:30.348+00'::timestamp with time zone) AND (status = 'approved'::text))",
+                    "Rows Removed by Filter": 0,
+                    "Shared Hit Blocks": 160,
+                    "Shared Read Blocks": 2,
+                    "Shared Dirtied Blocks": 0,
+                    "Shared Written Blocks": 0,
+                    "Local Hit Blocks": 0,
+                    "Local Read Blocks": 0,
+                    "Local Dirtied Blocks": 0,
+                    "Local Written Blocks": 0,
+                    "Temp Read Blocks": 0,
+                    "Temp Written Blocks": 0
+                  }
+                ]
+              }
+            ]
+          },
+          "Planning": {
+            "Shared Hit Blocks": 14,
+            "Shared Read Blocks": 0,
+            "Shared Dirtied Blocks": 0,
+            "Shared Written Blocks": 0,
+            "Local Hit Blocks": 0,
+            "Local Read Blocks": 0,
+            "Local Dirtied Blocks": 0,
+            "Local Written Blocks": 0,
+            "Temp Read Blocks": 0,
+            "Temp Written Blocks": 0
+          },
+          "Planning Time": 0.165,
+          "Triggers": [],
+          "Execution Time": 0.988
+        }
+      ]
+    }
+  ],
+  "index_decision": "No additional performance indexes added; only required primary keys and prerequisite indexes. Reassess with representative data before production optimization."
+}

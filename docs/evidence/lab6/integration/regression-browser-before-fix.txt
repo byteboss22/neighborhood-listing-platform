@@ -1,0 +1,83 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test:ui:production
+> playwright test --config=playwright.production.config.ts
+
+[WebServer] (node:80052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[WebServer] (Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 10 tests using 1 worker
+
+(node:80053) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 tests/combined-page.spec.ts:3:1 › validated Lab 3 listings and filters coexist with midterm appointment controls (430ms)
+  ✓   2 tests/lab5-listings.spec.ts:7:1 › live listings show loading, empty, unavailable/retry and validated success without replacing samples (288ms)
+  ✘   3 tests/lab6-placement.spec.ts:4:1 › three fictional properties render disclosed ZIP/radius sponsors and a neutral house message (387ms)
+(node:80081) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   4 tests/lab6-placement.spec.ts:38:1 › placement errors and invalid responses stay distinct from ordinary no-match, details mount only when open (194ms)
+  ✓   5 tests/services.spec.ts:14:3 › services grid at 390px has 1 columns, no overflow, and no automated accessibility violations (308ms)
+  ✓   6 tests/services.spec.ts:14:3 › services grid at 820px has 2 columns, no overflow, and no automated accessibility violations (296ms)
+  ✓   7 tests/services.spec.ts:14:3 › services grid at 1280px has 3 columns, no overflow, and no automated accessibility violations (295ms)
+  ✓   8 tests/services.spec.ts:27:1 › Tab, Shift+Tab, Enter and Space navigate/open/close booking form with visible focus (415ms)
+  ✓   9 tests/services.spec.ts:62:1 › booking form posts fictional details and announces receipt (194ms)
+  ✓  10 tests/services.spec.ts:77:1 › empty, unavailable and invalid service data fail safely (146ms)
+
+
+  1) tests/lab6-placement.spec.ts:4:1 › three fictional properties render disclosed ZIP/radius sponsors and a neutral house message 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  -  1
+    + Received  + 35
+
+    - Array []
+    + Array [
+    +   Object {
+    +     "description": "Ensure the order of headings is semantically correct",
+    +     "help": "Heading levels should only increase by one",
+    +     "helpUrl": "https://dequeuniversity.com/rules/axe/4.14/heading-order?application=playwright",
+    +     "id": "heading-order",
+    +     "impact": "moderate",
+    +     "nodes": Array [
+    +       Object {
+    +         "all": Array [],
+    +         "any": Array [
+    +           Object {
+    +             "data": null,
+    +             "id": "heading-order",
+    +             "impact": "moderate",
+    +             "message": "Heading order invalid",
+    +             "relatedNodes": Array [],
+    +           },
+    +         ],
+    +         "failureSummary": "Fix any of the following:
+    +   Heading order invalid",
+    +         "html": "<h3 class=\"text-2xl font-semibold tracking-tight\">Maple Court Apartment</h3>",
+    +         "impact": "moderate",
+    +         "none": Array [],
+    +         "target": Array [
+    +           "article:nth-child(1) > .p-6 > h3",
+    +         ],
+    +       },
+    +     ],
+    +     "tags": Array [
+    +       "cat.semantics",
+    +       "best-practice",
+    +     ],
+    +   },
+    + ]
+
+      33 |   await expect(link).toBeFocused();
+      34 |   expect(await link.evaluate((el) => getComputedStyle(el).outlineStyle)).not.toBe("none");
+    > 35 |   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+         |                                                                 ^
+      36 | });
+      37 |
+      38 | test("placement errors and invalid responses stay distinct from ordinary no-match, details mount only when open", async ({ page }) => {
+        at /Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab6/tests/lab6-placement.spec.ts:35:65
+
+    Error Context: test-results/lab6-placement-three-ficti-d26d6-and-a-neutral-house-message/error-context.md
+
+  1 failed
+    tests/lab6-placement.spec.ts:4:1 › three fictional properties render disclosed ZIP/radius sponsors and a neutral house message 
+  9 passed (4.0s)
