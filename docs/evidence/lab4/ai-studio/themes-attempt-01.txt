@@ -1,0 +1,147 @@
+ent Confirmation & Status Notice
+Attachments confirmed readable:
+
+/public/assets/aistudio/01-Claude-Simulated-Source_202a5c0c.md (01-Claude-Simulated-Source.md)
+
+/public/assets/aistudio/02-Source-Corrections_845742dd.md (02-Source-Corrections.md)
+(Also readable in the packet: START-HERE_ca99e07c.md and Project-Board-Items_e543b946.csv. No prior lab schema or older repository branch was used as replacement context.)
+
+Simulated classroom material only: Every row in A01–A08 (Role A: Property Professional) and B01–B08 (Role B: Local Sponsor) is a SIMULATED CLASSROOM NOTE / ASSUMPTION. No real interviews, stakeholder consent, demographic observations, or instructor/human approvals exist.
+
+Source hierarchy: Original answer rows A01–A08 and B01–B08 are the source authority. Claude's synthesis bullets and CR-01–CR-09 in 01-Claude-Simulated-Source.md contain known overreach; 02-Source-Corrections.md is Codex's proposed correction review, not new interview evidence or approved findings.
+
+Incomplete review status: Student line-by-line comparison and final retain/reject decisions are not complete, and no features listed below are implemented, tested, or approved.
+
+1. Numbered Source-to-Theme Table (SIMULATED CLASSROOM NOTES)
+#	Theme	Supporting Note IDs	Source Statements vs. [INFERENCE]	Conflicts, Synthesis Corrections & Missing Evidence
+1	Preparation Workflow, Import, and Posting Speed	A01, B01	Source (A01): Property publisher prepares details in spreadsheets/existing tool and wants import to avoid manual re-entry. Source (B01): Local sponsor posts short offers with an image on social media and will skip if posting takes more than a few minutes. [INFERENCE]: Both roles resist redundant manual effort, through different workflows (import vs. minimal-step entry).	No shared feature established (B01 does not ask for spreadsheet import; A01 does not state a minute threshold). Supported import formats (A01) are missing evidence.
+2	Intended Audiences & Uncertain Cross-Audience Overlap	A02, B02	Source (A02): Property seekers compare price, size, availability, and pet rules; neighbors browse, though inquiry conversion is uncertain. Source (B02): Local residents and possibly new movers seek offer details, end date, and redemption method. [INFERENCE]: Listing and offer detail views serve distinct primary comparison criteria.	Explicit conflict/uncertainty: A02 does not know if neighbor browsing leads to inquiries; B02 does not know if home seekers and sponsor customers are the same audience. Zero resident interviews exist in the notes.
+3	Accuracy Checks, Rights, and Unspecified Rules	A03, B03	Source (A03): Check price, current availability, accurate address, accurate property photos, and possible fair-housing wording rules. Source (B03): Check offer terms, dates, business hours, image-use permission, and potentially claims like "best in town." [INFERENCE]: Draft validation depends on role-specific required fields and publisher attestation.	Missing evidence: Neither A03 nor B03 specifies which legal/wording rules apply or who verifies accuracy and image rights. Per 02-Source-Corrections.md, CR-09 cannot treat a self-check box as legal/copyright verification.
+4	Property Sign-Off vs. Sponsor Preview, Review & Disclosure	A04, B04	Source (A04): Property publisher wants to sign off on own listings; unsure if platform review is also needed. Source (B04): Sponsor wants a preview before going live, thinks platform review should prevent implied endorsement, and wants sponsored posts clearly labeled. [INFERENCE]: Pre-publication visibility and sponsor labeling reduce publisher and endorsement risk.	Correction (CR-01 overreach): A04 (author sign-off; uncertain on platform review) and B04 (preview + recommended platform review + disclosure label) do not establish identical approval workflows. Combining them is a proposed product decision, not a shared quote.
+5	Takedown Transparency & Appeal Path (Property Role Only)	A04 (only); B04 silent	Source (A04): If a moderator removes a listing, property publisher wants the removal reason and an appeal path. Source (B04): Discusses preview, review, and labeling; does not mention removal reasons or appeals. [INFERENCE]: Moderation takedowns for property listings need reason communication and a review/appeal path.	Correction (synthesis overreach): 01-Claude-Simulated-Source.md claims both roles want transparent removal (A04, B04). Only A04 supports this; sponsor removal/appeal preferences are missing evidence / unknown.
+6	Property Freshness Reminders vs. Sponsor Hard Expiry & Pause	A05, B05	Source (A05): Listings go stale; property publisher wants a freshness reminder or an expiry date, and dislikes silent automatic expiry without warning. Source (B05): Offers must disappear on their end date and support early pause if stock runs out (no reminder requested). [INFERENCE]: Lifecycle expiry rules differ fundamentally between properties and offers.	Correction (CR-02 overreach): Do not force automatic expiry on properties without confirmation (A05), and do not claim sponsors requested pre-expiry reminders (B05). Exact timezone/cutoff behavior and default durations are missing evidence.
+7	Actionable Outcomes & Aggregate-Only Analytics	A06, B06, B08	Source (A06): Values real inquiries over views alone; tentatively wants time-to-fill if knowable. Source (B06): Values redemptions (self-tracked via code) and clicks more than visual polish. Source (B08): Rejects customer personal info and cross-visit resident tracking; totals are enough. [INFERENCE]: Aggregate counters satisfy both publishers without resident-level tracking.	Missing evidence: Feasibility of platform-tracked time-to-fill (A06) and POS/redemption integration (B06) are unconfirmed. Whether A06 rejects cross-visit tracking is not directly stated in A06 (only B08 states it; A08 focuses on contact/tenant privacy).
+8	Device Contexts: Mobile Publishing vs. Quick Entry & Small Screens	A07, B01, B07	Source (A07): Property publisher explicitly expects to post from a phone between showings. Source (B01): Sponsor wants posting to take at most a few minutes (no device named). Source (B07): Sponsor wants text readable on small screens (consumption context). [INFERENCE]: Mobile-usable property authoring and low-friction sponsor entry reduce abandonment.	Correction (CR-06 overreach): Only A07 is direct evidence for mobile publishing. B01 addresses time, not device; B07 addresses reader small-screen legibility. Sponsor authoring device preference remains unknown.
+9	Accessibility Details, Text Alternatives & Localization	A07, B07	Source (A07): Renters need photo alt text and unit accessibility features (e.g., step-free entry) when present. Source (B07): Images need text alternatives, redemption info must not be image-only, text must fit small screens, and a language option might be needed. [INFERENCE]: Core listing/offer details must be text-based and screen-readable with image alt text.	Limitation: Both answers reflect simulated publisher guesses about renter/resident needs—not verified accessibility-user or resident testing. Localization scope (B07) is an explicit unknown.
+10	Privacy Minimization & Contact Relay	A08, B08	Source (A08): Property publisher excludes exact unit number, personal phone, direct email (prefers a contact form), and any current-tenant data. Source (B08): Sponsor rejects collecting customer personal data and cross-visit resident tracking. [INFERENCE]: Both roles favor data minimization, applied to publisher/tenant PII (A08) and customer/resident tracking (B08).	Missing evidence: B08 does not establish whether sponsors use an inquiry relay form (A08). Inquiry retention, delivery channels, and anti-abuse rules are unknown.
+2. Numbered Uncertainties & Questions Requiring Real Stakeholder Confirmation
+(All items below reflect gaps in the SIMULATED CLASSROOM NOTES A01–A08 and B01–B08 and require real stakeholder input before finalizing product rules.)
+
+U-01 — Pre-publication vs. post-publication moderation scope (A04, B04): Should the platform require moderator approval before publishing listings (A04 is unsure), before publishing sponsored offers (B04 suggests review), or allow post-publication moderation?
+
+U-02 — Applicable housing & advertising rules and reviewer responsibility (A03, B03): Which specific fair-housing wording laws (A03) and advertising-claim rules (B03, e.g., superlatives) apply, and who is responsible for checking compliance and image rights?
+
+U-03 — Property lifecycle: freshness confirmation vs. expiry (A05): Should property listings expire automatically after a fixed period (with advance reminders), or stay active until manually archived while prompting periodic freshness reconfirmation? What default durations apply to properties (A05) and offers (B05)?
+
+U-04 — Sponsor offer end-time precision & early pause rules (B05): Are offer end dates inclusive through end-of-day in a local timezone or exact UTC timestamps, and may paused offers be resumed later?
+
+U-05 — Sponsor removal transparency & appeals (A04, B04 gap): A04 asks for removal reasons and an appeal workflow, but B04 is silent. Do local sponsors expect the same removal notification and appeal flow, and what SLA/process governs appeals?
+
+U-06 — Property import formats & bulk workflow (A01): Is CSV/feed/external-tool import required for MVP (A01), and if so, which source formats do real property publishers use?
+
+U-07 — Sponsor authoring device preference (B01, B07 gap): Do real local sponsors publish offers from desktop, mobile, or both? (B01 cites time only; B07 cites small-screen reading.)
+
+U-08 — Resident/renter audience overlap (A02, B02): Do property-listing browsers actually convert to inquiries (A02), and do home seekers overlap with local sponsor customers (B02)?
+
+U-09 — Privacy-safe metrics boundaries (A06, B06, B08): Can the platform measure listing time-to-fill (A06) via owner status transitions without resident tracking, and should offer redemption codes (B06) remain publisher-tracked outside the platform?
+
+U-10 — Contact relay delivery, retention & sponsor applicability (A08, B08): How should relayed property inquiries (A08) be delivered, stored, protected from spam, and retained/deleted, and do sponsors need any contact mechanism?
+
+U-11 — Accessibility & localization requirements (A07, B07): Which unit accessibility attributes (A07) are standard/verifiable, which languages (B07) are needed by real local residents, and how will WCAG accessibility be tested with real users rather than publisher assumptions?
+
+3. Numbered Candidate Requirements ([INFERENCE] — Not Approved, Not Implemented)
+(Each item separates Source Basis, [INFERENCE], [PROPOSED IMPLEMENTATION DECISION], and [EXPLICIT UNKNOWN] for line-by-line review.)
+
+REQ-01 — Property Draft Accuracy & Validation ([INFERENCE], traces to A01, A03; aligns with 02 R11)
+
+Source Basis: A01 prepares listing data and dislikes retyping; A03 checks price, availability, address, photos, and legal wording.
+
+[PROPOSED IMPLEMENTATION DECISION]: Provide saved property drafts enforcing required price, availability, street/city address, and property photos; defer bulk spreadsheet import (A01) until format scope is confirmed.
+
+[EXPLICIT UNKNOWN]: Applicable fair-housing wording rules, photo-authenticity verification, and import format (U-02, U-06).
+
+REQ-02 — Property Author Sign-Off Before Publication ([INFERENCE], traces to A04; splits CR-01, aligns with 02 R01)
+
+Source Basis: A04 wants to sign off on own listings before publication.
+
+[PROPOSED IMPLEMENTATION DECISION]: Require an explicit author confirmation/submission step on property drafts separate from any platform review state.
+
+[EXPLICIT UNKNOWN]: Whether mandatory platform pre-review also applies (U-01).
+
+REQ-03 — Sponsor Offer Preview, Accuracy Attestation & Review Visibility ([INFERENCE], traces to B03, B04; splits CR-01/CR-09, aligns with 02 R02/R11)
+
+Source Basis: B03 checks terms, dates, business hours, and image permission; B04 wants a pre-publication preview and suggests platform review.
+
+[PROPOSED IMPLEMENTATION DECISION]: Render a preview of the offer showing terms, dates, business hours, image-permission confirmation, and clear review/publication status. Note: a permission checkbox does not prove copyright ownership.
+
+[EXPLICIT UNKNOWN]: Who verifies superlative advertising claims and whether pre-publication review is mandatory (U-01, U-02).
+
+REQ-04 — Clear Sponsored Content Labeling ([INFERENCE], traces to B04; aligns with CR-03 and 02 R05)
+
+Source Basis: B04 requests sponsored posts be clearly labeled so they do not appear platform-endorsed.
+
+[PROPOSED IMPLEMENTATION DECISION]: Display a visible "Sponsored" disclosure label wherever sponsor offers appear.
+
+[EXPLICIT UNKNOWN]: Exact disclosure copy/placement tested with real residents.
+
+REQ-05 — Property Freshness Confirmation & Optional Warning-Backed Expiry ([INFERENCE], traces to A05; splits CR-02, aligns with 02 R03)
+
+Source Basis: A05 asks for a reminder to confirm currency or an expiry date, and opposes silent automatic expiry.
+
+[PROPOSED IMPLEMENTATION DECISION]: Support owner freshness reconfirmation and advance notice prior to any automated expiry or unpublishing; do not apply sponsor-style silent hard expiry to properties without confirmation.
+
+[EXPLICIT UNKNOWN]: Reminder cadence and default listing duration (U-03).
+
+REQ-06 — Sponsor Offer End-Date Removal & Early Pause ([INFERENCE], traces to B05; splits CR-02, aligns with 02 R04)
+
+Source Basis: B05 requires offers to disappear on their end date and wants early manual pause when out of stock (no reminder requested).
+
+[PROPOSED IMPLEMENTATION DECISION]: Automatically stop displaying offers past their end boundary and provide an owner control to pause an active offer early.
+
+[EXPLICIT UNKNOWN]: Exact timezone/inclusive boundary rule and resume behavior (U-04).
+
+REQ-07 — Accessible Text Representation & Image Alt Text ([INFERENCE], traces to A07, B07; aligns with CR-05 and 02 R07)
+
+Source Basis: A07 cites photo alt text and unit accessibility details (e.g., step-free entry); B07 cites text alternatives, non-image-only redemption details, and small-screen text readability.
+
+[PROPOSED IMPLEMENTATION DECISION]: Require non-empty image alt text, render key listing/offer terms and redemption details as structured HTML text, support optional unit accessibility notes, and use responsive small-screen typography.
+
+[EXPLICIT UNKNOWN]: Verified accessibility-user needs, standard unit accessibility taxonomy, and localization languages (U-11).
+
+REQ-08 — Property Mobile Authoring & Low-Friction Sponsor Posting ([INFERENCE], traces to A07 and B01 separately; splits CR-06, aligns with 02 R08)
+
+Source Basis: A07 explicitly requires phone publishing; B01 requires completing offer posting within a few minutes.
+
+[PROPOSED IMPLEMENTATION DECISION]: Ensure property draft/publish controls are usable on mobile viewports (A07) and keep sponsor offer creation concise (B01).
+
+[EXPLICIT UNKNOWN]: Whether sponsors author offers from mobile or desktop (U-07).
+
+REQ-09 — Property Inquiry Relay & PII Exclusion ([INFERENCE], traces to A08; aligns with CR-04 and 02 R06)
+
+Source Basis: A08 forbids publishing exact unit numbers, personal phones, direct emails, or current-tenant details, preferring a contact form.
+
+[PROPOSED IMPLEMENTATION DECISION]: Exclude unit numbers, publisher phone/email, and tenant details from public listing fields; route inquiries through a server-mediated form.
+
+[EXPLICIT UNKNOWN]: Message retention, delivery, anti-spam rules, and whether sponsors need inquiry handling (U-10).
+
+REQ-10 — Property Moderation Removal Notice & Appeal Request ([INFERENCE], traces to A04; aligns with CR-07 and 02 R09)
+
+Source Basis: A04 asks for removal reasons and an appeal mechanism when a moderator takes down a listing.
+
+[PROPOSED IMPLEMENTATION DECISION]: Record a moderation reason on removed/suspended property listings and expose a mechanism for the property owner to submit an appeal/review request.
+
+[EXPLICIT UNKNOWN]: Appeal workflow rules and whether sponsors also expect removal appeals (U-05).
+
+REQ-11 — Aggregate-Only Metrics Without Cross-Visit Resident Tracking ([INFERENCE], traces to A06, B06, B08; narrows CR-08, aligns with 02 R10)
+
+Source Basis: A06 wants actionable inquiry counts (not views alone); B06 wants click counts and self-tracked redemptions; B08 rejects customer PII and cross-visit tracking.
+
+[PROPOSED IMPLEMENTATION DECISION]: Report only aggregate counts (e.g., property inquiries, offer clicks) without user-level profiles or cross-visit tracking; explicitly defer time-to-fill (A06) and POS/redemption code integration (B06) from initial scope.
+
+[EXPLICIT UNKNOWN]: Confirming which aggregate metrics satisfy real publishers (U-09).
+
+REQ-12 — Localization Scope Deferred Pending Confirmation ([EXPLICIT UNKNOWN], traces to B07)
+
+Source Basis: B07 notes a language option might be needed, without certainty.
+
+[PROPOSED IMPLEMENTATION DECISION]: Keep internationalization/localization as an unscheduled candidate item until real community language needs are confirmed (U-11).

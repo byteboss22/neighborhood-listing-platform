@@ -16,7 +16,7 @@ The existing application, midterm, Lab 3 and backups are not changed by this lab
 | Invitation and consent | [Ethical discovery](invitation-and-consent.md), draft only, never sent |
 | Simulated interview | [Actual Claude response](../evidence/lab4/claude/simulation.md), preserved unchanged with hash |
 | Model critique and source corrections | [Actual Gemini response](../evidence/lab4/gemini/review.md), [source review](source-review.md) |
-| AI Studio themes and line-by-line comparison | [Pending worksheet](themes-and-comparison.md); no Studio output supplied yet |
+| AI Studio themes and line-by-line comparison | [Assisted comparison](themes-and-comparison.md), actual output received; review decisions accepted; exact submitted prompt unconfirmed |
 | Two working-hypothesis personas | [Personas](personas.md), traceable draft |
 | Eight or more stories; owners/estimates/criteria | [Ten-story backlog](backlog.md), proposed ownership, not completed implementation |
 | Week 8 MVP | [MVP](mvp.md), course-planning target, not a backdated delivery claim |
@@ -77,3 +77,17 @@ current main; neither lab needs to be merged to permit independent work.
 
 The November 23 checkpoint above is historical; Vanessa's contribution is no
 longer pending. Lab 5 starter 20a718f is already published independently.
+
+## Studio evidence received — November 25, 2026
+
+Actual output is retained and all 33 numbered items have an assisted source
+comparison. Human retain/reject decisions and prompt/model metadata remain
+pending; historical “output absent” checkpoints above are superseded. Project
+verification and final package review are still required.
+
+## Student Studio decisions recorded — November 25, 2026
+
+Eric accepted the assisted source-review corrections and existing deferrals.
+Reported model: “gemini hydogen” (unverified spelling retained). Exact submitted
+prompt remains unconfirmed. The live Project and final submission review remain
+pending; historical references above to pending review decisions are superseded.

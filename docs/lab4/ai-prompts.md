@@ -166,3 +166,17 @@ labels and distinguish source content from inference. Explain that the raw
 Claude summary/candidate requirements contain known synthesis errors, so the
 original answer rows are the authority. Keep the actual Studio response for a
 line-by-line comparison; do not replace it with a proposed summary.
+
+## Actual Studio theme response subsequently received — November 25, 2026
+
+See ../evidence/lab4/ai-studio/ for raw response, prepared prompt and provenance.
+The original NOT RUN sections above are historical prepared instructions. The
+response reports reading both source attachments. Codex compared all numbered
+items in themes-and-comparison.md. This run’s displayed model and unchanged-prompt
+confirmation are still missing; do not import Lab 5 model labels as substitutes.
+Final student decisions remain pending.
+
+Eric subsequently accepted the review recommendations and reported model label
+“gemini hydogen.” Earlier pending-model/decision notices are historical. His
+answer did not confirm the exact prompt; the stored prepared prompt is not
+misrepresented as verified verbatim submitted wording.

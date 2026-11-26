@@ -36,8 +36,8 @@ Eric remain proposals; the model outputs are retained unchanged.
 
 ## Still needed from Eric
 
-1. Run the prepared AI Studio prompt and retain the actual response/model/prompt.
-   Eric confirmed November 23 that this has not been run.
+1. Studio response supplied November 25 and retained unchanged. Confirm the
+   actual model label and exact submitted prompt; these are still pending.
 2. Review that response against each source claim and record actual decisions in
    [the comparison worksheet](../themes-and-comparison.md).
 3. Create the GitHub Project with the five required statuses and record its URL.
@@ -61,3 +61,22 @@ The actual Lab 4 Studio response/comparison and Project URL are still absent.
 The November 25 CLI Project check failed (read:project scope missing) and the
 browser tool reported no available browser. Lab 5 starter 20a718f is independently
 published; this does not complete Lab 4 or its required source comparison.
+
+## Actual Studio output received — November 25, 2026
+
+Eric supplied the response. Codex preserved it and compared all ten themes, eleven
+uncertainties and twelve requirements against the fictional answer rows.
+See themes-and-comparison.md for assisted dispositions. Eric’s final retain/reject
+review remains pending; supplying an output does not imply accepting every claim.
+Prior statements above about an absent Studio response are historical, superseded
+by this entry. The Project board remains unverified.
+
+## Studio review decisions confirmed — November 25, 2026
+
+Eric agreed to the source-supported themes as hypotheses, the aggregate-counter
+and decorative-alt corrections, and keeping deferred features outside the MVP.
+Codex’s comparison covers all 33 numbered items; Eric accepted its review
+recommendations, not a claimed independent re-performance of every source check.
+He reported the model label as “gemini hydogen”; unchanged prepared-prompt use
+was not confirmed in that reply. The earlier pending-decision entries above are
+historical. Live Project verification and final package review remain pending.

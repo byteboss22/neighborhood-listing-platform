@@ -401,3 +401,22 @@ are unchanged. Documentation checks are retained; no new app test pass is claime
 CLI Project access still lacks read:project; no Project connector/browser is
 available. Actual Studio themes/comparison and Project evidence remain pending.
 Lab 5 starter 20a718f was observed published already; no main merge or deploy.
+
+
+### Lab 4 actual AI Studio themes — November 25, 2026
+
+Eric supplied the actual theme-summary response. Codex retained raw bytes/hash
+and the separately labeled prepared prompt, then compared ten themes, eleven
+uncertainties and twelve candidate requirements to A01–A08/B01–B08. Proposed
+corrections retain role limits, reject unsupported aggregate-counter satisfaction
+and replace universal nonempty alt with purpose-based alternatives. Deferred
+relay/freshness/appeal/analytics/localization are not promoted into MVP.
+Human decisions, this run’s model and exact-prompt confirmation remain pending;
+no real research, new app feature, completed human review or live board is claimed.
+
+Eric subsequently agreed to the proposed Studio review decisions: retain
+source-supported simulated hypotheses, correct aggregate-counter satisfaction
+and universal nonempty alt, preserve MVP deferrals. Reported model label is
+“gemini hydogen”; spelling retained, not verified. Exact submitted prompt remains
+unconfirmed. Acceptance of assisted recommendations does not imply an independent
+re-performance of all source checks or instructor/stakeholder approval.
