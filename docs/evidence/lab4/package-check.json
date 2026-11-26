@@ -1,0 +1,47 @@
+{
+  "checked_at_utc": "2026-11-20T03:41:04.186648+00:00",
+  "branch": "lab4/discovery-requirements",
+  "base_commit": "7a5dc1c4aaf6fb2e56d27af0ff492598070bbcc7",
+  "checks": {
+    "neutral_question_count": 8,
+    "user_story_count": 10,
+    "high_priority_stories_with_given_when_then": [
+      "US-01",
+      "US-02",
+      "US-03",
+      "US-04",
+      "US-05",
+      "US-07"
+    ],
+    "story_estimates_and_proposed_owners_present": true,
+    "all_local_package_links_exist": true,
+    "claude_and_gemini_raw_hashes_match": true,
+    "historical_journal_prefix_preserved": true,
+    "no_application_or_migration_changes": true
+  },
+  "secret_scan": {
+    "command": "python3 scripts/scan-secrets.py",
+    "configured_pattern_findings": 0,
+    "scope": "Bounded scan of 195 nonignored files, 257 reachable blobs, no local browser output at this worktree."
+  },
+  "not_claimed": [
+    "AI Studio run or completed comparison",
+    "Real interviews, outreach, consent or instructor approval",
+    "Teammate review/commit completion or accepted role rotation",
+    "Implemented backlog features",
+    "New application test results or deployment"
+  ],
+  "remaining": [
+    "Actual Studio theme output and line-by-line verification",
+    "Team decisions and genuine individual contributions",
+    "Live Project board/access",
+    "Final review/merge and Canvas handoff"
+  ],
+  "publication_followup": {
+    "starter_commit": "c177deae295ac1a5dde59e28757b4dbc8b08868c",
+    "planning_issue": "https://github.com/byteboss22/neighborhood-listing-platform/issues/6",
+    "draft_pr": "https://github.com/byteboss22/neighborhood-listing-platform/pull/7",
+    "project_board": "pending access/setup",
+    "teammate_contributions": "pending actual work"
+  }
+}

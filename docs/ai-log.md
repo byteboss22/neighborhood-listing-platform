@@ -320,3 +320,123 @@ with that? SO we can get this resolved?"
 | Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | Combined integration / Codex | Resolve Lab 3/main conflicts while preserving validated property data and midterm services/bookings, then update PR #5 for review. | Merged fetched main into Lab 3 locally. Combined the homepage and manifest, regenerated the lock and preserved both complete journal additions. Kept Next 16.4.6, all test commands and protected refs. Added a browser regression for the combined page. | Did not choose one side wholesale, remove either feature, rewrite raw generation/review evidence, move backups, copy credentials, apply migrations or perform the final merge into main. Browser network fixtures are not live Supabase evidence. | [Integration decisions](integration-lab3.md), [actual combined checks](evidence/lab3/integration/verification.json), raw-section/source-file preservation checks. Initial browser launch lacked the matching Chromium binary; that failure is retained and the binary installed. A second attempt found a user dev server on port 3000; it was not stopped. That existing-server attempt stayed in the loading state and failed. The final production-build suite passed all seven tests on isolated port 3100; test:ui:production and a separate tracked config now reproduce that check without stopping the user server. | Lab 3 parent d999d8a; main parent b167c47; merge commit recorded by Git. |
+
+
+## Lab 4 — simulated discovery preparation, November 16, 2026
+
+Eric chose simulated interviews and requested prompts for Claude/Gemini and a
+separate working copy on the Lab 4 branch. The untouched Lab 4 starting branch
+was fast-forwarded normally to merged main `7a5dc1c`; no reset or rewrite, fork,
+real outreach, team role/contribution or instructor approval is claimed.
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Setup and discovery questions / Codex | Eric requested simulated discovery, different model assistance and a Lab 4 copy of newly merged main. | Created a linked Lab 4 worktree and proposed eight questions covering workflow, audience, accuracy, approval, updates, success, accessibility and privacy. Prepared separate Claude simulation, Gemini critique and required Studio theme prompts with explicit synthetic/assumption labels. | Did not claim real interview evidence, consent, approval, board creation or actual teammate work. Claude is optional assistance, not a silent replacement for the required Studio step. | Verified clean baseline at 7a5dc1c, preserved protected refs, exactly eight questions and read the supplied Lab 4 specification. | Baseline 7a5dc1c; local documentation pending commit. |
+| Gemini critique / student-supplied response | Eric supplied a Lab 4 critical review. [Prepared prompt](lab4/ai-prompts.md) exists; unchanged use and model are not yet confirmed. | Preserved response/hash and used the critique to identify candidate source-traceability checks (notably CR-02), caution against invented consensus and keep personas hypothetical. | Codex did not accept source-specific accusations without the original Claude notes, classify abbreviated labels as the full question wording, automatically adopt multi-part rewrites as neutral, or treat an opinion about typical users' expertise as fact. Student dispositions remain pending. | [Source gap and assistant evaluation](evidence/lab4/gemini/disposition.md). Original simulation A01-A08/B01-B08 and CR-01..CR-09 are not yet supplied; no line-by-line theme verification or actual interviews/tests claimed. | Local evidence pending commit; no application changes. |
+
+Original Claude simulation, tool/prompt metadata, Studio themes, student decisions,
+traceable personas/backlog/MVP, actual team contributions and GitHub planning
+artifacts remain pending. The supplied critique is not substituted for those
+sources. Historical labs and midterm entries above remain unchanged.
+
+
+### Lab 4 Claude source received and compared
+
+Eric supplied Claude's complete original and stated it came before the Gemini
+critique. The earlier source gap is now resolved. All sixteen interview-note
+rows and nine original candidate requirements are preserved as synthetic model
+output, not real interview evidence.
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Claude simulation / student-supplied response | Classroom simulation with property professional/local sponsor roles; the prepared prompt exists, exact use and model not yet confirmed. | Preserved A01-A08/B01-B08, unknowns and original CR-01..09 unchanged, with explicit simulated-assumption labels and a hash. | Codex rejected unsupported synthesis that both roles want removal transparency, universal expiry/reminders, shared preview/sign-off and citing sponsor speed as mobile-authoring evidence. No raw text was silently corrected. Student dispositions remain pending. | [Original/hash](evidence/lab4/claude/provenance.json), [line-by-line source comparison](lab4/source-review.md), and comparison with the actual Gemini critique. This checks fidelity to fictional notes, not real-world truth. | Local discovery evidence; commit pending. |
+| Source adjudication / Codex | Compare the first Claude response with Gemini's concerns and prepare the reviewed-source step. | Verified source-dependent findings, split role-specific requirements and retained explicit uncertainties. Prepared source packet for the required Studio theme turn after Eric's decisions. | Did not assume every Gemini rewrite is neutral, omit source ideas without scope labels, infer jurisdictional rules, fabricate real interviews or generate a fake Studio result. | All 16 note IDs and CR-01..09 identified; source-to-inference corrections cite exact IDs. Real stakeholder confirmation remains required for any future empirical claim. | Local documentation; commit pending. |
+
+
+### Lab 4 team starter — November 19, 2026
+
+Eric asked for current Lab 4 status and a package that each teammate can review
+and commit. He reported Estevan unresponsive and requested dividing active work
+among Eric, Grace and Vanessa. He confirmed Studio has not yet been run and asked
+to prepare drafts. No formal roster change, outreach or instructor approval is
+inferred. The Claude/Gemini model names and unchanged-prompt confirmations remain
+not supplied; no new invocation is invented.
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Discovery package / Codex | Prepare Lab 4 drafts and divide meaningful contribution work across three active students while retaining actual model provenance. | Drafted value proposition, facts/assumptions, prospective v2 guide, unsent consent/invitation, source-traced personas, ten-story backlog with high-priority criteria/owners/estimates, MVP, content workflow, board-entry aid and Studio worksheet. | Did not claim v2 produced the existing Claude answers, implement future backlog stories, invent Studio themes, real stakeholder research, approval or teammate participation. Source corrections remain proposed for student review. | [Package checks](evidence/lab4/package-check.json), source-ID/link/hash checks, bounded secret scan; no app test rerun for document-only work. | Assisted starter on lab4/discovery-requirements; commit recorded by Git. |
+| Team handoff / Codex | Make the starter available so Grace, Vanessa and Eric can each make attributable work. | Prepared distinct file ownership/review templates, personal-branch/PR workflow and assistant prompts. Verified Grace/Vanessa push access through owner API. Proposed role rotation, not claimed performed. | Did not create commits under classmates' identities, fill their reviews, accept roles on their behalf, tag absent users, or treat prepared templates as completed contributions. | [Team handoff](lab4/team-handoff.md), actual publication links when created, current Git/permissions check. Project access/Studio/individual work remain pending. | Shared starter only; teammate commit links pending. |
+
+
+### Lab 4 starter publication
+
+The assisted starter was committed/pushed as `c177deae295ac1a5dde59e28757b4dbc8b08868c` on the shared Lab 4
+branch. Actual planning issue: https://github.com/byteboss22/neighborhood-listing-platform/issues/6. Actual draft PR: https://github.com/byteboss22/neighborhood-listing-platform/pull/7.
+These publish reviewable drafts; they do not complete Studio, Project setup,
+student review decisions or classmates' contributions. No main merge or manual
+app deployment occurred. The teammate handoff identifies personal branches and
+PR targets, preserving each person's actual future work and authorship.
+
+
+### Lab 4 planning continuation — November 23, 2026
+
+Eric asked to advance his Lab 4 work and start Lab 5 without waiting for all
+teammates or merging to main. He confirmed Studio is still pending and explicitly
+approved MVP US-01–05/US-07, the relay/reminder/appeal/analytics deferrals and
+D-02/D-03/D-04/D-07 as his own planning decisions. Codex recorded these decisions
+and Grace's actual merged PR #8, leaving Vanessa's files and decisions to her.
+The Project scope check failed (`read:project` missing); no Project or Studio
+completion is claimed. Documentation verification is recorded in Git and the
+session report; no application changes or new app test results are implied.
+
+
+### Lab 4 team consolidation — November 25, 2026
+
+Eric authorized the next Lab 4 steps. Codex merged Vanessa's PR #9 into the shared
+branch at e0c7705, preserving commits 3424692 and 70f7678, and hash-checked the six
+pending Eric planning files during fast-forward. Recorded Grace/Vanessa's real
+contributions, Eric's previously confirmed decisions, explicit Sponsored default
+and factual publication metadata. Original model responses and teammate decisions
+are unchanged. Documentation checks are retained; no new app test pass is claimed.
+CLI Project access still lacks read:project; no Project connector/browser is
+available. Actual Studio themes/comparison and Project evidence remain pending.
+Lab 5 starter 20a718f was observed published already; no main merge or deploy.
+
+
+### Lab 4 actual AI Studio themes — November 25, 2026
+
+Eric supplied the actual theme-summary response. Codex retained raw bytes/hash
+and the separately labeled prepared prompt, then compared ten themes, eleven
+uncertainties and twelve candidate requirements to A01–A08/B01–B08. Proposed
+corrections retain role limits, reject unsupported aggregate-counter satisfaction
+and replace universal nonempty alt with purpose-based alternatives. Deferred
+relay/freshness/appeal/analytics/localization are not promoted into MVP.
+Human decisions, this run’s model and exact-prompt confirmation remain pending;
+no real research, new app feature, completed human review or live board is claimed.
+
+Eric subsequently agreed to the proposed Studio review decisions: retain
+source-supported simulated hypotheses, correct aggregate-counter satisfaction
+and universal nonempty alt, preserve MVP deferrals. Reported model label is
+“gemini hydogen”; spelling retained, not verified. Exact submitted prompt remains
+unconfirmed. Acceptance of assisted recommendations does not imply an independent
+re-performance of all source checks or instructor/stakeholder approval.
+
+
+### Lab 4 Project URL recorded — November 25, 2026
+
+Eric supplied Project 2 view 1 and reported configuring all five required statuses.
+Codex recorded the real URL and prepared per-card copy text from the existing
+backlog, without inventing board items or implementation progress. CLI view/item
+reads failed (read:project missing), web access was restricted. Live card details
+and access verification remain pending. No Project writes or permissions changed.
+
+
+### Lab 4 finalization authorization — November 25, 2026
+
+Eric confirmed prepared Studio prompt use, reported completing Project card
+descriptions after status setup, and authorized merging Lab 4 to main. Codex
+recorded those reports without claiming a private-board API audit, refreshed
+submission documentation and performed final documentation/source checks.
+The final merge preserves Grace/Vanessa commits; no new application feature,
+independent manual source recheck, actual role rotation, outreach, roster
+approval or new deployment verification is inferred from this documentation.
