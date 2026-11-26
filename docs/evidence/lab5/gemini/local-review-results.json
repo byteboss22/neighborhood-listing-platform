@@ -1,0 +1,17 @@
+{
+  "environment": "isolated PGlite; Studio attempt 02 COALESCE-only diagnostic variant, not a live database",
+  "results": [
+    {
+      "name": "ordinary authenticated created_at spoof is already denied by column privileges",
+      "ok": false,
+      "code": "42501",
+      "message": "permission denied for table properties"
+    },
+    {
+      "name": "Gemini CTE followed by DO block syntax",
+      "ok": false,
+      "code": "42601",
+      "message": "syntax error at or near \"DO\""
+    }
+  ]
+}

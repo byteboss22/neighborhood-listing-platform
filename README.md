@@ -98,3 +98,10 @@ and [source-traced backlog](docs/lab4/backlog.md). All interviews are explicitly
 simulated; the package is an assisted starter, not real stakeholder research or
 completed teammate work. Claude/Gemini responses are preserved; the required
 Studio summary and team decisions/reviews remain pending. No outreach occurred.
+
+
+## Lab 5 local work
+
+[Lab 5 implementation and paired-review status](docs/lab5/README.md) records the
+additive persistence/API work and actual local evidence. Hosted migration and
+Grace's independent contribution remain pending.

@@ -1,0 +1,214 @@
+### Confirmed Defects (Must Fix Before Migration)
+
+1. **Client-Supplied `created_at` Spoofing on `INSERT` (`lab5_set_timestamps`, lines 9–10)**
+* **Location:** `public.lab5_set_timestamps()` (`IF TG_OP = 'INSERT' THEN NEW.created_at := COALESCE(NEW.created_at, ...)`).
+* **Defect:** Although `created_at` is omitted from `GRANT INSERT (...) TO authenticated` on `properties` and `sponsors`, any elevated or custom role with `INSERT` privileges (or future grant changes) can backdate or future-date `created_at` via `COALESCE`.
+* **Fix:** Unconditionally overwrite `NEW.created_at := timezone('utc'::text, clock_timestamp());` on `INSERT`.
+
+
+2. **Server-Side Approval Consistency Gap (`properties_approval_consistency`, `sponsors_approval_consistency`)**
+* **Location:** `public.properties` (`CONSTRAINT properties_approval_consistency CHECK ((status = 'approved') = (approved_at IS NOT NULL))`) and `public.sponsors` (`sponsors_approval_consistency`).
+* **Defect:** Neither constraint checks `approved_by`. A `service_role` moderation action can approve a row while leaving `approved_by IS NULL`, or set `approved_by` on a `draft`/`suspended` row without `approved_at`. Additionally, when transitioning from `'approved'` to `'suspended'`, `approved_at` and `approved_by` must be cleared (`NULL`) or the check constraint will raise `23514` (`status <> 'approved'` while `approved_at IS NOT NULL`).
+* **Fix:** Document/enforce clearing `approved_at` and `approved_by` on suspension, or enforce `((status = 'approved') = (approved_at IS NOT NULL AND approved_by IS NOT NULL))` if server moderation always passes an admin/service profile UUID.
+
+
+3. **Unintended `authenticated` Read Access to Sensitive/Internal Columns (`GRANT SELECT ON public.properties` / `public.sponsors`)**
+* **Location:** Section 4 (`GRANT SELECT ON public.properties TO authenticated;` and `GRANT SELECT ON public.sponsors TO authenticated;`).
+* **Defect:** Unlike `anon` (which has explicit column grants), `authenticated` is granted table-wide `SELECT`. Because `properties_public_read_approved` and `sponsors_public_read_approved_active` apply `TO anon, authenticated`, **any** logged-in user can read `owner_id`, `approved_at`, `approved_by`, and `updated_at` on *every* approved property and sponsor across tenants.
+* **Fix:** Restrict `authenticated` to the same public column list as `anon` for cross-tenant reads, or route owner-only metadata (`approved_at`, `updated_at`) through an owner-scoped view/RPC.
+
+
+4. **Missing `UPDATE` Column Grants & Policy on `property_sponsors` vs. Foreign Key Cascades**
+* **Location:** `public.property_sponsors` (`REFERENCES public.properties(property_id) ON DELETE CASCADE` and `REFERENCES public.sponsors(sponsor_id) ON DELETE CASCADE`), Section 4 grants, and Section 5 policies.
+* **Defect:** `property_sponsors` has `ON DELETE CASCADE` on both FKs, which is safe when a draft property or draft sponsor is deleted by its owner. However, if a `sponsor` owner deletes an *unapproved* sponsor, any junction rows vanish silently; conversely, once a sponsor is `approved`, the sponsor owner cannot delete it (`sponsors_owner_delete_unapproved`), preventing unilateral link breakage. The defect is that **a property owner cannot unlink an approved sponsor once the property becomes `approved**` (`property_sponsors_owner_delete_unapproved` checks `p.status IN ('draft', 'pending')`). If a sponsor later becomes `suspended` or `is_active = false`, the link remains in `property_sponsors` (hidden from public `SELECT` by RLS, but unremovable by the property owner).
+
+
+5. **Role-Check Bypass Potential in `lab5_enforce_property_invariants` / `lab5_enforce_sponsor_invariants**`
+* **Location:** `is_client_role boolean := (current_user IN ('anon', 'authenticated') OR jwt_role IN ('anon', 'authenticated'));`
+* **Defect:** In PostgREST/Supabase, `service_role` requests execute as `authenticator` -> `SET LOCAL ROLE service_role` with `request.jwt.claim.role = 'service_role'`. However, if a `SECURITY DEFINER` function owned by `postgres` runs on behalf of an `authenticated` user, `current_user` becomes `postgres`, and it relies solely on `request.jwt.claim.role`. If `request.jwt.claim.role` was reset or unset in a background worker, `is_client_role` evaluates to `false`.
+* **Fix:** Default-deny unless explicitly `service_role` or table owner (`is_privileged boolean := (current_user IN ('postgres', 'supabase_admin', 'service_role') AND COALESCE(jwt_role, 'service_role') = 'service_role');`).
+
+
+
+---
+
+### Design Ambiguities & Architectural Risks (Require Product Confirmation)
+
+* **Anonymous vs. Authenticated Inquiries (`inquiries_public_insert_approved_property` & `GRANT INSERT ... TO anon, authenticated`):**
+* `ai-studio-review.md` notes `design.md` specifies **authenticated-client insertion** for inquiries, whereas `ddl-proposal-attempt-02.txt` grants `INSERT` to both `anon` and `authenticated`. Allowing unauthenticated `anon` inserts exposes the endpoint to unthrottled spam/PII injection without a `requester_id` (`auth.uid()`) audit trail.
+
+
+
+
+* **Owner Read Access to Inquiry PII (`inquiries_owner_read_own_property`):**
+* Granting `SELECT` on `inquiries` to `authenticated` exposes `requester_email` and `message` directly to the property owner's client session. Confirm whether Lab 5 requires direct owner `SELECT` or `service_role`-mediated forwarding.
+
+
+
+
+* **Primary Key Mutability (`property_id text PRIMARY KEY`, `sponsor_id text PRIMARY KEY`):**
+* Using natural slugs (`text`) as primary keys without `ON UPDATE CASCADE` on `property_sponsors` and `inquiries` makes slug renames impossible after creation without manual multi-table migrations.
+
+
+
+---
+
+### Optional Hardening
+
+* **Explicit `WITH CHECK` on `inquiries` Email/Header Injection:** Add `requester_name !~ '[\r\n]'` and `requester_email !~ '[\r\n]'` in `CHECK` constraints to prevent CRLF header injection if inquiry rows are forwarded via SMTP by a server worker.
+* **Composite Index for Owner Inquiry Queries:** Replace `idx_inquiries_property` on `(property_id)` with `(property_id, created_at DESC)` to optimize chronological inbox queries per property.
+* **Explicit `REVOKE ALL ON FUNCTION`:** Revoke `EXECUTE` on `lab5_set_timestamps()`, `lab5_enforce_property_invariants()`, and `lab5_enforce_sponsor_invariants()` from `PUBLIC`, `anon`, and `authenticated` (triggers execute via table ownership, so direct RPC invocation by clients is unnecessary).
+* **`DEFAULT` on `owner_id`:** Add `DEFAULT auth.uid()` on `properties.owner_id` and `sponsors.owner_id` so PostgREST clients do not have to pass `owner_id` explicitly in payloads.
+
+---
+
+### Executable Verification Suite (Placeholder Credentials)
+
+Run inside a transaction (`BEGIN; ... ROLLBACK;`) on an isolated PostgreSQL instance after applying the midterm migration and the proposed Lab 5 DDL:
+
+```sql
+BEGIN;
+
+-- 0. Seed fictional identities (service_role / bootstrap context)
+SET LOCAL ROLE service_role;
+SET LOCAL request.jwt.claim.role = 'service_role';
+
+INSERT INTO auth.users (id, email) VALUES
+  ('<owner-a-uuid>', 'owner-a@example.test'),
+  ('<owner-b-uuid>', 'owner-b@example.test')
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO public.profiles (id, role) VALUES
+  ('<owner-a-uuid>', 'provider'),
+  ('<owner-b-uuid>', 'provider')
+ON CONFLICT (id) DO NOTHING;
+
+-- 1. Verify midterm tables were not altered
+DO $$
+BEGIN
+  ASSERT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'profiles');
+  ASSERT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'bookings');
+END $$;
+
+-- 2. Test Owner A creation & status spoofing block
+SET LOCAL ROLE authenticated;
+SET LOCAL request.jwt.claim.role = 'authenticated';
+SET LOCAL request.jwt.claim.sub = '<owner-a-uuid>';
+
+-- 2a. Valid draft property insert
+INSERT INTO public.properties (
+  property_id, owner_id, title, street, city, state, zip_code,
+  price, property_type, bedrooms, bathrooms, square_feet,
+  amenities, image_path, image_alt, status
+) VALUES (
+  'maple-court-apt', '<owner-a-uuid>', 'Maple Court Apartment', '100 Main St', 'Beverly Hills', 'CA', '90210',
+  2500.00, 'apartment', 2, 1.5, 950,
+  ARRAY['parking', 'laundry'], '/images/maple-court.svg', 'Exterior view of Maple Court apartment building', 'draft'
+);
+
+-- 2b. Negative: Owner A attempts to self-approve (expect 42501)
+DO $$
+BEGIN
+  UPDATE public.properties SET status = 'approved' WHERE property_id = 'maple-court-apt';
+  RAISE EXCEPTION 'TEST FAILED: Owner self-approved property';
+EXCEPTION WHEN SQLSTATE '42501' THEN
+  NULL; -- Expected
+END $$;
+
+-- 2c. Negative: Owner A attempts ownership transfer to Owner B (expect 42501)
+DO $$
+BEGIN
+  UPDATE public.properties SET owner_id = '<owner-b-uuid>' WHERE property_id = 'maple-court-apt';
+  RAISE EXCEPTION 'TEST FAILED: Owner transferred ownership';
+EXCEPTION WHEN SQLSTATE '42501' THEN
+  NULL; -- Expected
+END $$;
+
+-- 2d. Negative: Numeric rounding bypass & duplicate amenities (expect 23514)
+DO $$
+BEGIN
+  UPDATE public.properties SET price = 2500.005 WHERE property_id = 'maple-court-apt';
+  RAISE EXCEPTION 'TEST FAILED: Fractional cent accepted';
+EXCEPTION WHEN SQLSTATE '23514' THEN
+  NULL; -- Expected
+END $$;
+
+DO $$
+BEGIN
+  UPDATE public.properties SET amenities = ARRAY['parking', 'parking'] WHERE property_id = 'maple-court-apt';
+  RAISE EXCEPTION 'TEST FAILED: Duplicate amenities accepted';
+EXCEPTION WHEN SQLSTATE '23514' THEN
+  NULL; -- Expected
+END $$;
+
+-- 3. Server-side approval & post-approval immutability check
+SET LOCAL ROLE service_role;
+SET LOCAL request.jwt.claim.role = 'service_role';
+RESET request.jwt.claim.sub;
+
+UPDATE public.properties
+   SET status = 'approved',
+       approved_at = timezone('utc', now()),
+       approved_by = '<admin-service-uuid>'
+ WHERE property_id = 'maple-court-apt';
+
+-- Negative: Owner A tries to edit approved property (expect 0 rows updated / blocked)
+SET LOCAL ROLE authenticated;
+SET LOCAL request.jwt.claim.role = 'authenticated';
+SET LOCAL request.jwt.claim.sub = '<owner-a-uuid>';
+
+WITH updated AS (
+  UPDATE public.properties SET title = 'Hacked Title' WHERE property_id = 'maple-court-apt' RETURNING 1
+)
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM public.properties WHERE property_id = 'maple-court-apt' AND title = 'Hacked Title') THEN
+    RAISE EXCEPTION 'TEST FAILED: Approved property modified by owner';
+  END IF;
+END $$;
+
+-- 4. Anon column privilege & inquiry boundary tests
+SET LOCAL ROLE anon;
+SET LOCAL request.jwt.claim.role = 'anon';
+RESET request.jwt.claim.sub;
+
+-- 4a. Negative: Anon tries to read restricted owner_id column (expect 42501)
+DO $$
+BEGIN
+  PERFORM owner_id FROM public.properties;
+  RAISE EXCEPTION 'TEST FAILED: Anon read owner_id';
+EXCEPTION WHEN SQLSTATE '42501' THEN
+  NULL; -- Expected
+END $$;
+
+-- 4b. Positive: Anon inserts inquiry on approved property (no RETURNING)
+INSERT INTO public.inquiries (property_id, requester_name, requester_email, message)
+VALUES ('maple-court-apt', 'Jane Doe', 'jane@example.test', 'Interested in scheduling a viewing next week.');
+
+-- 4c. Negative: Anon tries to read inquiries (expect 42501)
+DO $$
+BEGIN
+  PERFORM * FROM public.inquiries;
+  RAISE EXCEPTION 'TEST FAILED: Anon read inquiries';
+EXCEPTION WHEN SQLSTATE '42501' THEN
+  NULL; -- Expected
+END $$;
+
+-- 5. Cross-tenant inquiry isolation (Owner B cannot read Owner A's inquiries)
+SET LOCAL ROLE authenticated;
+SET LOCAL request.jwt.claim.role = 'authenticated';
+SET LOCAL request.jwt.claim.sub = '<owner-b-uuid>';
+
+DO $$
+DECLARE
+  leaked_count integer;
+BEGIN
+  SELECT count(*) INTO leaked_count FROM public.inquiries WHERE property_id = 'maple-court-apt';
+  IF leaked_count > 0 THEN
+    RAISE EXCEPTION 'TEST FAILED: Cross-tenant inquiry leak';
+  END IF;
+END $$;
+
+ROLLBACK;
+
+```
