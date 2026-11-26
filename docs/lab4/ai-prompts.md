@@ -180,3 +180,10 @@ Eric subsequently accepted the review recommendations and reported model label
 “gemini hydogen.” Earlier pending-model/decision notices are historical. His
 answer did not confirm the exact prompt; the stored prepared prompt is not
 misrepresented as verified verbatim submitted wording.
+
+## Final prompt confirmation — November 25, 2026
+
+Eric answered the unchanged-prompt question by confirming that he sent the
+prepared Lab 4 Studio prompt. The retained source-packet prompt is therefore
+recorded as student-confirmed submitted wording. Earlier unconfirmed notices
+above are historical. No model label is normalized or inferred from other labs.

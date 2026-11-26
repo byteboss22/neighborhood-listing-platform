@@ -429,3 +429,14 @@ Codex recorded the real URL and prepared per-card copy text from the existing
 backlog, without inventing board items or implementation progress. CLI view/item
 reads failed (read:project missing), web access was restricted. Live card details
 and access verification remain pending. No Project writes or permissions changed.
+
+
+### Lab 4 finalization authorization — November 25, 2026
+
+Eric confirmed prepared Studio prompt use, reported completing Project card
+descriptions after status setup, and authorized merging Lab 4 to main. Codex
+recorded those reports without claiming a private-board API audit, refreshed
+submission documentation and performed final documentation/source checks.
+The final merge preserves Grace/Vanessa commits; no new application feature,
+independent manual source recheck, actual role rotation, outreach, roster
+approval or new deployment verification is inferred from this documentation.

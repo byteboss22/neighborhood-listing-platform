@@ -3,7 +3,7 @@
 Actual Lab 4 response received November 25, 2026. [Raw Studio output](../evidence/lab4/ai-studio/themes-attempt-01.txt)
 and [provenance](../evidence/lab4/ai-studio/provenance.json) are preserved. The
 [prepared prompt](../evidence/lab4/ai-studio/prepared-themes-prompt.txt) is retained;
-unchanged submission remains unconfirmed. Eric reported this run’s model label
+Eric confirmed use of the prepared prompt November 25. Eric reported this run’s model label
 as “gemini hydogen” (spelling retained; not independently verified).
 
 All answers are SIMULATED / ASSUMPTION. Codex compared the ten theme rows, eleven
@@ -97,6 +97,7 @@ manual re-performance of all source checks. Eric’s already confirmed planning
 choices remain in [his contribution record](team/eric-review.md).
 
 Eric reported model label “gemini hydogen”; exact spelling is retained rather than
-corrected/inferred from another lab. Unchanged use of the prepared prompt was not
-confirmed in that answer; actual submitted wording is still a provenance gap.
-Project board URL/status/item verification remains a separate pending requirement.
+corrected/inferred from another lab. Eric subsequently confirmed sending the prepared Lab 4 prompt in response to
+the unchanged-prompt question; the saved prepared text is the student-confirmed prompt.
+Project URL and completed setup were subsequently supplied/reported by Eric;
+independent private-board API verification remains unavailable. See github-planning.md.

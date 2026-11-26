@@ -85,3 +85,13 @@ item URLs have not been verified. Ask for a board screenshot or owner-authorized
 read access before marking the complete Project requirement done. Keep product
 stories in Backlog and instructor/teammate access verification pending as needed.
 Earlier notes saying no Project URL was supplied are historical, superseded here.
+
+## Student completion report and merge authorization — November 25, 2026
+
+Eric reported that the five statuses were configured and the prepared content
+was placed in the card descriptions, then authorized merging Lab 4 into main.
+The Project URL is supplied above. This report is the completion evidence
+available to the agent; no screenshot/export/item API audit was supplied.
+Private-field/card/access verification remains unavailable because of the
+documented scope/web restriction, not because no Project was created.
+No Project settings, permissions or item content were changed by the agent.

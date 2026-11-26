@@ -88,3 +88,12 @@ Codex recorded the link; attempts to read fields/items remain blocked by CLI
 scope and restricted web access. Card existence, descriptions, estimates, owners,
 criteria and instructor/team access are still unverified. This is setup progress,
 not a passing board audit or proof that product stories are implemented.
+
+## Final student confirmation — November 25, 2026
+
+Eric confirmed sending the prepared Lab 4 Studio prompt in response to the
+unchanged-prompt question, reported adding card descriptions after configuring
+the statuses, and explicitly authorized the final main merge. Prompt-use and
+student-reported board setup are no longer pending. Independent board access
+verification is still unavailable. No real research, formal roster change,
+performed role rotation or actual implementation of product stories is claimed.
