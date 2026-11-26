@@ -72,7 +72,7 @@ that these property/sponsor stories are complete.
 ### US-05 — visible sponsorship
 
 - Given a sponsor placement on a card/page, when rendered, then the text
-  "Sponsored" or "Local Partner" is visible and programmatically associated
+  "Sponsored" is visible and programmatically associated
   with the placement; it is not conveyed only by color or an image.
 - Given no eligible approved sponsor placement, when the region renders, then
   it does not imply a sponsor endorsement. Detailed geographic selection belongs
@@ -107,3 +107,17 @@ are understood. Done for a product story: implementation/evidence and actual
 review meet its criteria. Writing this backlog does not complete those stories.
 Done for a Lab 4 document task: its owner reviews/edits it, records real decisions
 and commits/review links, and the team checks traceability and provenance.
+
+## Eric's planning approval — November 23, 2026
+
+Eric approved the six-story MVP (US-01–05 and US-07), the stated relay/reminder/
+appeal/analytics deferrals, and D-02/D-03/D-04/D-07 as his planning decisions.
+This does not imply team-wide approval, accepted teammate ownership, completed
+Studio comparison or implementation. Product stories remain in Backlog.
+
+## Disclosure consolidation — November 25, 2026
+
+Following Vanessa's PR #9, this plan uses the explicit Sponsored label in US-05.
+The previous Local Partner-only alternative is deferred. This is a product
+planning choice, not an assertion that the fictional notes establish legal
+sufficiency or that the current application was changed by this documentation.

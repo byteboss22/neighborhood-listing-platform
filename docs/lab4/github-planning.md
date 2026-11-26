@@ -26,9 +26,9 @@ Purpose: review the assisted draft on lab4/discovery-requirements and produce
 genuine student contributions. All interviews are simulated. No real outreach,
 participant consent, instructor approval or completed teammate work is claimed.
 
-- [ ] Grace confirms responsibility; reviews/edits questions and consent; opens
+- [x] Grace contribution merged in PR #8; reviews/edits questions and consent; opens
       own PR into the shared Lab 4 branch with actual decisions.
-- [ ] Vanessa confirms responsibility; reviews/edits personas and workflow; opens
+- [x] Vanessa contribution merged in PR #9; reviews/edits personas and workflow; opens
       own PR into the shared Lab 4 branch with actual decisions.
 - [ ] Eric runs required Studio theme prompt, retains response and compares every
       claim with the simulated source; confirms backlog/MVP and source decisions.
@@ -47,4 +47,26 @@ Use plaintext names rather than inventing assignees or tagging absent users.
 - Project URL: pending.
 - Team planning issue: https://github.com/byteboss22/neighborhood-listing-platform/issues/6
 - Shared Lab 4 PR (draft): https://github.com/byteboss22/neighborhood-listing-platform/pull/7
-- Teammate PRs/commits: pending; see [team handoff](team-handoff.md).
+- Grace: [PR #8](https://github.com/byteboss22/neighborhood-listing-platform/pull/8),
+  merged into shared Lab 4 at `c48e31d`, authored commit `2b0283e`.
+- Vanessa: [PR #9](https://github.com/byteboss22/neighborhood-listing-platform/pull/9), merged at `e0c7705`,
+  authored commits `3424692` and `70f7678`.
+
+## Current board access — November 23, 2026
+
+`gh project list --owner byteboss22 --format json` failed because the CLI token
+lacks `read:project`. No board has been created or verified. To finish in GitHub's
+signed-in UI, create a Project for the repository, set Status options to Backlog,
+Ready, In Progress, Review and Done, and add the ten story entries from the CSV.
+Keep product stories in Backlog until readiness is actually confirmed. Copy the
+Project URL here and into the planning issue. Do not mark implementation Done
+merely because its story has been written.
+
+## Board blocker and manual completion — November 25, 2026
+
+The CLI again returned missing read:project scope. No connected GitHub Project
+tool is available, and browser access reported no available browser. No board
+was created or verified. The private Lab 4 finish packet contains concrete UI
+steps and the ten-item entry aid; do not mark this requirement complete until
+the real board URL, five statuses and items are verified. CLI authorization may
+be expanded by the owner deliberately, but no scope change was performed here.

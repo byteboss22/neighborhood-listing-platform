@@ -95,3 +95,11 @@
 ## Own commit / review / PR link
 
 - Personal commit and PR: pending explicit authorization.
+
+## Publication metadata — integration note, November 25, 2026
+
+The earlier pending commit/push/PR notes describe the pre-publication review.
+Actual authored commit: `2b0283e9073f846a4526477f8f58365782268a43`.
+PR: https://github.com/byteboss22/neighborhood-listing-platform/pull/8
+Merged into the shared Lab 4 branch at `c48e31d`. This integration note supplies
+publication metadata; it does not add decisions or statements under Grace's name.

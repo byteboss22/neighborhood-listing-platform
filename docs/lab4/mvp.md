@@ -40,3 +40,10 @@ the current Lab 3 static properties or midterm services already implement them.
 
 This sequence is a proposal, not evidence that role rotation or reviews occurred.
 The [team handoff](team-handoff.md) records proposed roles without inventing activity.
+
+## Eric's planning approval — November 23, 2026
+
+Eric approved the six-story MVP (US-01–05 and US-07), the stated relay/reminder/
+appeal/analytics deferrals, and D-02/D-03/D-04/D-07 as his planning decisions.
+This does not imply team-wide approval, accepted teammate ownership, completed
+Studio comparison or implementation. Product stories remain in Backlog.

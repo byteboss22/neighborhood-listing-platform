@@ -376,3 +376,28 @@ These publish reviewable drafts; they do not complete Studio, Project setup,
 student review decisions or classmates' contributions. No main merge or manual
 app deployment occurred. The teammate handoff identifies personal branches and
 PR targets, preserving each person's actual future work and authorship.
+
+
+### Lab 4 planning continuation — November 23, 2026
+
+Eric asked to advance his Lab 4 work and start Lab 5 without waiting for all
+teammates or merging to main. He confirmed Studio is still pending and explicitly
+approved MVP US-01–05/US-07, the relay/reminder/appeal/analytics deferrals and
+D-02/D-03/D-04/D-07 as his own planning decisions. Codex recorded these decisions
+and Grace's actual merged PR #8, leaving Vanessa's files and decisions to her.
+The Project scope check failed (`read:project` missing); no Project or Studio
+completion is claimed. Documentation verification is recorded in Git and the
+session report; no application changes or new app test results are implied.
+
+
+### Lab 4 team consolidation — November 25, 2026
+
+Eric authorized the next Lab 4 steps. Codex merged Vanessa's PR #9 into the shared
+branch at e0c7705, preserving commits 3424692 and 70f7678, and hash-checked the six
+pending Eric planning files during fast-forward. Recorded Grace/Vanessa's real
+contributions, Eric's previously confirmed decisions, explicit Sponsored default
+and factual publication metadata. Original model responses and teammate decisions
+are unchanged. Documentation checks are retained; no new app test pass is claimed.
+CLI Project access still lacks read:project; no Project connector/browser is
+available. Actual Studio themes/comparison and Project evidence remain pending.
+Lab 5 starter 20a718f was observed published already; no main merge or deploy.

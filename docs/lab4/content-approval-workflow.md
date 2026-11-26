@@ -94,3 +94,11 @@ Check source/role distinctions, who can change state, how edits/expiry prevent
 stale public claims, and which policies are team proposals. Record concrete
 accept/reject/edit decisions and unresolved questions in your review file.
 Do not sign as an approver or claim this future workflow already runs in the app.
+
+## Consolidation note — November 25, 2026
+
+Vanessa's contribution was merged in PR #9. Eric approved D-02/D-03/D-04 and
+the MVP scope as his planning decisions on November 23; references above to
+team confirmation still apply to wider authority/implementation questions.
+The backlog now uses the explicit Sponsored label proposed in this review.
+No real stakeholder approval, implemented workflow or instructor ruling is implied.

@@ -22,7 +22,7 @@ The existing application, midterm, Lab 3 and backups are not changed by this lab
 | Week 8 MVP | [MVP](mvp.md), course-planning target, not a backdated delivery claim |
 | Listing/sponsor approval workflow | [Content workflow](content-approval-workflow.md), proposed policy |
 | GitHub board and team planning issue | [Planning issue](https://github.com/byteboss22/neighborhood-listing-platform/issues/6), [draft PR](https://github.com/byteboss22/neighborhood-listing-platform/pull/7); live Project board still pending |
-| Each student's contribution | [Team handoff](team-handoff.md), real reviews/commits must follow this starter |
+| Each student's contribution | [Grace PR #8](https://github.com/byteboss22/neighborhood-listing-platform/pull/8) and [Vanessa PR #9](https://github.com/byteboss22/neighborhood-listing-platform/pull/9) merged; Eric planning decisions recorded |
 | AI provenance | [Journal](../ai-log.md), [prepared prompts](ai-prompts.md), actual Claude/Gemini evidence; Studio/model details still pending |
 
 The current package was drafted with Codex at Eric's request. Providing a review
@@ -54,3 +54,26 @@ The assisted starter is published as `c177deae295ac1a5dde59e28757b4dbc8b08868c`.
 from the shared branch and submit personal PRs back into it as described in
 [team handoff](team-handoff.md). The original source artifacts are not replaced
 by teammate edits; each review records its own author and evidence.
+
+## Progress checkpoint — November 23, 2026
+
+Grace's [PR #8](https://github.com/byteboss22/neighborhood-listing-platform/pull/8)
+is merged into this shared branch. Eric approved the MVP/deferrals and proposed
+policy boundaries as his planning decisions; see [his record](team/eric-review.md).
+Vanessa's review, the actual Studio output/source comparison, live Project board
+and final team verification remain pending. Lab 5 may proceed separately from
+current main; neither lab needs to be merged to permit independent work.
+
+## Consolidated contributions — November 25, 2026
+
+- Grace: PR #8, commit 2b0283e, merged at c48e31d.
+- Vanessa: PR #9, commits 3424692/70f7678, merged at e0c7705.
+- Eric: approved MVP/deferrals and policy boundaries; saved assisted planning
+  changes are consolidated here without inventing Studio or board evidence.
+- Explicit Sponsored label now aligns the backlog with Vanessa's proposal.
+- Remaining required items: actual Studio output and line-by-line comparison,
+  verified Project board/statuses/items, remaining source/team decisions and
+  final package/Canvas review. PR #7 stays draft; main remains unchanged.
+
+The November 23 checkpoint above is historical; Vanessa's contribution is no
+longer pending. Lab 5 starter 20a718f is already published independently.
