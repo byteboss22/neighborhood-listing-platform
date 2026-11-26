@@ -9,15 +9,24 @@ using [the source review](source-review.md). They are not representative samples
 
 - Candidate goal: share accurate property information and receive useful inquiries
   (A02/A03/A06). No measured inquiry conversion or market demand is established.
+  Time-to-fill is a tentative interest in A06; whether the platform could know
+  when a property is filled remains unknown.
+- Accuracy: check the address, photos showing the actual property, price and
+  availability (A03). Who verifies these details remains unresolved; the notes
+  do not establish legal compliance.
 - Candidate workflow: may prepare information elsewhere and repeat entry (A01);
   import requirements are unknown, not assumed implemented.
 - Control needs: wants author sign-off and removal reasons/appeal (A04). Platform
   pre-publication review and multi-person author/approver roles remain uncertain.
 - Freshness: reminder to reconfirm OR expiry may help; dislikes silent expiry
   (A05). This is not a request for mandatory automatic property expiry.
-- Access/privacy: phone publishing (A07), avoid public personal contact/tenant
-  details and consider relay (A08). Do not infer disability or assume all publishers
-  have the same technical skills. Accessibility statements in A07 are simulated.
+- Access: phone publishing, photo text alternatives and descriptions of unit
+  accessibility features where actually present (A07). These simulated preferences
+  do not establish verified accessibility or imply a publisher's disability or
+  technical skills.
+- Privacy: avoid publicly displaying the exact unit number or personal phone,
+  exclude current-tenant details, and consider a contact form that hides the
+  publisher's email (A08). Collection and retention rules remain unresolved.
 - Risk if false: real publishers may use other workflows, have different authority
   boundaries, or need imports. Recruit/confirm only through approved future discovery.
 
