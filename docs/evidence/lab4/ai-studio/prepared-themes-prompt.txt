@@ -1,0 +1,26 @@
+For CIS 3610 Lab 4, convert these de-identified interview notes into themes,
+uncertainties, and candidate requirements. Quote no more than necessary. Mark
+every inference as an inference and list questions requiring stakeholder confirmation.
+
+First confirm that you can read both attachments: 01-Claude-Simulated-Source.md
+and 02-Source-Corrections.md. If either is missing, stop and name it rather than
+guessing. These local attachments are authoritative for this task; do not use an
+old repository branch or a prior lab's schema as replacement context.
+
+These are SIMULATED CLASSROOM NOTES, not real interviews. Preserve that label
+throughout. The source uses answer IDs A01–A08 and B01–B08. The original answer
+rows are the source authority; the raw Claude summary/candidate CR rows contain
+known synthesis overreach. The second attachment is Codex's proposed correction
+review, not new interview evidence or approved stakeholder findings.
+
+For each theme/requirement cite supporting note IDs. Flag conflicts and missing
+evidence rather than inventing consensus, facts or approvals. Separate property
+author sign-off from sponsor preview, property reminder-or-expiry from sponsor
+hard expiry/early pause, and role-specific mobile/appeal preferences. Distinguish
+source statements from proposed implementation decisions and explicit unknowns.
+Do not infer demographic traits, invent quotes, contact anyone, change repository
+files, claim instructor/human approval or claim a feature is implemented.
+
+Return a numbered source-to-theme table and numbered uncertainties/candidate
+requirements suitable for a student line-by-line comparison. Do not claim the
+comparison or human review is complete. Keep exact note IDs with each claim.

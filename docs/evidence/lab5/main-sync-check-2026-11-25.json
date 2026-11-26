@@ -1,0 +1,22 @@
+{
+  "client_date": "2026-11-25",
+  "source_main": "a2af796c5e4974ae3d8300357b82ace62b2a4c5c",
+  "lab5_starter": "20a718fd0790f62c37d6dced36f401429efc93f7",
+  "merge_strategy": "merge commit; both appended README and journal sections preserved",
+  "checks": {
+    "npm_test": {
+      "exit_code": 0,
+      "tests": 45,
+      "passed": 45,
+      "failed": 0
+    },
+    "app_migrations_tests_dependencies_unchanged_from_starter": true,
+    "lab4_documents_exactly_match_main": true,
+    "historical_append_sections_preserved": true,
+    "unresolved_conflicts": 0,
+    "bounded_secret_patterns": "zero matches"
+  },
+  "not_rerun": "Build/browser checks already passed for identical application source; this merge changes docs only.",
+  "grace_contribution": "reserved, not implemented or attributed to her",
+  "live_db": "not touched"
+}

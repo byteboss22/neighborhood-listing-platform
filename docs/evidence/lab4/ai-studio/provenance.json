@@ -1,0 +1,11 @@
+{
+  "tool": "Google AI Studio, source identified by surrounding task",
+  "received_client_date": "2026-11-25",
+  "model": "Student-reported display label: gemini hydogen (spelling retained; not independently verified).",
+  "exact_submitted_prompt": "Eric confirmed November 25, in response to the unchanged-prompt question, that he sent the prepared Lab 4 Studio prompt.",
+  "prepared_prompt_file": "prepared-themes-prompt.txt",
+  "raw_response_sha256": "88a1dbdde1bdddf981b700bfd148f0392a051b7bc904c792b6be5a7587649d85",
+  "source_access": "Response reports both source attachments readable and identifies their asset paths. Remote execution is student-supplied, not independently observed.",
+  "review_status": "Codex-assisted comparison of all 33 numbered items completed; Eric accepted proposed review decisions November 25. No independent line-by-line review is invented.",
+  "evidence_class": "Simulated classroom notes, not real stakeholders/interviews/consent/instructor approval."
+}

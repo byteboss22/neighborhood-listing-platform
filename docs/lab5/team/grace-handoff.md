@@ -6,7 +6,8 @@ for Grace; no role rotation or review is claimed yet.
 
 ## What Eric/Codex has prepared
 
-- Shared local branch: lab5/database from main 7a5dc1c.
+- Shared branch: lab5/database; original base main 7a5dc1c, now merged with
+  Lab 4 main a2af796. Lab 5 implementation is preserved.
 - Additive migration: supabase/migrations/20261123000000_lab5_listing_persistence.sql.
 - Seed generator, strict listing/inquiry contracts, scoped API routes and live UI.
 - Baseline tests are tests/lab5-baseline.test.ts and tests/lab5-api.test.ts;
@@ -14,15 +15,16 @@ for Grace; no role rotation or review is claimed yet.
 - Actual Studio/Gemini raw outputs and dispositions are in docs/evidence/lab5/
   and docs/lab5/. These are source evidence; do not rewrite them.
 
-The starter is recorded in local Git history but remains UNPUBLISHED until Eric
-pushes lab5/database. You cannot fetch it before then; remote main does not include
-these files. Confirm the remote starter commit matches Eric’s handoff.
+The starter 20a718f is published on origin/lab5/database. Fetch the latest shared
+branch so it also contains merged Lab 4 documentation. Remote main does not yet
+include Lab 5 code. The refreshed private handoff records the current branch head.
 Do not build a duplicate migration in an old branch just because these are absent.
 
 ## Your owned files and meaningful decisions
 
 Create your personal branch lab5/grace-security-review from the published
-origin/lab5/database. Work in:
+origin/lab5/database. If your personal branch already exists, inspect it and
+merge the updated shared branch rather than recreating/resetting it. Work in:
 
 - tests/lab5-grace-security.test.ts: your independently designed executable cases.
 - docs/lab5/team/grace-review.md: your findings, accepted/rejected advice,

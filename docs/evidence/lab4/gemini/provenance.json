@@ -1,0 +1,11 @@
+{
+  "tool": "Gemini",
+  "source": "Student-provided attachment, identified as Gemini Lab 4 critique.",
+  "received_client_date": "2026-11-16",
+  "model": "not supplied for this Lab 4 response",
+  "exact_submitted_prompt": "Prepared prompt exists in docs/lab4/ai-prompts.md; unchanged use not yet confirmed.",
+  "raw_response_sha256": "1fa582b259a9392617f893a6ba25e9478cbb237201953563610b4b8eeb7d8451",
+  "review_scope": "Static critique of a simulated discovery exercise. No real interviews, outreach, approval, execution or empirical validation claimed.",
+  "source_gap": "Resolved: original Claude simulation subsequently supplied; see docs/lab4/source-review.md for source-specific verification.",
+  "student_disposition": "pending; Codex evaluation remains separately attributed"
+}

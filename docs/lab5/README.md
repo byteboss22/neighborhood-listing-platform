@@ -1,7 +1,7 @@
 # Lab 5 — local implementation and paired review
 
 Status November 23, 2026: Eric/Codex-assisted local implementation, recorded in
-local Git history; unpublished and not applied to a live project. Grace's work and hosted checks pending.
+Git history and published on lab5/database; not applied to a live project. Grace's work and hosted checks pending.
 Branch lab5/database starts at main 7a5dc1c. Existing feature/database at Lab 2 and
 all baseline branches stay unchanged; confirm literal branch-name grading if needed.
 
@@ -36,3 +36,11 @@ all baseline branches stay unchanged; confirm literal branch-name grading if nee
 - Canvas: repository, relevant lab PR, applicable demo, test/AI-log evidence and
   each student's individual contribution. Supplemental Vanessa work does not
   silently replace her separately assigned pair; clarify that with the instructor.
+
+## Main synchronization — November 25, 2026
+
+Merged main a2af796 (completed Lab 4) into lab5/database using a merge commit.
+README and AI-journal append conflicts were resolved by retaining both complete
+lab additions. Application, schema, migrations and tests remain unchanged from
+the Lab 5 starter. Grace should branch from the latest origin/lab5/database,
+not from main or from an old local snapshot. Her reserved files remain uncreated.
