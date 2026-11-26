@@ -17,7 +17,9 @@
     "schema:check": "tsx scripts/export-listing-schema.ts --check",
     "test:lab3": "tsx --test tests/listing-contract.test.ts",
     "test:midterm": "node --conditions=react-server --import tsx --test tests/api.test.ts tests/client-authorization.test.ts tests/password-input.test.ts tests/security.test.ts",
-    "test:ui:production": "playwright test --config=playwright.production.config.ts"
+    "test:ui:production": "playwright test --config=playwright.production.config.ts",
+    "test:lab6": "tsx --test tests/lab6-*.test.ts",
+    "demo:lab6": "tsx scripts/demo-sponsor-selection.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",

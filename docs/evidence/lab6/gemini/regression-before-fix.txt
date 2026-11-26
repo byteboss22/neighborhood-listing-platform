@@ -1,0 +1,48 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test:lab6
+> tsx --test tests/lab6-*.test.ts
+
+✔ Lab 6 candidate ZIP+4 matches 5-digit context and sibling ZIP+4; malformed ZIPs fall back (1.893042ms)
+✔ Lab 6 timezone offset equivalence at exclusive ends_at and invalid calendar date guard (0.127792ms)
+✔ Lab 6 haversine handles antimeridian wrap-around, poles, and higher-priority radius over ZIP (0.316167ms)
+✔ Lab 6 schema bounds reject empty coverage, out-of-range priority/radius, and >500 candidates (0.245792ms)
+✔ Lab 6 invalid calendars are rejected by the actual schema before any window check (0.806208ms)
+✖ Lab 6 exact five-mile meridian boundary is included; meaningful outside distance excluded (0.472125ms)
+✔ Lab 6 negative zero and redundant coverage lists preserve documented selection behavior (0.334416ms)
+✔ Lab 6 exact ZIP preserves zeroes and ZIP+4; start included, end excluded (2.016792ms)
+✔ Lab 6 synthetic nearby radius works; missing coordinates and distant points fail safely (0.736417ms)
+✔ Lab 6 unapproved, inactive, wrong-placement, expired and no-match campaigns fall back (0.184458ms)
+✔ Lab 6 tie uses priority then ZIP specificity then stable ID, independent of input order (0.422208ms)
+✔ Lab 6 rejects invalid/ambiguous input and unsafe URLs without emitting internal fields (0.266167ms)
+✔ Lab 6 selection does not mutate frozen fixture input (0.094ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 12
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 154.291792
+
+✖ failing tests:
+
+test at tests/lab6-gemini-review.test.ts:119:1
+✖ Lab 6 exact five-mile meridian boundary is included; meaningful outside distance excluded (0.472125ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'house' !== 'sponsor'
+  
+      at TestContext.<anonymous> (/Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab6/tests/lab6-gemini-review.test.ts:122:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'house',
+    expected: 'sponsor',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

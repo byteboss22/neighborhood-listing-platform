@@ -1,0 +1,80 @@
+# CIS 3610 Lab 6 — Independent ChatGPT review
+
+I read all eight sections of `Lab6-Review-Source-Packet.txt`, including the imported `listing.ts` schema, the tests, the synthetic fixtures, the policy, `package.json`, and the local validation record. All eight sections were readable. I used the unpublished packet as the source of truth. The packet records 48 passing tests from the earlier local run. **I ran no tests during this review.** The exact model label displayed in the ChatGPT interface was unavailable to me.
+
+## Prioritized findings
+
+| Priority | Classification | Source and finding |
+|---|---|---|
+| 1 | Confirmed defect | `src/schemas/sponsorSelection.ts:14,20–26` and `src/lib/selectSponsor.ts:26–29`. The ISO schemas accept fractional seconds beyond three digits, but `Date.parse` compares at millisecond precision. A campaign starting at `12:00:00.000900Z` can be selected at `12:00:00.000100Z`. An end at `12:00:00.001900Z` can exclude a request at `12:00:00.001100Z` early. A valid window with both endpoints in the same millisecond can also fail schema validation. |
+| 2 | Confirmed edge defect, low practical impact | `src/lib/selectSponsor.ts:10–15,31–32` and `src/schemas/sponsorSelection.ts:6–9,25`. At the equator, longitudes `180` and `-180` denote the same point. At an exact pole, every longitude denotes the same point. The trigonometric calculation can return a tiny positive distance for these pairs. The schema permits any positive radius up to 100 miles, so a valid radius of `1e-14` miles can produce a house fallback for a coincident point. |
+| 3 | Untested boundaries | `tests/lab6-selection.test.ts:13–69`. The suite covers an offset-equivalent start, context-side ZIP+4, missing coordinates, higher priority among ZIP matches, two-row shuffle, duplicates, and frozen input. Add coverage for an offset-equivalent end, candidate-side ZIP+4, exact radius equality, a nearby pair crossing the antimeridian, and a higher-priority radius match beating a lower-priority ZIP match. The frozen test uses one candidate and never exercises sorting among multiple eligible records. |
+| 4 | Documented choices | `docs/lab6/policy.md:14–26,34–37`. Whole-batch fallback on invalid data or duplicate IDs matches the policy. A bad row can suppress a valid sponsor, so the query must produce valid, unique candidates. Stable-ID ties, fictional example-domain URLs, and the prototype limits are deliberate. Missing coordinates still permit ZIP matching. The strict context accepts coarse property context and the supplied clock. |
+
+For timestamps, the smallest change is to accept omitted fractional seconds or one to three fractional digits consistently across `now`, `starts_at`, and `ends_at`. Confirm that Lab 5 can supply timestamps at that precision before adopting the restriction. If finer precision is part of the data contract, preserve it in both the schema’s window validation and the selector’s comparisons. For the coordinate issue, return zero for equivalent points at the antimeridian or the same exact pole before evaluating the distance formula.
+
+## Suggested executable tests — NOT RUN
+
+The snippets use the existing `node:test` imports and the `context` and `sponsor` fixtures in `tests/lab6-selection.test.ts`. The first test assumes the contract retains sub-millisecond timestamps. If the team adopts millisecond precision, replace it with schema tests that reject excess precision in all three timestamp fields.
+
+```ts
+test("Lab 6 preserves sub-millisecond campaign boundaries", () => {
+  const candidate = {
+    ...sponsor,
+    starts_at: "2026-11-25T12:00:00.000900Z",
+    ends_at: "2026-11-25T12:00:00.001900Z",
+  };
+
+  const decideAt = (now: string) =>
+    selectSponsor({ ...context, now }, [candidate]).kind;
+
+  assert.equal(decideAt("2026-11-25T12:00:00.000100Z"), "house");
+  assert.equal(decideAt("2026-11-25T12:00:00.000900Z"), "sponsor");
+  assert.equal(decideAt("2026-11-25T12:00:00.001100Z"), "sponsor");
+  assert.equal(decideAt("2026-11-25T12:00:00.001900Z"), "house");
+
+  const shortCampaign = {
+    ...candidate,
+    ends_at: "2026-11-25T12:00:00.000950Z",
+  };
+  assert.equal(selectSponsor({
+    ...context,
+    now: "2026-11-25T12:00:00.000925Z",
+  }, [shortCampaign]).kind, "sponsor");
+});
+
+test("Lab 6 treats equivalent coordinates as zero miles apart", () => {
+  const pairs = [
+    [{ latitude: 0, longitude: 180 }, { latitude: 0, longitude: -180 }],
+    [{ latitude: 90, longitude: 0 }, { latitude: 90, longitude: 180 }],
+    [{ latitude: -90, longitude: 0 }, { latitude: -90, longitude: 180 }],
+  ];
+
+  for (const [center, location] of pairs) {
+    const candidate = {
+      ...sponsor,
+      zip_codes: [],
+      coverage: { center, radius_miles: 1e-14 },
+    };
+    const result = selectSponsor({ ...context, location }, [candidate]);
+    assert.equal(result.kind === "sponsor" && result.matched_by, "radius");
+  }
+});
+```
+
+| Additional case | Expected outcome |
+|---|---|
+| Set `now` to `2026-11-26T07:00:00-05:00` with the baseline campaign. Also try `2026-11-26T06:59:59.999-05:00`. | House at the end instant. Sponsor one millisecond before it. |
+| Use candidate ZIP `01234-1234`, context ZIP `01234-9999`, and omit coordinates. Try numeric `1234` as context ZIP in a second assertion. | The strings match by ZIP. The numeric ZIP produces house. |
+| Use equatorial points one degree apart and a radius computed as `3958.7613 * 2 * Math.asin(Math.sin(Math.PI / 360))`. Then decrease that radius by `0.001` miles. | Radius match at equality. House just below it. |
+| Use equatorial longitudes `179.99` and `-179.99`, a two-mile radius, and no matching ZIP. | Radius match across the antimeridian. |
+| Freeze three eligible candidates and their nested coverage and ZIP arrays. Try all six candidate orders. Give the radius candidate higher priority than both ZIP candidates. | The same radius candidate wins every time. The supplied inputs retain their values and order. |
+| Mix one eligible sponsor with a malformed row, or with a second row using the same ID and different campaign details. Try both orders. | House in both orders under the documented batch policy. |
+| Test `https://example.com.evil.invalid`, `http://example.com`, and `https://example.com:8443`. Use `https://local.example.org/` as the positive control. | The first three produce house. The fictional positive control passes the URL rule. |
+
+## Remaining integration checks
+
+- **Public query and Lab 5 contract.** Reconcile campaign fields, timestamp precision, placement, and coverage with the reviewed Lab 5 schema. Verify the public query exposes only the fields permitted for selection, yields unique IDs, and preserves the intended winner when applying any row limits. Capture an actual `EXPLAIN` for the implemented query.
+- **Rendered placement.** Verify that the paid card visibly displays **Sponsored** and that the house card displays its ordinary fallback message. Demonstrate ZIP, radius, and house outcomes on the three synthetic properties through the application.
+- **Click redirect.** Verify that the route resolves the destination from a stored sponsor ID, rechecks approval and current eligibility as required by the route contract, and applies the destination policy before issuing the redirect. Cover missing and revoked records and confirm that request parameters cannot substitute a destination.
+- **Impressions.** Verify that a rendered sponsored placement produces the intended minimal event. Check the event payload and storage for IP addresses, viewer identifiers, and profile fields.

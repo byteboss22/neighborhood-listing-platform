@@ -1,0 +1,12 @@
+{
+  "tool": "ChatGPT",
+  "model": "Student reported: sol 6.2; the response itself says exact UI label unavailable. Student report retained without independent verification.",
+  "received_client_date": "2026-11-25",
+  "exact_submitted_prompt": "Eric confirmed November 25 that both prepared Lab 6 prompts were sent unchanged.",
+  "raw_sha256": "f582492672c45f86c1a038036f934fc9566877c90cdde39602c61280ccc45c4e",
+  "review_execution": "Response explicitly states it ran no tests. Local verification belongs to Codex.",
+  "source_version": "Original unpublished 48-test packet, before Gemini radius fix; current code accounted for separately.",
+  "disposition": "Preserved; both timestamp precision and equivalent-point issues reproduced locally before correction.",
+  "student_disposition": "Eric accepted verified timestamp/equivalent-coordinate/radius corrections and deferred duplicate-list hardening; documented selection policy retained.",
+  "submitted_prompt_file": "submitted-prompt.txt"
+}

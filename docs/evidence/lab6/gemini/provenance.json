@@ -1,0 +1,11 @@
+{
+  "tool": "Gemini",
+  "model": "Student reported: gemini hydrogen; display not independently verified",
+  "received_client_date": "2026-11-25",
+  "exact_submitted_prompt": "Eric confirmed November 25 that both prepared Lab 6 prompts were sent unchanged.",
+  "raw_sha256": "37e65fb5707cafa26ab267a2b68852b05f36ddcbecfe33e9ec319f9dc27824f5",
+  "source_packet": "Private Lab6-Review-Source-Packet.txt from initial selector starter; later verified fixes are not part of that original packet",
+  "disposition": "Codex local verification documented separately; raw proposed tests remain labeled NOT RUN by Gemini.",
+  "student_disposition": "Eric accepted verified timestamp/equivalent-coordinate/radius corrections and deferred duplicate-list hardening; documented selection policy retained.",
+  "submitted_prompt_file": "submitted-prompt.txt"
+}

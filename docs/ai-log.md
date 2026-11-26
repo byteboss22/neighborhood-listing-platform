@@ -440,3 +440,53 @@ submission documentation and performed final documentation/source checks.
 The final merge preserves Grace/Vanessa commits; no new application feature,
 independent manual source recheck, actual role rotation, outreach, roster
 approval or new deployment verification is inferred from this documentation.
+
+
+### Lab 6 pure selector starter — November 25, 2026
+
+Eric authorized beginning Lab 6 while Grace's Lab 5 review remains independent.
+Codex created feature/sponsor-matching from main a2af796; the planned lab6/...
+name was unavailable because the preserved lab6 branch already exists. Added
+a strict public contract, deterministic pure selector, explicitly synthetic
+three-property demo and baseline tests. No viewer/caller identity, hidden
+profiling, real geographic dataset or real merchant approval is inferred.
+Official pairs remain documented; proposed work among three active students is
+not instructor-approved reassignment or completed partner participation.
+Database query, UI disclosure, redirect, impressions, EXPLAIN, external model
+reviews and genuine teammate contributions remain pending. No live project touched.
+
+
+### Lab 6 solo ownership update — November 25, 2026
+
+Eric explicitly chose full solo Lab 6 completion because the assigned partner
+is unavailable. Codex updated the work plan, superseding proposed teammate
+scopes without attributing work to Grace/Vanessa or modifying their other labs.
+The official pair roster remains documented; instructor approval is not inferred.
+No application change, new test result, commit/push or live action in this update.
+
+
+### Lab 6 actual Gemini critique and local verification — November 25, 2026
+
+Eric supplied Gemini output and reported “gemini hydrogen.” Codex retained raw
+response/hash, adapted four proposed tests and added three focused checks.
+Calendar/NaN claim did not reproduce against installed Zod; redundant list and
+negative-zero behavior were not demonstrated defects. A mathematically exact
+five-mile point was incorrectly excluded: a new regression failed first, then
+a tightly bounded numerical allowance corrected it. Full suite now 55 pass,
+lint/typecheck pass; original failing result remains evidence. No model test
+execution, student disposition, ChatGPT review, live integration or commit/push
+is claimed. Original source packet remains a pre-fix snapshot for review traceability.
+
+
+### Lab 6 actual ChatGPT critique and student decisions — November 25, 2026
+
+Eric supplied ChatGPT output and model label sol 6.2. Codex retained it unchanged
+and reproduced sub-millisecond time-window and equivalent-coordinate defects.
+Nineteen targeted tests initially had two failures; strict millisecond precision
+and zero-distance equivalence corrected them. Added six focused tests; full
+suite now 61 pass, lint/typecheck pass. External model ran no tests.
+Eric confirmed both review prompts unchanged and accepted timestamp/geometry/
+radius corrections, with duplicate-list hardening deferred and policy retained.
+Prompt copies, raw hashes and red/green results are retained. These reviews apply
+to the original packet, not retroactively to fixed code. Query/UI/telemetry/
+redirect/EXPLAIN integration remains pending; no commit/push/live action performed.

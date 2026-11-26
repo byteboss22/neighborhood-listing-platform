@@ -1,0 +1,41 @@
+{
+  "client_date": "2026-11-25",
+  "tool": "Gemini",
+  "reported_model": "gemini hydrogen",
+  "checks": {
+    "pre_fix_targeted_tests": {
+      "exit_code": 1,
+      "tests": 13,
+      "passed": 12,
+      "failed": 1,
+      "failure": "Exact five-mile meridian radius boundary excluded"
+    },
+    "post_fix_full_npm_test": {
+      "exit_code": 0,
+      "tests": 55,
+      "passed": 55,
+      "failed": 0
+    },
+    "lint": {
+      "exit_code": 0
+    },
+    "tsc_no_emit": {
+      "exit_code": 0
+    }
+  },
+  "findings": {
+    "calendar_bypass": "not reproduced; actual Zod rejects all proposed overflow calendar examples before Date.parse selection",
+    "negative_zero": "no selection difference; not demonstrated defect",
+    "radius_boundary": "reproduced before fix; narrowly bounded round-off allowance added",
+    "duplicate_lists": "accepted redundant values; selection unchanged, optional hardening deferred",
+    "zip_preference": "documented policy",
+    "fictional_URL_allowlist": "documented policy, not proof of safe HTTP redirect"
+  },
+  "limitations": [
+    "Gemini proposed tests were NOT RUN by Gemini; derived tests run locally by Codex",
+    "Student final disposition and exact prompt confirmation pending",
+    "ChatGPT review still pending",
+    "Live query/UI/impressions/redirect/EXPLAIN still pending"
+  ],
+  "commit_push": "not performed"
+}

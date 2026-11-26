@@ -1,0 +1,73 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test:lab6
+> tsx --test tests/lab6-*.test.ts
+
+✖ Lab 6 rejects precision Date.parse would truncate in all three campaign timestamps (1.400375ms)
+✖ Lab 6 equivalent antimeridian and exact-pole coordinates have zero distance at tiny radii (1.1385ms)
+✔ Lab 6 frozen three-candidate permutations retain identity, values and priority result (1.208417ms)
+✔ Lab 6 malformed mixed batches and duplicate IDs fail closed in either order (0.203125ms)
+✔ Lab 6 destination lookalikes, insecure scheme and custom port are rejected (0.094125ms)
+✔ Lab 6 candidate ZIP+4 and sibling ZIP+4 match without accepting numeric ZIP (0.066125ms)
+✔ Lab 6 candidate ZIP+4 matches 5-digit context and sibling ZIP+4; malformed ZIPs fall back (2.368167ms)
+✔ Lab 6 timezone offset equivalence at exclusive ends_at and invalid calendar date guard (0.147042ms)
+✔ Lab 6 haversine handles antimeridian wrap-around, poles, and higher-priority radius over ZIP (0.347667ms)
+✔ Lab 6 schema bounds reject empty coverage, out-of-range priority/radius, and >500 candidates (0.290792ms)
+✔ Lab 6 invalid calendars are rejected by the actual schema before any window check (0.932041ms)
+✔ Lab 6 exact five-mile meridian boundary is included; meaningful outside distance excluded (0.134ms)
+✔ Lab 6 negative zero and redundant coverage lists preserve documented selection behavior (0.396917ms)
+✔ Lab 6 exact ZIP preserves zeroes and ZIP+4; start included, end excluded (1.991875ms)
+✔ Lab 6 synthetic nearby radius works; missing coordinates and distant points fail safely (0.380875ms)
+✔ Lab 6 unapproved, inactive, wrong-placement, expired and no-match campaigns fall back (0.1775ms)
+✔ Lab 6 tie uses priority then ZIP specificity then stable ID, independent of input order (0.582459ms)
+✔ Lab 6 rejects invalid/ambiguous input and unsafe URLs without emitting internal fields (0.280583ms)
+✔ Lab 6 selection does not mutate frozen fixture input (0.106792ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 17
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 159.486958
+
+✖ failing tests:
+
+test at tests/lab6-chatgpt-review.test.ts:15:1
+✖ Lab 6 rejects precision Date.parse would truncate in all three campaign timestamps (1.400375ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (/Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab6/tests/lab6-chatgpt-review.test.ts:17:33)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/lab6-chatgpt-review.test.ts:27:1
+✖ Lab 6 equivalent antimeridian and exact-pole coordinates have zero distance at tiny radii (1.1385ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'house' !== 'sponsor'
+  
+      at TestContext.<anonymous> (/Users/ejuarez/Documents/Github/neighborhood-listing-platform-lab6/tests/lab6-chatgpt-review.test.ts:33:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'house',
+    expected: 'sponsor',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

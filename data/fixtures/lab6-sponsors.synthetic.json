@@ -1,0 +1,80 @@
+{
+  "synthetic": true,
+  "notice": "Arbitrary fictional page coordinates; NOT actual ZIP centroids, property locations or approved real geographic data.",
+  "candidates": [
+    {
+      "sponsor_id": "example-maintenance",
+      "business_name": "Example Maintenance (Fictional)",
+      "website_url": "https://example.com",
+      "status": "approved",
+      "active": true,
+      "placements": [
+        "property-card"
+      ],
+      "starts_at": "2026-11-25T00:00:00Z",
+      "ends_at": "2026-12-01T00:00:00Z",
+      "priority": 1,
+      "zip_codes": [
+        "90001"
+      ]
+    },
+    {
+      "sponsor_id": "example-gardens",
+      "business_name": "Example Gardens (Fictional)",
+      "website_url": "https://example.org",
+      "status": "approved",
+      "active": true,
+      "placements": [
+        "property-card"
+      ],
+      "starts_at": "2026-11-25T00:00:00Z",
+      "ends_at": "2026-12-01T00:00:00Z",
+      "priority": 1,
+      "zip_codes": [],
+      "coverage": {
+        "center": {
+          "latitude": 35,
+          "longitude": 35
+        },
+        "radius_miles": 3
+      }
+    }
+  ],
+  "properties": [
+    {
+      "property_id": "fictional-zip-property",
+      "context": {
+        "zip_code": "90001",
+        "placement": "property-card",
+        "now": "2026-11-25T12:00:00Z"
+      },
+      "expected_sponsor_id": "example-maintenance"
+    },
+    {
+      "property_id": "fictional-radius-property",
+      "context": {
+        "zip_code": "90002",
+        "location": {
+          "latitude": 35.01,
+          "longitude": 35
+        },
+        "placement": "property-card",
+        "now": "2026-11-25T12:00:00Z"
+      },
+      "expected_sponsor_id": "example-gardens"
+    },
+    {
+      "property_id": "fictional-house-property",
+      "context": {
+        "zip_code": "90099",
+        "location": {
+          "latitude": 50,
+          "longitude": 50
+        },
+        "placement": "property-card",
+        "now": "2026-11-25T12:00:00Z"
+      },
+      "expected_sponsor_id": null
+    }
+  ]
+}

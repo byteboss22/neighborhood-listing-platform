@@ -1,0 +1,35 @@
+Act as an adversarial tester for this contextual sponsor-selection function.
+Generate boundary cases involving dates, ZIP codes, empty data, ties, unapproved
+records, and unsafe URLs. Do not propose user profiling.
+
+This is an INDEPENDENT Gemini review for CIS 3610 Lab 6. Confirm that all eight
+source sections in Lab6-Review-Source-Packet.txt are readable. Use only the
+attached actual local source; it is not published on remote main. If something
+is unavailable, name it rather than recreating missing files.
+
+Try to falsify the selector's guarantees: only approved/active/time-valid/correct-
+placement/geographically eligible candidates win; decisions are deterministic
+under candidate permutation; no private fields escape; malformed inputs fail
+safely; no viewer identity influences eligibility. Pay particular attention to
+full timestamp/date validity and offset boundaries, empty/malformed arrays,
+ZIP+4 and zeroes, haversine radius boundaries/poles/antimeridian, duplicate IDs,
+higher-priority radius vs exact ZIP policy, and candidate URL handling.
+
+Give concrete counterexample inputs and cite original file/line or code excerpt.
+Distinguish a verified-by-source defect from an execution hypothesis and from
+intentional policy. Do not demand rotation, real business URLs, accepting unknown
+fields or partial-batch success as if those were fixed assignment requirements.
+Assess whether the six current Lab 6 cases genuinely cover the claimed behavior;
+identify meaningful gaps instead of copying tests and renaming them.
+
+Suggest executable TypeScript/node:test cases for valid findings and state the
+expected result. Mark all proposed cases NOT RUN. No file edits, live requests,
+credentials, database actions or claims of execution. Synthetic coordinates are
+not approved real geography. Existing local test results were supplied in the
+packet, not produced by you. This function is not the database query, disclosure
+UI, impression endpoint or click redirect: list those as unfinished integration
+requirements without inventing their behavior.
+
+Return attachment confirmation, prioritized findings with evidence, proposed
+regression cases, deliberate tradeoffs and remaining checks. Preserve the
+no-profiling/sensitive-targeting boundary. Do not invent defects or approval.

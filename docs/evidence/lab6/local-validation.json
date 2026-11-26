@@ -1,0 +1,49 @@
+{
+  "client_date": "2026-11-25",
+  "branch": "feature/sponsor-matching",
+  "base": "a2af796c5e4974ae3d8300357b82ace62b2a4c5c",
+  "scope": "Pure selector/schema/fictional tests and demo; not complete Lab 6",
+  "checks": {
+    "npm_test": {
+      "exit_code": 0,
+      "tests": 48,
+      "passed": 48,
+      "failed": 0
+    },
+    "lint": {
+      "exit_code": 0
+    },
+    "initial_tsc": {
+      "exit_code": 2,
+      "error": "LayoutProps missing in fresh worktree before framework type generation"
+    },
+    "demo": {
+      "exit_code": 0,
+      "outcomes": [
+        "fictional-zip-property -> example-maintenance (zip)",
+        "fictional-radius-property -> example-gardens (radius)",
+        "fictional-house-property -> house fallback"
+      ]
+    },
+    "git_diff_check": "pass",
+    "bounded_secret_patterns": "zero matches",
+    "next_typegen_then_tsc": {
+      "exit_code": 0,
+      "result": "Generated Next route types, then TypeScript passed without application changes."
+    }
+  },
+  "fixtures": "Explicitly synthetic coordinates, not actual ZIP centroids or approved real geographic data",
+  "not_implemented": [
+    "eligible database query",
+    "rendered disclosure/house UI",
+    "impression event/storage",
+    "safe click redirect",
+    "EXPLAIN plan",
+    "actual external ChatGPT/Gemini reviews",
+    "Eric solo completion/PR and assignment clarification"
+  ],
+  "env_required": false,
+  "live_actions": "none",
+  "commit_push": "not performed",
+  "ownership_update": "Eric chose full solo Lab 6 November 25; supersedes proposed teammate scopes. Original pair requirement disclosed; no approved reassignment claimed."
+}

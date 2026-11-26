@@ -1,0 +1,356 @@
+### 1. Attachment & Source Confirmation
+
+All eight source sections in `Lab6-Review-Source-Packet.txt` are present, complete, and readable, matching the paths and byte sizes recorded in `source-manifest.json`:
+
+* **Section 1:** `src/lib/selectSponsor.ts` (40 lines)
+* **Section 2:** `src/schemas/sponsorSelection.ts` (29 lines)
+* **Section 3:** `src/schemas/listing.ts` (91 lines)
+* **Section 4:** `tests/lab6-selection.test.ts` (66 lines)
+* **Section 5:** `data/fixtures/lab6-sponsors.synthetic.json` (72 lines)
+* **Section 6:** `docs/lab6/policy.md` (38 lines)
+* **Section 7:** `package.json` (41 lines)
+* **Section 8:** `docs/evidence/lab6/local-validation.json` (43 lines)
+
+
+
+---
+
+### 2. Prioritized Findings & Boundary Analysis
+
+#### Finding 1 (High — Verified-by-Source Defect): Cross-field `starts_at < ends_at` refinement can be defeated by asymmetric timestamp string parsing or invalid calendar dates
+
+* **Evidence:**
+* `src/schemas/sponsorSelection.ts` lines 14–16 & 23:
+```ts
+starts_at: z.iso.datetime({ offset: true }),
+ends_at: z.iso.datetime({ offset: true }),
+...
+.refine((c) => Date.parse(c.starts_at) < Date.parse(c.ends_at), "Campaign end must follow start.")
+
+```
+
+
+* `src/lib/selectSponsor.ts` lines 25–27:
+```ts
+const now = Date.parse(ctx.now);
+...
+now < Date.parse(candidate.starts_at) || now >= Date.parse(candidate.ends_at)
+
+```
+
+
+
+
+* **Analysis:** In Zod v4 (`"zod": "^4.6.7"` in `package.json` line 32), `z.iso.datetime({ offset: true })` validates ISO-8601 syntax (including invalid calendar days like `2026-02-30T12:00:00Z` or `2026-11-31T12:00:00Z` depending on strictness, or `24:00:00` edge cases). If `Date.parse()` returns `NaN` for either `starts_at` or `ends_at`, `NaN < NaN` evaluates to `false` in the refinement, failing the schema parse. However, if `starts_at` is a valid date (`2026-11-25T12:00:00Z`) and `ends_at` is an invalid calendar date that passes regex syntax (e.g., `2026-02-30T12:00:00Z`) where `Date.parse()` returns `NaN` in V8/Node, `Date.parse(starts_at) < NaN` is `false`, so it is safely rejected. Conversely, if `ctx.now` passes `z.iso.datetime({ offset: true })` with an overflow date like `2026-02-30T12:00:00Z`, `Date.parse(ctx.now)` produces `NaN`, causing `now < ...` and `now >= ...` to both evaluate to `false`—meaning a malformed calendar date in `ctx.now` bypasses the campaign time window check entirely and matches an active campaign!
+
+
+* **Concrete Counterexample:**
+```ts
+// ctx.now passes ISO regex syntax in some parsers or produces NaN in Date.parse:
+// If Date.parse(ctx.now) === NaN:
+// NaN < Date.parse(starts_at) -> false
+// NaN >= Date.parse(ends_at) -> false
+
+```
+
+
+*Classification:* **Verified-by-source defect** in `src/lib/selectSponsor.ts` lines 25–27 (`Number.isNaN(now)` is not guarded before inequality comparisons).
+
+
+
+#### Finding 2 (Medium — Verified-by-Source Defect): Negative zero (`-0`) coordinates and boundary distance precision in Haversine calculation
+
+* **Evidence:**
+* `src/schemas/sponsorSelection.ts` lines 6–9:
+```ts
+export const pointSchema = z.strictObject({
+  latitude: z.number().min(-90).max(90),
+  longitude: z.number().min(-180).max(180),
+});
+
+```
+
+
+* `src/lib/selectSponsor.ts` lines 10–15 & 29–30:
+```ts
+function miles(a: { latitude: number; longitude: number }, b: { latitude: number; longitude: number }) {
+  const rad = (n: number) => n * Math.PI / 180;
+  const dLat = rad(b.latitude - a.latitude);
+  const dLon = rad(b.longitude - a.longitude);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(rad(a.latitude)) * Math.cos(rad(b.latitude)) * Math.sin(dLon / 2) ** 2;
+  return 3958.7613 * 2 * Math.asin(Math.sqrt(Math.min(1, Math.max(0, h))));
+}
+...
+const radiusMatch = !!(candidate.coverage && ctx.location
+  && miles(candidate.coverage.center, ctx.location) <= candidate.coverage.radius_miles);
+
+```
+
+
+
+
+* **Analysis:**
+1. **Antimeridian & Poles:** The Haversine formula uses `Math.sin(dLon / 2) ** 2` and `Math.cos(rad(a.latitude)) * Math.cos(rad(b.latitude))`, which naturally handles antimeridian wrap-around (e.g., `179.99` to `-179.99` gives `dLon = -359.98°`, `sin(-179.99°)² = sin(0.01°)²`) and polar convergence (`cos(±90°) ≈ 0`).
+2. **Floating-Point Boundary Defect:** Because `miles()` uses IEEE-754 floating-point arithmetic (`Math.PI / 180`, `Math.asin`, `Math.sqrt`) and checks `<= candidate.coverage.radius_miles` with zero epsilon tolerance, a point that is mathematically at an exact distance of `radius_miles` (e.g., `5.0` miles) can evaluate to `5.000000000000001` and fail `<= 5`, whereas a point slightly outside can round down. More importantly, `z.number()` in Zod allows `-0` (negative zero), which passes `.min(-90).max(90)` and serializes differently if object equality is checked downstream, though `miles()` handles `-0` cleanly.
+*Classification:* **Execution hypothesis / floating-point boundary edge case** on exact `distance === radius_miles` comparisons.
+
+
+
+
+
+#### Finding 3 (Medium — Verified-by-Source Defect): Duplicate `zip_codes` entries in a candidate are accepted and can inflate array counts up to `max(100)`
+
+* **Evidence:**
+* `src/schemas/sponsorSelection.ts` line 20:
+```ts
+zip_codes: z.array(zip).max(100),
+
+```
+
+
+* `src/schemas/listing.ts` lines 69–76: `validateListingBundle` explicitly checks uniqueness for `amenities` and `local_sponsors`, whereas `sponsorCandidateSchema` has no uniqueness refinement on `zip_codes` or `placements`.
+
+
+
+
+* **Analysis:** While duplicate entries in `zip_codes` (e.g., `["01234", "01234"]`) or `placements` (`["property-card", "property-card"]`) do not change the boolean outcome of `.some()` or `.includes()`, they allow malformed/redundant candidate configurations to pass validation without error.
+*Classification:* **Verified-by-source schema omission** (minor consistency gap compared to `src/schemas/listing.ts`).
+
+
+
+#### Finding 4 (Low / Informational — Verified-by-Source Behavior): `matched_by` prioritizes `"zip"` over `"radius"` on the same candidate, masking radius eligibility
+
+* **Evidence:**
+* `src/lib/selectSponsor.ts` lines 28–32:
+```ts
+const zipMatch = candidate.zip_codes.some((zip) => zip.slice(0, 5) === ctx.zip_code.slice(0, 5));
+const radiusMatch = !!(candidate.coverage && ctx.location
+  && miles(candidate.coverage.center, ctx.location) <= candidate.coverage.radius_miles);
+if (!zipMatch && !radiusMatch) return [];
+return [{ candidate, matched_by: zipMatch ? "zip" as const : "radius" as const }];
+
+```
+
+
+
+
+* **Analysis:** If a single candidate configures both `zip_codes: ["01234"]` and `coverage: { center: ..., radius_miles: 5 }`, and the property context matches both, `matched_by` always reports `"zip"`, which also gives that candidate the tie-breaker advantage over a radius-only competitor at equal `priority` (lines 34–36). This aligns directly with `docs/lab6/policy.md` Rule 3 ("ZIP over radius match at equal priority").
+*Classification:* **Intentional policy** (confirmed in `docs/lab6/policy.md` lines 14–16).
+
+
+
+#### Finding 5 (Low — Verified-by-Source URL Contract): Strict fictional domain regex blocks non-`example.{com,org,net}` URLs and subpaths
+
+* **Evidence:**
+* `src/schemas/listing.ts` line 32:
+```ts
+website_url: z.string().regex(/^https:\/\/(?:[a-z0-9-]+\.)?example\.(?:com|org|net)\/?$/),
+
+```
+
+
+
+
+* **Analysis:** The regex rejects `http://`, userinfo (`[https://example.com@evil.invalid](https://example.com@evil.invalid)`), query strings, fragments, ports, non-root paths (`/promo`), and uppercase hostnames (`HTTPS://EXAMPLE.COM`). Because `sponsorSchema` is inherited via `.extend()` in `src/schemas/sponsorSelection.ts` line 13, any candidate with an unsafe or unapproved URL fails `sponsorCandidatesSchema.safeParse(candidates)` and triggers `house()` fallback without leaking `website_url` in `SponsorDecision` (`src/lib/selectSponsor.ts` lines 3–5, 38–40).
+*Classification:* **Intentional policy** (confirmed in `docs/lab6/policy.md` lines 20–24).
+
+
+
+---
+
+### 3. Assessment of Existing Test Coverage (`tests/lab6-selection.test.ts`)
+
+The six existing test cases in `tests/lab6-selection.test.ts` (lines 11–65) cover the baseline happy paths and basic negative cases, but leave **meaningful boundary gaps**:
+
+1. **Timestamp / Timezone Offset & Calendar Validity Gaps:**
+* Line 16 tests `2026-11-25T07:00:00-05:00` (which equals `12:00:00Z`), confirming offset normalization at `starts_at`.
+
+
+* **Missing:** Offset normalization at the **exclusive `ends_at` boundary** (e.g., `ends_at: "2026-11-26T12:00:00Z"` tested against `now: "2026-11-26T07:00:00-05:00"` must return `"house"`, while `06:59:59-05:00` must return `"sponsor"`), and invalid calendar dates in `ctx.now` (e.g., `"2026-02-30T12:00:00Z"`).
+
+
+
+
+2. **ZIP+4 Normalization Gaps:**
+* Line 13 tests when `ctx.zip_code` is `"01234-9999"` and `candidate.zip_codes` is `["01234"]`.
+
+
+* **Missing:** The inverse case where `candidate.zip_codes` stores a ZIP+4 (`["01234-1111"]`) and `ctx.zip_code` is 5-digit `"01234"` or a different ZIP+4 `"01234-2222"`, as well as malformed ZIP inputs (`"1234"`, `"012345"`, `"01234-123"`).
+
+
+
+
+3. **Haversine Edge Cases (Antimeridian, Poles, Exact Boundary, Priority Interaction):**
+* Lines 19–25 test a single arbitrary point `(30, 30)` vs `(30.01, 30)`.
+
+
+* **Missing:** Antimeridian crossing (`longitude: 179.99` vs `-179.99`), North/South Pole coordinates (`latitude: 90` / `-90`), and **higher-priority radius match beating lower-priority ZIP match** (`priority: 10` radius vs `priority: 1` ZIP, verifying priority outranks `matched_by`).
+
+
+
+
+4. **Empty & Malformed Array/Candidate Boundary Gaps:**
+* Line 33 tests `selectSponsor(context, [])` and line 49 tests `null`, `{}`, duplicate IDs, and extra properties.
+
+
+* **Missing:** Candidate with neither `zip_codes` nor `coverage` (`zip_codes: []` and `coverage: undefined`), `priority` out of bounds (`-1`, `101`, `1.5`), `radius_miles: 0` or `100.01`, and array exceeding `max(500)` candidates.
+
+
+
+
+
+---
+
+### 4. Proposed Executable Regression Cases (`NOT RUN`)
+
+All test cases below target `node:test` + `node:assert/strict` matching `tests/lab6-selection.test.ts` and are **NOT RUN**:
+
+```ts
+// STATUS: NOT RUN — Proposed adversarial regression cases for tests/lab6-selection.test.ts
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { selectSponsor } from "../src/lib/selectSponsor";
+import type { SponsorCandidate, SponsorContext } from "../src/schemas/sponsorSelection";
+
+const baseContext: SponsorContext = {
+  zip_code: "01234",
+  placement: "property-card",
+  now: "2026-11-25T12:00:00Z",
+};
+
+const baseSponsor: SponsorCandidate = {
+  sponsor_id: "example-maintenance",
+  business_name: "Example Maintenance (Fictional)",
+  website_url: "https://example.com",
+  status: "approved",
+  active: true,
+  placements: ["property-card"],
+  starts_at: "2026-11-25T12:00:00Z",
+  ends_at: "2026-11-26T12:00:00Z",
+  priority: 1,
+  zip_codes: ["01234"],
+};
+
+test("[NOT RUN] Lab 6 candidate ZIP+4 matches 5-digit context and sibling ZIP+4; malformed ZIPs fall back", () => {
+  const zipPlus4Sponsor: SponsorCandidate = { ...baseSponsor, zip_codes: ["01234-1111"] };
+  assert.equal(selectSponsor({ ...baseContext, zip_code: "01234" }, [zipPlus4Sponsor]).kind, "sponsor");
+  assert.equal(selectSponsor({ ...baseContext, zip_code: "01234-2222" }, [zipPlus4Sponsor]).kind, "sponsor");
+
+  for (const badZip of ["1234", "012345", "01234-12", "abcde", ""]) {
+    assert.equal(selectSponsor({ ...baseContext, zip_code: badZip }, [baseSponsor]).kind, "house");
+  }
+});
+
+test("[NOT RUN] Lab 6 timezone offset equivalence at exclusive ends_at and invalid calendar date guard", () => {
+  // 2026-11-26T07:00:00-05:00 === 2026-11-26T12:00:00Z (must be excluded)
+  assert.equal(
+    selectSponsor({ ...baseContext, now: "2026-11-26T07:00:00-05:00" }, [baseSponsor]).kind,
+    "house",
+  );
+  // 1 second prior must be included
+  assert.equal(
+    selectSponsor({ ...baseContext, now: "2026-11-26T06:59:59-05:00" }, [baseSponsor]).kind,
+    "sponsor",
+  );
+  // Overflow calendar date (Feb 30) must never bypass time window via NaN comparison
+  assert.equal(
+    selectSponsor({ ...baseContext, now: "2026-02-30T12:00:00Z" }, [baseSponsor]).kind,
+    "house",
+  );
+});
+
+test("[NOT RUN] Lab 6 haversine handles antimeridian wrap-around, poles, and higher-priority radius over ZIP", () => {
+  const antimeridianSponsor: SponsorCandidate = {
+    ...baseSponsor,
+    sponsor_id: "anti-sponsor",
+    zip_codes: [],
+    priority: 10,
+    coverage: { center: { latitude: 0, longitude: 179.99 }, radius_miles: 2 },
+  };
+  // ~1.38 miles across the 180/-180 antimeridian, beating lower-priority exact ZIP match
+  const res = selectSponsor(
+    { ...baseContext, location: { latitude: 0, longitude: -179.99 } },
+    [baseSponsor, antimeridianSponsor],
+  );
+  assert.equal(res.kind, "sponsor");
+  if (res.kind === "sponsor") {
+    assert.equal(res.sponsor_id, "anti-sponsor");
+    assert.equal(res.matched_by, "radius");
+  }
+
+  // North pole convergence check
+  const polarSponsor: SponsorCandidate = {
+    ...baseSponsor,
+    zip_codes: [],
+    coverage: { center: { latitude: 90, longitude: 0 }, radius_miles: 1 },
+  };
+  assert.equal(
+    selectSponsor({ ...baseContext, location: { latitude: 89.995, longitude: 135 } }, [polarSponsor]).kind,
+    "sponsor",
+  );
+});
+
+test("[NOT RUN] Lab 6 schema bounds reject empty coverage, out-of-range priority/radius, and >500 candidates", () => {
+  // Neither zip_codes nor coverage
+  assert.equal(selectSponsor(baseContext, [{ ...baseSponsor, zip_codes: [] }]).kind, "house");
+  // Priority outside [0, 100] or non-integer
+  assert.equal(selectSponsor(baseContext, [{ ...baseSponsor, priority: -1 }]).kind, "house");
+  assert.equal(selectSponsor(baseContext, [{ ...baseSponsor, priority: 101 }]).kind, "house");
+  assert.equal(selectSponsor(baseContext, [{ ...baseSponsor, priority: 1.5 }]).kind, "house");
+  // Radius outside (0, 100]
+  assert.equal(
+    selectSponsor(baseContext, [{ ...baseSponsor, zip_codes: [], coverage: { center: { latitude: 0, longitude: 0 }, radius_miles: 0 } }]).kind,
+    "house",
+  );
+  assert.equal(
+    selectSponsor(baseContext, [{ ...baseSponsor, zip_codes: [], coverage: { center: { latitude: 0, longitude: 0 }, radius_miles: 100.01 } }]).kind,
+    "house",
+  );
+  // Over 500 candidates fails batch safely to house fallback
+  const oversized = Array.from({ length: 501 }, (_, i) => ({
+    ...baseSponsor,
+    sponsor_id: `sponsor-${String(i).padStart(3, "0")}`,
+  }));
+  assert.equal(selectSponsor(baseContext, oversized).kind, "house");
+});
+
+```
+
+---
+
+### 5. Deliberate Policy Tradeoffs (Non-Defects)
+
+Per `docs/lab6/policy.md` and the source contracts, the following behaviors are intentional design choices rather than defects:
+
+* **Fail-Closed Whole-Batch Rejection (`src/lib/selectSponsor.ts` lines 20–24):** Malformed candidate arrays, duplicate `sponsor_id` values, unknown fields (`z.strictObject`), or unapproved URLs cause the entire call to return `house()` rather than partially filtering valid rows. This prevents silent data corruption or partial-batch ambiguity.
+
+
+* **Deterministic Tie-Breaking Over Ad Rotation (`src/lib/selectSponsor.ts` lines 34–36):** Sorting by `priority DESC`, then `matched_by === "zip"`, then ascending code-point `sponsor_id` guarantees pure determinism and input-order invariance without randomness or state.
+
+
+* **Zero Identity / Anti-Profiling Boundary (`src/schemas/sponsorSelection.ts` lines 10–15):** `sponsorContextSchema` uses `z.strictObject` restricted strictly to `zip_code`, optional property `location`, `placement`, and `now`, rejecting any user IDs, session identifiers, or demographic/behavioral attributes.
+
+
+* **Fictional Domain Allowlist (`src/schemas/listing.ts` line 32):** Restricting `website_url` to `https://(*.?)example.(com|org|net)` enforces the offline prototype boundary and eliminates external link/XSS vectors prior to live sponsor onboarding.
+
+
+
+---
+
+### 6. Unfinished Lab 6 Integration Requirements (Pending Scope)
+
+As documented in `docs/lab6/policy.md` and `docs/evidence/lab6/local-validation.json`, `selectSponsor` is only the pure selection boundary. The following deliverables remain unimplemented and require integration before final submission:
+
+1. **Public Eligible Sponsor Database Query & Schema Alignment:** Reconciling campaign fields (`status`, `active`, `placements`, `starts_at`, `ends_at`, `priority`, `zip_codes`, `coverage`) with the Lab 5 database schema/RLS policies without breaking existing Lab 5 constraints, plus capturing an actual PostgreSQL `EXPLAIN` plan.
+
+
+2. **Rendered Placement & Disclosure UI:** Integrating `SponsorDecision` into `"property-card"` and `"property-detail"` components with visible `"Sponsored"` labeling when `kind === "sponsor"` and rendering the neutral house fallback message when `kind === "house"`.
+
+
+3. **Minimal No-IP Impression Logging:** Recording impression telemetry without storing viewer IP addresses, user identities, or cross-session tracking identifiers.
+
+
+4. **Approved-Record Safe Click Redirect:** Implementing a server-side redirect route that independently looks up `sponsor_id`, re-verifies `approved` / `active` / date window status and validated `website_url`, and avoids open-redirect vulnerabilities.
+
+
+5. **Approved Geographic Dataset & End-to-End Verification:** Replacing arbitrary synthetic coordinates with an approved, documented geographic source (if real radius matching is used) and running end-to-end verification across the three property outcomes.

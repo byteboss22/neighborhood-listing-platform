@@ -1,0 +1,62 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test
+> node --conditions=react-server --import tsx --test tests/*.test.ts
+
+✔ strict runtime contract rejects absent, malformed, extra and PostgreSQL-overflow values (1.875958ms)
+▶ actual route handlers through Supabase SDK with a mocked network boundary
+  ✔ GET uses anonymous approved-only public-column query (13.734042ms)
+  ✔ 400 structured errors and malformed JSON do not reach database (0.905334ms)
+  ✔ missing/invalid user returns 401 (1.59425ms)
+  ✔ client, admin-profile-only and absent profile return 403 (1.943833ms)
+  ✔ provider and merchant insert their own draft, returning persisted row/201 (2.237708ms)
+  ✔ database RLS denial is safe 403; database failure is safe 503 (1.795167ms)
+  ✔ public booking inserts without selecting/echoing client contact information (1.838583ms)
+  ✔ missing server configuration fails closed with safe response (0.17425ms)
+✔ actual route handlers through Supabase SDK with a mocked network boundary (25.025125ms)
+✔ client escalation audit targets the authenticated profile and confirms unchanged role (23.066334ms)
+✔ client escalation audit does not accept an unrelated safe-update error as authorization proof (2.185417ms)
+✔ client escalation audit rejects a changed role even after a denial response (1.185792ms)
+✔ Lab 6 exact ZIP preserves zeroes and ZIP+4; start included, end excluded (3.011708ms)
+✔ Lab 6 synthetic nearby radius works; missing coordinates and distant points fail safely (0.645333ms)
+✔ Lab 6 unapproved, inactive, wrong-placement, expired and no-match campaigns fall back (0.235958ms)
+✔ Lab 6 tie uses priority then ZIP specificity then stable ID, independent of input order (1.352958ms)
+✔ Lab 6 rejects invalid/ambiguous input and unsafe URLs without emitting internal fields (0.554958ms)
+✔ Lab 6 selection does not mutate frozen fixture input (0.155417ms)
+✔ student-supplied AI Studio generation preserves source facts and passes both validators before UI mapping (4.061584ms)
+✔ five fictional records validate through both Zod and exported JSON Schema (0.326208ms)
+✔ missing-id fails for the expected path in Zod and JSON Schema (1.3485ms)
+✔ negative-price fails for the expected path in Zod and JSON Schema (1.278208ms)
+✔ bad-zip fails for the expected path in Zod and JSON Schema (1.704041ms)
+✔ unknown-property-field fails for the expected path in Zod and JSON Schema (0.634708ms)
+✔ unknown fields are rejected at root, address and sponsor boundaries (0.808625ms)
+✔ duplicate property and sponsor primary keys are denied (0.474625ms)
+✔ cent prices agree between Zod and configured Ajv without accepting sub-cent prices (1.756792ms)
+✔ missing sponsor reference and repeated relationship are denied (0.346958ms)
+✔ amenities use controlled values with no repeated membership (0.383167ms)
+✔ zero rent and studio bedrooms are valid; negative dimensions are denied (0.4185ms)
+✔ US ZIP values retain leading zeroes and support ZIP+4 (0.43175ms)
+✔ price precision, fractional bedrooms and unsupported units fail (0.697375ms)
+✔ local image allowlist and fictional HTTPS destinations reject unsafe URLs (0.385125ms)
+✔ invalid source data fails closed before any property reaches the UI (0.392125ms)
+✔ malformed containers and whitespace-only facts fail safely (0.374667ms)
+✔ password validation retries short/mismatched input before returning a confirmed 12-character password (1.0785ms)
+✔ password input cancellation propagates without returning a password (0.231542ms)
+▶ migration rebuild and PostgreSQL RLS positive/negative authorization matrix
+  ✔ all five tables have RLS enabled (2.217083ms)
+  ✔ anonymous sees approved services, active categories and approved mappings only (2.59075ms)
+  ✔ anonymous may insert a booking but sees no bookings, including its own (0.459667ms)
+  ✔ provider owns draft/suspended CRUD; other-provider, pending/live writes denied (5.6885ms)
+  ✔ provider reads only bookings for its services; merchant is equivalent (1.364166ms)
+  ✔ client can book but cannot read bookings or create services/escalate role (1.9645ms)
+  ✔ admin profile alone has no elevation; trusted service_role has oversight of all five tables (2.321ms)
+  ✔ database rejects invalid checks, duplicate mappings and missing foreign keys (2.162041ms)
+  ✔ category/service cascading deletes and auth-user cascade with provider RESTRICT (1.504334ms)
+✔ migration rebuild and PostgreSQL RLS positive/negative authorization matrix (668.131458ms)
+ℹ tests 48
+ℹ suites 0
+ℹ pass 48
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3797.346125

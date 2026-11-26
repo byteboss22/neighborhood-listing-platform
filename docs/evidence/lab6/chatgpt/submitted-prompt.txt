@@ -1,0 +1,33 @@
+Act as an adversarial tester for this contextual sponsor-selection function.
+Generate boundary cases involving dates, ZIP codes, empty data, ties, unapproved
+records, and unsafe URLs. Do not propose user profiling.
+
+This is CIS 3610 Lab 6. First confirm you can read all eight source sections in
+Lab6-Review-Source-Packet.txt. Identify missing/unreadable sections before guessing.
+The unpublished local packet is the source of truth; do not substitute remote
+main, an old Lab 3 workspace or invented repository files.
+
+Independently review the actual selector, strict schemas (including imported
+listing.ts), policy, fixtures and tests. Check eligibility, start-inclusive and
+end-exclusive offset-aware dates, ZIP+4/leading zeroes, radius equality, missing
+coordinates, antimeridian/poles, priorities/ties, shuffled order, duplicate IDs,
+invalid values, unsafe URLs and mutation. Page context is coarse property context
+only. Do not suggest caller/resident identity, demographics or housing profiling.
+
+Separate: (1) confirmed defects with exact source location and concrete input,
+(2) untested risks needing executable verification, (3) deliberate documented
+choices or optional hardening, (4) pending integration requirements that this
+pure function cannot prove. Consider fail-closed batches, stable-ID ties and
+fictional example-domain URLs as documented design choices; critique tradeoffs
+without pretending the assignment requires a different policy.
+
+For valid findings propose focused executable TypeScript/node:test cases, expected
+outcome, reason and minimal corrective change. Clearly label tests NOT RUN.
+Do not edit files, connect services, use credentials, apply migrations, send
+requests/messages or claim tests ran. Do not claim visible disclosure or safe
+HTTP redirects merely because the decision returns a Sponsored field or validates
+a candidate URL. Do not invent approved geography, business facts or partner work.
+
+Return attachment confirmation, a prioritized findings table, suggested tests
+and remaining integration checks. If no confirmed defect is found, say so rather
+than manufacturing one. This is review assistance, not student/instructor approval.

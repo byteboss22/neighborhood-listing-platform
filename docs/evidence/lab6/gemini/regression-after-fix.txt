@@ -1,0 +1,69 @@
+
+> neighborhood-listing-platform-lab@0.1.0 test
+> node --conditions=react-server --import tsx --test tests/*.test.ts
+
+✔ strict runtime contract rejects absent, malformed, extra and PostgreSQL-overflow values (1.716375ms)
+▶ actual route handlers through Supabase SDK with a mocked network boundary
+  ✔ GET uses anonymous approved-only public-column query (11.190792ms)
+  ✔ 400 structured errors and malformed JSON do not reach database (0.736208ms)
+  ✔ missing/invalid user returns 401 (1.476125ms)
+  ✔ client, admin-profile-only and absent profile return 403 (4.094917ms)
+  ✔ provider and merchant insert their own draft, returning persisted row/201 (1.395375ms)
+  ✔ database RLS denial is safe 403; database failure is safe 503 (1.050291ms)
+  ✔ public booking inserts without selecting/echoing client contact information (1.325333ms)
+  ✔ missing server configuration fails closed with safe response (0.109667ms)
+✔ actual route handlers through Supabase SDK with a mocked network boundary (23.321416ms)
+✔ client escalation audit targets the authenticated profile and confirms unchanged role (28.512542ms)
+✔ client escalation audit does not accept an unrelated safe-update error as authorization proof (1.539625ms)
+✔ client escalation audit rejects a changed role even after a denial response (0.935458ms)
+✔ Lab 6 candidate ZIP+4 matches 5-digit context and sibling ZIP+4; malformed ZIPs fall back (2.727208ms)
+✔ Lab 6 timezone offset equivalence at exclusive ends_at and invalid calendar date guard (0.201875ms)
+✔ Lab 6 haversine handles antimeridian wrap-around, poles, and higher-priority radius over ZIP (0.41075ms)
+✔ Lab 6 schema bounds reject empty coverage, out-of-range priority/radius, and >500 candidates (0.303417ms)
+✔ Lab 6 invalid calendars are rejected by the actual schema before any window check (1.059792ms)
+✔ Lab 6 exact five-mile meridian boundary is included; meaningful outside distance excluded (0.145458ms)
+✔ Lab 6 negative zero and redundant coverage lists preserve documented selection behavior (1.302084ms)
+✔ Lab 6 exact ZIP preserves zeroes and ZIP+4; start included, end excluded (2.935625ms)
+✔ Lab 6 synthetic nearby radius works; missing coordinates and distant points fail safely (0.6015ms)
+✔ Lab 6 unapproved, inactive, wrong-placement, expired and no-match campaigns fall back (0.243333ms)
+✔ Lab 6 tie uses priority then ZIP specificity then stable ID, independent of input order (0.579458ms)
+✔ Lab 6 rejects invalid/ambiguous input and unsafe URLs without emitting internal fields (0.327875ms)
+✔ Lab 6 selection does not mutate frozen fixture input (0.121833ms)
+✔ student-supplied AI Studio generation preserves source facts and passes both validators before UI mapping (3.967583ms)
+✔ five fictional records validate through both Zod and exported JSON Schema (0.181709ms)
+✔ missing-id fails for the expected path in Zod and JSON Schema (0.817875ms)
+✔ negative-price fails for the expected path in Zod and JSON Schema (0.408083ms)
+✔ bad-zip fails for the expected path in Zod and JSON Schema (0.316375ms)
+✔ unknown-property-field fails for the expected path in Zod and JSON Schema (0.316417ms)
+✔ unknown fields are rejected at root, address and sponsor boundaries (0.367208ms)
+✔ duplicate property and sponsor primary keys are denied (0.220209ms)
+✔ cent prices agree between Zod and configured Ajv without accepting sub-cent prices (0.774209ms)
+✔ missing sponsor reference and repeated relationship are denied (0.192042ms)
+✔ amenities use controlled values with no repeated membership (0.168292ms)
+✔ zero rent and studio bedrooms are valid; negative dimensions are denied (0.205417ms)
+✔ US ZIP values retain leading zeroes and support ZIP+4 (0.328ms)
+✔ price precision, fractional bedrooms and unsupported units fail (0.266708ms)
+✔ local image allowlist and fictional HTTPS destinations reject unsafe URLs (0.219417ms)
+✔ invalid source data fails closed before any property reaches the UI (0.128459ms)
+✔ malformed containers and whitespace-only facts fail safely (0.172333ms)
+✔ password validation retries short/mismatched input before returning a confirmed 12-character password (0.757958ms)
+✔ password input cancellation propagates without returning a password (0.235541ms)
+▶ migration rebuild and PostgreSQL RLS positive/negative authorization matrix
+  ✔ all five tables have RLS enabled (2.759083ms)
+  ✔ anonymous sees approved services, active categories and approved mappings only (2.367958ms)
+  ✔ anonymous may insert a booking but sees no bookings, including its own (0.281459ms)
+  ✔ provider owns draft/suspended CRUD; other-provider, pending/live writes denied (5.66325ms)
+  ✔ provider reads only bookings for its services; merchant is equivalent (1.496333ms)
+  ✔ client can book but cannot read bookings or create services/escalate role (1.386291ms)
+  ✔ admin profile alone has no elevation; trusted service_role has oversight of all five tables (2.042167ms)
+  ✔ database rejects invalid checks, duplicate mappings and missing foreign keys (1.999833ms)
+  ✔ category/service cascading deletes and auth-user cascade with provider RESTRICT (1.286417ms)
+✔ migration rebuild and PostgreSQL RLS positive/negative authorization matrix (600.969458ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 55
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3252.5375

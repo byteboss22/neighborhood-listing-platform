@@ -1,0 +1,44 @@
+{
+  "client_date": "2026-11-25",
+  "tool": "ChatGPT",
+  "student_reported_model": "sol 6.2",
+  "raw_response_execution": "No tests run by external model",
+  "checks": {
+    "pre_fix_targeted_tests": {
+      "exit_code": 1,
+      "tests": 19,
+      "passed": 17,
+      "failed": 2,
+      "failures": [
+        "Excess fractional seconds accepted despite millisecond comparison",
+        "Equivalent antimeridian/pole points excluded at tiny radius"
+      ]
+    },
+    "post_fix_full_npm_test": {
+      "exit_code": 0,
+      "tests": 61,
+      "passed": 61,
+      "failed": 0
+    },
+    "lint": {
+      "exit_code": 0
+    },
+    "tsc_no_emit": {
+      "exit_code": 0
+    }
+  },
+  "corrections": [
+    "Strict zero-to-three fractional-second digits for now/starts_at/ends_at; no silent truncation",
+    "Equivalent antimeridian and same exact-pole coordinates return zero distance",
+    "Previous Gemini radius round-off correction preserved"
+  ],
+  "student_disposition": "Explicitly accepted review decisions November 25; both prompts confirmed unchanged",
+  "remaining": [
+    "Database campaign precision/query alignment",
+    "Disclosure/fallback UI",
+    "Minimal impression event/storage",
+    "Approved-record safe click redirect",
+    "Actual EXPLAIN and end-to-end evidence"
+  ],
+  "commit_push": "not performed"
+}
